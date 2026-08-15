@@ -1,0 +1,30 @@
+version: 1
+
+project:
+  title: TMA4220 — Numerical Solution of Partial Differential Equations Using the Finite Element Method
+  short_title: TMA4220
+  description: >-
+    Learning material for TMA4220 at the Department of Mathematical Sciences,
+    NTNU: solving partial differential equations with the finite element method.
+  keywords:
+    - finite element method
+    - partial differential equations
+    - numerical analysis
+    - NTNU
+  authors:
+    - name: André Massing
+      affiliations:
+        - Department of Mathematical Sciences, NTNU
+
+  # Enable in-page code execution backed by JupyterLite (runs in the browser).
+  jupyter:
+    lite: true
+
+  toc:
+    - file: index.md
+    - title: Notebooks
+      children:
+        - file: notebooks/function-plot.ipynb
+
+site:
+  template: book-theme

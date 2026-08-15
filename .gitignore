@@ -1,0 +1,17 @@
+# Python environments (uv creates .venv here; uv.lock is committed instead)
+.venv/
+__pycache__/
+*.py[cod]
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Jupyter Book v2 / MyST build artifacts
+# Contains html/, site/, templates/ (downloaded) and execute/ (execution cache)
+_build/
+
+# Node runtime pulled in by the MyST engine
+node_modules/
+
+# macOS
+.DS_Store
