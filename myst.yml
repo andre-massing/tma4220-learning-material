@@ -25,9 +25,10 @@ project:
     # - file: lecture-plan.md
     - title: Notebooks
       children:
+        - file: notebooks/functional_analysis.md
         - file: notebooks/function_spaces.md
-        - file: notebooks/function-plot-markdown.md
-        - file: notebooks/function-plot-markdown.md
+        # - file: notebooks/function-plot-markdown.md
+        # - file: notebooks/function-plot-markdown.md
 
   math:
     # Note the 'single quotes'
