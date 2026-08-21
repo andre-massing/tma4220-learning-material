@@ -25,6 +25,7 @@ project:
     # - file: lecture-plan.md
     - title: Notebooks
       children:
+        - file: notebooks/weak-pdes-motivation.md
         - file: notebooks/functional_analysis.md
         - file: notebooks/lax_milgram.md
         - file: notebooks/function_spaces.md
@@ -103,6 +104,7 @@ project:
     # '\dpred': '\mathbf{d}_\text{pred}\left( #1 \right)'
     '\mcA': '\mathcal{A}'
     '\mcK': '\mathcal{K}'
+    '\mcN': '\mathcal{N}'
     '\mcT': '\mathcal{T}'
     '\mcF': '\mathcal{F}'
     '\mcP': '\mathcal{P}'

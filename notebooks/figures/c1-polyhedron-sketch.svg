@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 330" font-family="Georgia, 'Times New Roman', serif" font-size="20">
+  <defs>
+    <!-- The domain Omega: a curved polygon with six corners (singular boundary
+         points) at A=(110,60), B=(250,40), C=(350,120), D=(355,205),
+         E=(140,262), F=(65,150), joined by smooth arcs.
+         The node (260,240) lies on the smooth arc D-E (tangent-continuous
+         there) and serves as the regular boundary point x-bar. -->
+    <path id="omega-blob"
+          d="M 110,60
+             C 157,63 206,56 250,40
+             C 277,73 312,101 350,120
+             C 346,148 348,178 355,205
+             C 321,207 293,231 260,240
+             C 220,250 177,244 140,262
+             C 123,220 97,181 65,150
+             C 86,123 101,93 110,60 Z"/>
+    <clipPath id="clip-omega">
+      <use href="#omega-blob"/>
+    </clipPath>
+    <clipPath id="clip-nbhd">
+      <circle cx="260" cy="240" r="48"/>
+    </clipPath>
+  </defs>
+
+  <!-- shaded region q(x) < 0 : the part of the neighborhood inside Omega -->
+  <g clip-path="url(#clip-omega)">
+    <circle cx="260" cy="240" r="48" fill="#9ca3af" fill-opacity="0.45" stroke="none"/>
+  </g>
+
+  <!-- domain boundary -->
+  <use href="#omega-blob" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="miter"/>
+
+  <!-- piece of the boundary inside the neighborhood, highlighted -->
+  <g clip-path="url(#clip-nbhd)">
+    <use href="#omega-blob" fill="none" stroke="#d946ef" stroke-width="3.5"/>
+  </g>
+
+  <!-- neighborhood N(x-bar) -->
+  <circle cx="260" cy="240" r="48" fill="none" stroke="#0ea5e9" stroke-width="2.5"/>
+
+  <!-- regular boundary point x-bar -->
+  <circle cx="260" cy="240" r="4" fill="#0ea5e9"/>
+
+  <!-- the corners: singular boundary points -->
+  <circle cx="110" cy="60" r="4" fill="#f59e0b"/>
+  <circle cx="250" cy="40" r="4" fill="#f59e0b"/>
+  <circle cx="350" cy="120" r="4" fill="#f59e0b"/>
+  <circle cx="355" cy="205" r="4" fill="#f59e0b"/>
+  <circle cx="140" cy="262" r="4" fill="#f59e0b"/>
+  <circle cx="65" cy="150" r="4" fill="#f59e0b"/>
+  <line x1="258" y1="34" x2="288" y2="20" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="293" y="24" font-style="italic" fill="#f59e0b">&#x2202;<tspan dy="5" font-size="14">s</tspan><tspan dy="-5">&#x3A9;</tspan></text>
+
+  <!-- labels -->
+  <text x="170" y="150" font-style="italic" fill="currentColor">&#x3A9;</text>
+  <text x="252" y="228" font-style="italic" fill="#0ea5e9">x&#x304;</text>
+  <text x="185" y="207" font-size="15" font-style="italic" fill="currentColor">q(x) &lt; 0</text>
+
+  <!-- leader line + label for the neighborhood -->
+  <line x1="322" y1="268" x2="345" y2="282" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="350" y="290" font-style="italic" fill="#0ea5e9">N(x&#x304;)</text>
+</svg>
