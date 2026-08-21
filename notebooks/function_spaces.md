@@ -65,10 +65,50 @@ L^p_{\mrm{loc}}(\Omega) = \{ f: \Omega \to \RR | f \in L^p(K)  \; \forall K \Sub
 ```
 ````
 
-```{admonition} TODO
-:class: :danger :dropdown
-Introduce inner product on $L^2$.
+````{prf:lemma} Hölder's inequality
+:label: lem:hoelder
+Let $1 \leqslant p, q \leqslant \infty$ with $\frac{1}{p} + \frac{1}{q} = 1$
+(with the convention $\frac{1}{\infty} := 0$).
+If $f \in L^p(\Omega)$ and $g \in L^q(\Omega)$, then $f g \in L^1(\Omega)$ and
+```{math}
+:label: eq:hoelder
+\| f g \|_{L^1(\Omega)} = \int_{\Omega} |f g| \dx
+\leqslant \|f\|_{L^p(\Omega)} \|g\|_{L^q(\Omega)}.
 ```
+````
+
+Among the Lebesgue spaces, $L^2(\Omega)$ plays a special role, as it can be
+endowed with an inner product.
+
+````{prf:definition} Inner product on $L^2(\Omega)$
+:label: def:l2-inner-product
+For $f, g \in L^2(\Omega)$, we define
+```{math}
+:label: eq:l2-inner-product
+(f, g)_{L^2(\Omega)} := \int_{\Omega} f g \dx.
+```
+Sometimes we write $(f,g)_{\Omega}$ instead of $(f, g)_{L^2(\Omega)}$.
+````
+
+Note that the inner product is *well-defined*: applying
+{prf:ref}`Hölder's inequality<lem:hoelder>` with $p = q = 2$ shows that
+$f g \in L^1(\Omega)$, so the integral in {eq}`eq:l2-inner-product` is finite. It is easy
+to check that $(\cdot, \cdot)_{L^2(\Omega)}$ is bilinear, symmetric and positive
+definite, so it is indeed an inner product on $L^2(\Omega)$, and it
+induces exactly the $L^2$-norm from {eq}`eq:lebesque-norm`,
+```{math}
+(f, f)_{L^2(\Omega)}^{1/2} = \Bigl( \int_{\Omega} |f|^2 \dx \Bigr)^{1/2}
+= \|f\|_{L^2(\Omega)}.
+```
+Moreover, rewriting {prf:ref}`Hölder's inequality<lem:hoelder>` for $p = q = 2$
+in terms of the inner product and the $L^2$-norm yields
+```{math}
+:label: eq:l2-cauchy-schwarz
+| (f, g)_{L^2(\Omega)} | \leqslant \int_{\Omega} |f g| \dx
+\leqslant \|f\|_{L^2(\Omega)} \|g\|_{L^2(\Omega)},
+```
+that is, the *Cauchy-Schwarz inequality* on $L^2(\Omega)$ arises as the
+special case $p = q = 2$ of Hölder's inequality.
 
 ````{prf:lemma} Determining uniqueness through testing
 :label: lem:uniqueness-by-testing

@@ -59,6 +59,56 @@ Then
 ```
 ````
 
+`````{exercise} Construction of bump functions in $\RR^n$
+:label: exer-bump-functions
+In this exercise, we construct the bump functions used in the proof of the
+fundamental lemma.
+
+1. Consider the function $f : \RR \to \RR$ defined by
+   ```{math}
+   f(t) :=
+   \begin{cases}
+   e^{-1/t} & \text{for } t > 0, \\
+   0 & \text{for } t \leqslant 0.
+   \end{cases}
+   ```
+   Show that $f \in C^{\infty}(\RR)$.
+
+2. Define $\varphi : \RR^n \to \RR$ by $\varphi(x) := f(1 - \|x\|^2)$.
+   Show that $\varphi \in C^{\infty}_c(\RR^n)$ with
+   $\varphi(x) > 0$ for $\|x\| < 1$ and
+   $\operatorname{supp} \varphi = \overline{B_1(0)}$.
+
+3. For a given ball $B_{\varepsilon}(x_0) \subseteq \Omega$, define
+   ```{math}
+   v(x) := \frac{1}{\varphi(0)}\,
+   \varphi\Bigl( \frac{2 (x - x_0)}{\varepsilon} \Bigr).
+   ```
+   Show that $v \in C^{\infty}_c(\Omega)$ satisfies the properties $(*)$
+   required in the proof of the fundamental lemma, namely
+   $v(x_0) = 1$, $v(x) \geqslant 0$ for all $x \in \Omega$, and
+   $\operatorname{supp} v \subseteq \overline{B_{\varepsilon/2}(x_0)}
+   \subseteq B_{\varepsilon}(x_0)$.
+
+````{admonition} Hint
+:class: hint dropdown
+For 1., the only critical point is $t = 0$. Show first by induction that for
+every $k \in \NN$ there is a polynomial $p_k$ such that
+```{math}
+f^{(k)}(t) = p_k(1/t) \, e^{-1/t} \quad \text{for } t > 0,
+```
+and then use that exponential decay beats polynomial growth, i.e.
+$\lim_{s \to \infty} p(s) e^{-s} = 0$ for every polynomial $p$, to conclude
+that $f^{(k)}(0) = 0$ exists for all $k$.
+
+For 2., note that $x \mapsto 1 - \|x\|^2$ is a polynomial and recall that
+compositions of $C^{\infty}$ functions are $C^{\infty}$.
+
+For 3., every property transfers directly from $\varphi$ under translation
+and scaling.
+````
+`````
+
 ````{prf:corollary}
 :label: cor-weighted-integrals
 If $u_1, u_2 \in C(\Omega)$ satisfy
