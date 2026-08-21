@@ -26,6 +26,7 @@ project:
     - title: Notebooks
       children:
         - file: notebooks/functional_analysis.md
+        - file: notebooks/lax_milgram.md
         - file: notebooks/function_spaces.md
         # - file: notebooks/function-plot-markdown.md
         # - file: notebooks/function-plot-markdown.md
