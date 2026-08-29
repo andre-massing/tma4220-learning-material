@@ -49,7 +49,7 @@ Here, the $L^p$-norm $\|\cdot\|_{L^p(\Omega)}$ is defined by
 \Bigr)^{1/p}  
 &\quad 1 \leqslant p < \infty
 \\
-\mrm{ess}\sup_{\Omega} |u|
+\mathrm{ess}\sup_{\Omega} |u|
 &\quad p=\infty
 \end{cases}
 ```
@@ -61,7 +61,7 @@ We also introduce the space of *locally* $L^p$-integrable functions on $\Omega$;
 functions that are $L^p$ integrable on every compact subset $K \Subset \Omega$,
 ```{math}
 :label: eq:loc-lebesque-spaces
-L^p_{\mrm{loc}}(\Omega) = \{ f: \Omega \to \RR | f \in L^p(K)  \; \forall K \Subset \Omega \}.
+L^p_{\mathrm{loc}}(\Omega) = \{ f: \Omega \to \RR | f \in L^p(K)  \; \forall K \Subset \Omega \}.
 ```
 ````
 
@@ -112,7 +112,7 @@ special case $p = q = 2$ of Hölder's inequality.
 
 ````{prf:lemma} Determining uniqueness through testing
 :label: lem:uniqueness-by-testing
-Let $u_1, u_2 \in L^1_{\mrm{loc}}(\Omega)$ and assume that
+Let $u_1, u_2 \in L^1_{\mathrm{loc}}(\Omega)$ and assume that
 ```{math}
 \int_{\Omega} (u_1 - u_2) \phi \dx = 0  \quad \forall \phi \in C^{\infty}_c(\Omega).
 ```
@@ -131,6 +131,7 @@ Here, the "action" is simply the resulting number computed from multiplying the 
 and integrating over $\Omega$. 
 ```
 
+(ssec:sobolev-spaces)=
 ## Sobolev spaces
 
 ### Weak derivatives 
@@ -153,11 +154,11 @@ and iterating this formula, we observe that for any multiindex $\alpha
 
 where $|\alpha| = \alpha_1 + \cdots \alpha_n$.
 Note that the integral expression on the right-hand side of {eq}`eq:weak-deriv-alpha` makes perfectly
-sense even for $u\in L^1_{\mrm{loc}}$ and not only $u\in C^k(\Omega)$.
+sense even for $u\in L^1_{\mathrm{loc}}$ and not only $u\in C^k(\Omega)$.
 This leads to a possibility to generalize or weakened the classical definition of derivatives. 
 
 ````{prf:definition} Weak derivative
-Let $\alpha \in \NN^n$ be a multiindex and $u, u_{\alpha} \in L^1_{\mrm{loc}}(\Omega)$.
+Let $\alpha \in \NN^n$ be a multiindex and $u, u_{\alpha} \in L^1_{\mathrm{loc}}(\Omega)$.
 We say that $u_{\alpha}$ is *$\alpha$-th weak derivative* of $u$ if
 ```{math}
 \int_{\Omega}  u_{\alpha} \phi \dx = 
@@ -167,21 +168,18 @@ holds for all $\phi \in C^{\infty}_c(\Omega)$.
 ````
 
 ```{prf:lemma} Uniqueness of weak derivatives
-If $u \in L^1_{\mrm{loc}}(\Omega)$ possesses an $\alpha$-th weak derivative, it is uniquely defined
-in $L^1_{\mrm{loc}}(\Omega)$.
+If $u \in L^1_{\mathrm{loc}}(\Omega)$ possesses an $\alpha$-th weak derivative, it is uniquely defined
+in $L^1_{\mathrm{loc}}(\Omega)$.
 ```
 
 ````{prf:proof}
 For
 two weak derivatives $u_{\alpha}$ and $\tilde{u}_{\alpha}$ we have that
-```{math}
-:nowrap: True
 \begin{align}
 \int_{\Omega} u_{\alpha} \phi &= (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi dx
 \\
 \int_{\Omega} \tilde{u}_{\alpha} \phi &= (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi dx
 \end{align}
-```
 and by substracting the second from the first inequality, we obtain that 
 ```{math}
 \int_{\Omega}
@@ -194,10 +192,12 @@ by {prf:ref}`lem:uniqueness-by-testing`.
 ````{exercise} Relation between the modulus function and the Heaviside function
 Let $\Omega = (-1,1)$ and set
 ```{math}
+\begin{align}
 u(x) &= |x| \\
 H(x) &= \begin{cases} -1 &\quad x \in (-1,0) \\ 
                       1  &\quad x \in [0, 1)
         \end{cases}
+\end{align}
 ```
 By simply using the definition of the weak derivative, show that
 $H(x)$ is the weak derivative of $u$.
@@ -296,9 +296,9 @@ an important role in the well-posedness of boundary value problems, as we need t
 the correct spaces for the boundary data in a e.g. Dirichlet or Neumann boundary problem
 when the data is **non-homogeneous**.
 
-For the remaining part of this Chapter, we assume that $\Omega$ is  bounded and has 
-a "well-behaving" boundary, that is, it is either Lipschitz or --- if this doesn't tell  you much ---
-is simply $C^{\infty}$.
+For the remaining part of this Chapter, we assume that $\Omega$ is a bounded domain with 
+a "well-behaving" boundary, that is, it is either a $C^1$-polyhedron, a Lipschitz domain, or --- if this doesn't tell  you much ---
+simply a $C^{\infty} domain$.
 
 ````{prf:theorem} Traces of $H^1(\Omega)$ spaces
 :label: thm:trace-spaces
@@ -320,7 +320,7 @@ the choice of function space from which we take the boundary data $u_D$.
 That motivates the following
 
 ````{prf:definition} $H^{1/2}(\Gamma)$
-:label: def:Honehalf
+:label: def:honehalf
 We set
 ```{math}
 H^{1/2}(\Omega) = \{ v \in L^2(\Omega) \mid \gamma(\overline{v}) = v \text{ for some } \overline{v} \in H^1(\Omega) \}

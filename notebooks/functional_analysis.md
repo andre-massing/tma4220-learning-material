@@ -64,10 +64,12 @@ is call bounded if there is a constant $C \in \RR^+_0$ such that
 
 The *operator norm* $\|L\|_{V\to W}$ of $T$ is then the smallest such constant given by 
 ```{math}
+\begin{align}
 \|L\|
 &= \inf \{C \in \RR^+_0 : \|L v \|_W \leqslant \|v\|_V \, \forall v \in V\} \\
 & = \sup_{v \in V \setminus \{0\}} \dfrac{\|L v \|_W}{\|v\|_V} \\
 & = \sup_{v \in V, \|v\|_V = 1} \|L v \|_W.
+\end{align}
 ```
 It can be shown that the the following statements are equivalent for **linear operators**:
 * $L: V \to W$ is bounded
@@ -75,7 +77,7 @@ It can be shown that the the following statements are equivalent for **linear op
 
 <!-- See {cite}`Brezis2011` for a proof. -->
 
-```{exercise} 
+```{exercise} Equivalence of boundedness and continuity
 Before you look up the proof, try to prove the previous claim yourself.
 ```
 
@@ -131,7 +133,7 @@ that is, every $x \in H$ can be written uniquely as $x = m + m^{\perp}$ with
 $m \in M$ and $m^{\perp} \in M^{\perp}$. In particular,
 ```{math}
 :label: eq:orthogonal-decomposition-trivial
-M^{\perp} = \{0\} \quad \Longrightarrow \quad M = H.
+M^{\perp} = \{0\} \quad \implies \quad M = H.
 ```
 ````
 

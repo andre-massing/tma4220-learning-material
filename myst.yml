@@ -19,23 +19,42 @@ project:
   # Enable in-page code execution backed by JupyterLite (runs in the browser).
   jupyter:
     lite: true
-
+  
+  plugins:
+    - https://github.com/jupyter-book/myst-plugins/releases/download/exercise-and-solution-pdf/exercise-admonition-pdf.mjs
+ 
   toc:
     - file: lecture_01.ipynb
-    # - file: lecture-plan.md
     - title: Notebooks
       children:
         - file: notebooks/weak-pdes-motivation.md
+        - file: notebooks/function_spaces.md
         - file: notebooks/functional_analysis.md
         - file: notebooks/lax_milgram.md
+        - file: notebooks/weak_form_pdes.md
+  exports:
+    - format: pdf
+      # template: springer
+      template: plain_latex_book
+      # template: plain_typst_book
+      output: _build/exports/tma4220-learning-material.pdf
+      articles:
+        - file: lecture_01.ipynb
+          level: 0
+        - file: notebooks/weak-pdes-motivation.md
+          level: 0
         - file: notebooks/function_spaces.md
-        # - file: notebooks/function-plot-markdown.md
-        # - file: notebooks/function-plot-markdown.md
-
+          level: 1
+        - file: notebooks/functional_analysis.md
+          level: 1
+        - file: notebooks/lax_milgram.md
+          level: 1
+        - file: notebooks/weak_form_pdes.md
+          level: 1
   math:
     # Note the 'single quotes'
     '\dobs': '\mathbf{d}_\text{obs}'
-    '\dpred': '\mathbf{d}_\text{pred}\left( #1 \right)'
+    '\dpred': '\mathbf{d}_\text{pred}\left(#1\right)'
     '\mref': '\mathbf{m}_\text{ref}'
 
     # Macros ported from notation.sty
@@ -100,8 +119,8 @@ project:
     '\bfK': '\mathbf{K}'
 
     # Roman/calligraphic
-    '\mrm': '\mathrm{ #1 }'
-    # '\dpred': '\mathbf{d}_\text{pred}\left( #1 \right)'
+    '\mrm': '\mathrm{#1}'
+    # '\dpred': '\mathbf{d}_\text{pred}\left(#1\right)'
     '\mcA': '\mathcal{A}'
     '\mcK': '\mathcal{K}'
     '\mcN': '\mathcal{N}'
@@ -112,8 +131,8 @@ project:
 
     # Jumps and averages (DG notation)
     '\jump': '[\![#1]\!]'
-    '\avg': '\{\!\!\{ #1 \}\!\!\}'
-    '\wavg': '\{\!\!\{ #1 \}\!\!\}_{\omega}'
+    '\avg': '\{\!\!\{#1\}\!\!\}'
+    '\wavg': '\{\!\!\{#1\}\!\!\}_{\omega}'
     '\wavgd': '\langle\!\langle {#1} \rangle\!\rangle_{\omega}'
     '\jumps': '[#1]'
     '\avgs': '\{{#1} \}'

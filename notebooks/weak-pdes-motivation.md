@@ -16,15 +16,15 @@ For $u \in C(\Omega)$ we have that
 ```{math}
 :label: eq:fundamental-lemma
 u = 0
-\quad \Longleftrightarrow \quad
+\quad \Leftrightarrow \quad
 \int_{\Omega} u v = 0 \quad \forall v \in C^{\infty}_c(\Omega).
 ```
 ````
 
 ````{prf:proof}
-"$\Longrightarrow$" is trivial.
+"$\implies$" is trivial.
 
-"$\Longleftarrow$": Proof by contradiction, i.e. we show that
+"$\Leftarrow$": Proof by contradiction, i.e. we show that
 $u \neq 0 \Rightarrow \exists\, v \in C^{\infty}_c(\Omega)$
 such that (s.t.) $\int_{\Omega} u v \neq 0$.
 
@@ -35,7 +35,7 @@ $\varepsilon > 0$ and center $x_0$ s.t.
 
 ```{math}
 u(x) \geqslant \frac{c_0}{2} \quad \forall x \in B_{\varepsilon}(x_0).
-\tag{$+$}
+\qquad (+)
 ```
 
 Next, we take $v \in C^{\infty}_c(\Omega)$ to be a so-called *bump function*
@@ -44,7 +44,7 @@ satisfying
 ```{math}
 v(x_0) = 1, \quad v(x) \geqslant 0 \;\; \forall x \in \Omega,
 \quad \operatorname{supp} v \subseteq B_{\varepsilon}(x_0).
-\tag{$*$}
+\qquad (*)
 ```
 
 (The existence of such bump functions is discussed in the exercise below.)
@@ -149,7 +149,7 @@ $u \in C^2(\Omega) \cap C(\overline{\Omega})$ and $f \in C(\Omega)$, then
 ```{math}
 :label: eq:poisson-weighted
 -\Delta u(x) = f(x) \;\; \forall x \in \Omega
-\quad \Longleftrightarrow \quad
+\quad \Leftrightarrow \quad
 - \int_{\Omega} \Delta u \, v = \int_{\Omega} f v
 \quad \forall v \in C^{\infty}_c(\Omega).
 ```
@@ -255,13 +255,13 @@ Let $\Omega$ be a bounded $C^1$-polyhedron. Then we have
    ```
 ````
 
-```{exercise}
+```{exercise} Proving Green's formulas
 Deduce {eq}`eq:green-a`--{eq}`eq:green-d` from the Gauß theorem.
 ```
 
 Now we can return to the integral equation in {eq}`eq:poisson-weighted` and
 rewrite it via {eq}`eq:green-b` to see that
-$-\Delta u(x) = f(x) \;\; \forall x \in \Omega \Longleftrightarrow$
+$-\Delta u(x) = f(x) \;\; \forall x \in \Omega \Leftrightarrow$
 
 ```{math}
 :label: eq:poisson-weak-derivation
@@ -279,7 +279,7 @@ solve the following problem: Find $u \in C^2(\Omega) \cap C_0(\overline{\Omega})
 
 ```{math}
 :label: eq:poisson-almost-weak
-\int_{\Omega} \nabla u \cdot \nabla v = \int_{\Omega} f v
+\underbrace{\int_{\Omega} \nabla u \cdot \nabla v}_{:= a(u,v)} = \underbrace{\int_{\Omega} f v}_{:= l(v)}
 \quad \forall v \in C^{\infty}_c(\Omega).
 ```
 
@@ -303,5 +303,20 @@ So to make sense of $\int_{\Omega} \nabla u \cdot \nabla v$, we need two things:
 1. $\nabla u$, $\nabla v$ must be properly defined,
 2. the integral of the product $\nabla u \cdot \nabla v$ is well-defined.
 
-Point 1. says something about *differentiability*, point 2. about *integrability*
+Point 1. says something about **differentiability**, point 2. about **integrability**
 properties of $u$ and $v$.
+
+So the main idea of the weak formulation is to
+   * cast the strong PDE into a so-called weak formulation of the form {eq}`eq:poisson-almost-weak`
+   which uses the weighted integral form 
+   * to use suitable function spaces with relaxed differentiability and certain integrability properties 
+   so that weak formulation still makes sense, 
+   * to use the tools of functional analysis to prove well-posedness of the weak formulation.
+
+The well-posedness of the weak formulation will then typically only
+guarantee solutions in a weaker sense than the strong formulation.
+To obtain "classical" solutions with the desired differentiability properties, one typically then needs to invoke **regularity theory**,
+which we only will discuss very briefly in this course.
+
+In the next two sections, we will introduce the necessary tools from [functional analysis](sec:functioal-analysis)
+ and [Sobolev spaces](ssec:sobolev-spaces) to make the above ideas precise. 

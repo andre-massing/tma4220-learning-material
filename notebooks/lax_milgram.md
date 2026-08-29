@@ -261,15 +261,23 @@ $u$ is the unique solution of {eq}`eq:lax-milgram-problem`.
 Note that the proof does **not** require the bilinear form $a$ to be symmetric.
 For symmetric $a$, the Lax-Milgram theorem reduces to the
 {prf:ref}`Riesz representation theorem<thm-riesz-representation>`,
-as you are asked to show in {prf:ref}`exercise exer-lax-milgram-symmetric`.
+as you are asked to show in following
+[exercise](#exer-lax-milgram-symmetric).
 ```
 
-````{exercise} Lax-Milgram for symmetric bilinear forms
+```{exercise} Lax-Milgram for symmetric bilinear forms
 :label: exer-lax-milgram-symmetric
 Assume in addition that $a$ is *symmetric*, i.e. $a(v, w) = a(w, v)$ for all
 $v, w \in V$. 
 Prove the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>` in this simplified setting,
 including the stability estimate {eq}`eq:lax-milgram-stab`.
+```
+
+<!-- ```{exercise} Linktest
+:label: linktest
+We are testing linking.
+```
+Now add a link [](#linktest) to the previous exercise. -->
 
 ```{admonition} Hint
 :class: hint dropdown
@@ -280,7 +288,6 @@ Then apply the
 {prf:ref}`Riesz representation theorem<thm-riesz-representation>` to the Hilbert
 space $\bigl(V, a(\cdot, \cdot)\bigr)$.
 ```
-````
 
 ```{prf:remark}
 The alternative contraction argument is constructive: the Picard iteration
