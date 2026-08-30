@@ -28,8 +28,8 @@ project:
     - templates/**
 
   toc:
-    - file: lecture_01.ipynb
-    - title: Notebooks
+    - file: kick-off.md
+    - title: Chapter 01
       children:
         - file: chapter_01/weak-pdes-motivation.md
         - file: chapter_01/function_spaces.md
@@ -42,8 +42,8 @@ project:
       # template: plain_typst_book
       template: ./templates/tma4220-book
       output: _build/exports/tma4220-learning-material.pdf
-      articles:
-        - file: lecture_01.ipynb
+      articles: &book_articles
+        - file: kick-off.md
           level: 0
         - file: chapter_01/weak-pdes-motivation.md
           level: 0
@@ -55,6 +55,14 @@ project:
           level: 1
         - file: chapter_01/weak_form_pdes.md
           level: 1
+    - format: tex
+      template: ./templates/tma4220-book
+      output: _build/exports/tex/tma4220-learning-material.tex
+      articles: *book_articles
+  
+  bibliography:
+    - TMA4220.bib
+
   math:
     # Macros ported from notation.sty
     # Note the 'single quotes'
