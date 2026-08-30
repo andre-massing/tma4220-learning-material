@@ -36,6 +36,7 @@ project:
         - file: chapter_01/functional_analysis.md
         - file: chapter_01/lax_milgram.md
         - file: chapter_01/weak_form_pdes.md
+    - file: references.md
   exports:
     - format: pdf
       # template: plain_latex_book

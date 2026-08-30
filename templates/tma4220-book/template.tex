@@ -117,17 +117,27 @@
 \newif\ifmystfirstchapter
 \mystfirstchaptertrue
 \let\mystorigchapter\chapter
-\renewcommand{\chapter}[1]{%
-  \ifmystfirstchapter
-    \mystfirstchapterfalse
-    \setcounter{secnumdepth}{-1}%
-    \mystorigchapter*{#1}%
-    \addcontentsline{toc}{chapter}{#1}%
-    \markboth{#1}{}%
-  \else
-    \setcounter{secnumdepth}{2}%
-    \mystorigchapter{#1}%
-  \fi}
+% Signature "s m": the starred form (\chapter*{...}, used by the bibliography)
+% must pass through untouched. A plain \renewcommand{\chapter}[1] would swallow
+% the star and typeset a numbered chapter titled "*".
+% (No optional argument is declared: MyST never emits a short-title form, and
+% square-bracket-hash sequences in this file collide with the template engine.)
+\RenewDocumentCommand{\chapter}{s m}{%
+  \IfBooleanTF{#1}{%
+    \mystorigchapter*{#2}%
+  }{%
+    \ifmystfirstchapter
+      \mystfirstchapterfalse
+      \setcounter{secnumdepth}{-1}%
+      \mystorigchapter*{#2}%
+      \addcontentsline{toc}{chapter}{#2}%
+      \markboth{#2}{}%
+    \else
+      \setcounter{secnumdepth}{2}%
+      \mystorigchapter{#2}%
+    \fi
+  }%
+}
 
 % \include{preface.tex}
 % \include{acknowledgements.tex}

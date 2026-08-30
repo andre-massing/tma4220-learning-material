@@ -1,13 +1,13 @@
 (sec:weak-form-pdes)=
-# Weak formulation of partial differential equations
+# Weak formulation of elliptic PDEs
 
+## Weak formulation of the Poisson problem
 In this chapter, we briefly discuss how the functional
 analysis and function space apparatus
 can be employed to analyse the well-posedness
 of certain class of PDEs when given in a so-called
 "weak" formulation. 
 
-## Weak formulation of the Poisson problem
 We start by considering the Poisson problem
 ```{math}
 :label: eq:poisson-wo-bc

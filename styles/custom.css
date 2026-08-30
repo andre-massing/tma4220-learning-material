@@ -11,3 +11,10 @@
   --tw-border-opacity: 1;
   border-color: #22c55e; /* green-500 */
 }
+
+/* The references page cites every bib key so that the page-scoped
+   {bibliography} directive lists them all; those citation markers are
+   for the machinery, not the reader. */
+.hidden-citations {
+  display: none;
+}

@@ -1,6 +1,7 @@
 (sec:weak-pdes-motivation)=
-# Motivation: towards weak formulations of PDEs
+# Weak formulations of partial differential equations
 
+## Towards a weak formulation of the Poisson problem
 The concept of a *weak formulation* of a PDE and the corresponding
 analysis of the well-posedness of this formulation plays a central role
 in the design and analysis of finite element methods.
@@ -159,6 +160,8 @@ We usually don't write down integration measures such as $\dx$, $\dt$,
 as they can be deduced from the domain of integration using the
 canonical measures.
 ```
+
+## The divergence theorem and Green's formulas
 
 Now we need to recall some analysis tools to reformulate {eq}`eq:poisson-weighted`.
 In particular, we need to recall the Gauß theorem and its relatives.
