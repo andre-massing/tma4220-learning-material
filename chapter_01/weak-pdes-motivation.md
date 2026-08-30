@@ -89,8 +89,9 @@ fundamental lemma.
    $v(x_0) = 1$, $v(x) \geqslant 0$ for all $x \in \Omega$, and
    $\operatorname{supp} v \subseteq \overline{B_{\varepsilon/2}(x_0)}
    \subseteq B_{\varepsilon}(x_0)$.
+`````
 
-````{admonition} Hint
+````{hint}
 :class: hint dropdown
 For 1., the only critical point is $t = 0$. Show first by induction that for
 every $k \in \NN$ there is a polynomial $p_k$ such that
@@ -107,7 +108,6 @@ compositions of $C^{\infty}$ functions are $C^{\infty}$.
 For 3., every property transfers directly from $\varphi$ under translation
 and scaling.
 ````
-`````
 
 ````{prf:corollary}
 :label: cor-weighted-integrals

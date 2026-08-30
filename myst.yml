@@ -31,11 +31,11 @@ project:
     - file: lecture_01.ipynb
     - title: Notebooks
       children:
-        - file: notebooks/weak-pdes-motivation.md
-        - file: notebooks/function_spaces.md
-        - file: notebooks/functional_analysis.md
-        - file: notebooks/lax_milgram.md
-        - file: notebooks/weak_form_pdes.md
+        - file: chapter_01/weak-pdes-motivation.md
+        - file: chapter_01/function_spaces.md
+        - file: chapter_01/functional_analysis.md
+        - file: chapter_01/lax_milgram.md
+        - file: chapter_01/weak_form_pdes.md
   exports:
     - format: pdf
       # template: springer
@@ -47,15 +47,15 @@ project:
       articles:
         - file: lecture_01.ipynb
           level: 0
-        - file: notebooks/weak-pdes-motivation.md
+        - file: chapter_01/weak-pdes-motivation.md
           level: 0
-        - file: notebooks/function_spaces.md
+        - file: chapter_01/function_spaces.md
           level: 1
-        - file: notebooks/functional_analysis.md
+        - file: chapter_01/functional_analysis.md
           level: 1
-        - file: notebooks/lax_milgram.md
+        - file: chapter_01/lax_milgram.md
           level: 1
-        - file: notebooks/weak_form_pdes.md
+        - file: chapter_01/weak_form_pdes.md
           level: 1
   math:
     # Note the 'single quotes'

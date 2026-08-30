@@ -25,5 +25,5 @@ execution is local to your machine and nothing is sent to a server.
 
 ## Contents
 
-- [A first plot](notebooks/function-plot.ipynb) — plotting a function with
+- [A first plot](chapter_01/function-plot.ipynb) — plotting a function with
   matplotlib, used here to verify that in-browser execution works.

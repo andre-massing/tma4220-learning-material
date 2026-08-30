@@ -3,7 +3,9 @@
 
 <!-- Later, when we have introduced the concept of weak formulation of partial differential equations, we will make heavily use of the  Lax-Milgram theorem. -->
 Throughout this section, we rely on the concepts and results collected in
-{ref}`sec:functioal-analysis`, in particular the
+@sec:functioal-analysis, in particular the
+@sec:kick-off-meeting, in particular the
+<!-- {ref}`sec:functioal-analysis`, in particular the -->
 {prf:ref}`Riesz representation theorem<thm-riesz-representation>`, the
 {prf:ref}`orthogonal decomposition theorem<thm-orthogonal-decomposition>` and the
 {prf:ref}`Banach fixed-point theorem<thm-banach-fixed-point>`.

@@ -128,9 +128,8 @@ e.g, $u \in C^2(\overline{\Omega})$, $\Gamma$ is a $C^1$ boundary, and
 $v \in C^{\infty}(\overline{\Omega})$. Then multiplying 
 the PDE in {eq}`eq:neumann-problem-I` with $v$ and integrating over $\Omega$
 and applying Green's theorem leads to
-
+<!-- \label{eq:weak-form-neumann-derivation} -->
 \begin{align}
-\label{eq:weak-form-neumann-derivation}
 \int_{\Omega} f v \dx
 &= 
 - \int_{\Omega}  \nabla \cdot (\nabla u) v \dx 
@@ -141,7 +140,6 @@ and applying Green's theorem leads to
 + \int_{\Omega} \nabla u \cdot \nabla  v \dx
 +\int_{\Omega} uv \dx
 \end{align}
-<!-- (eq:weak-form-neumann-derivation)= -->
 
 Note that the Neumann boundary condition $\bfn \cdot \nabla u = 0$
 makes the boundary integrals vanish.
