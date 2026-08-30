@@ -1,0 +1,13 @@
+/* Definitions are green, matching the LaTeX/PDF template.
+   The book-theme colours proof kinds via Tailwind utility classes on the
+   header; among myst-proof kinds only Definition uses blue (theorem and
+   lemma are purple, corollary orange, remark red, proof grey), so this
+   selector hits definitions only. Exercises use .myst-exercise-header and
+   are unaffected. */
+.myst-proof-header.bg-blue-50\/80 {
+  background-color: #f0fdf4; /* green-50 */
+}
+.myst-proof.dark\:border-blue-500\/60 {
+  --tw-border-opacity: 1;
+  border-color: #22c55e; /* green-500 */
+}

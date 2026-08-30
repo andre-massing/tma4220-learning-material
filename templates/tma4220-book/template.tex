@@ -1,0 +1,121 @@
+\documentclass[a4paper,11pt,oneside]{book}
+\usepackage[top=2cm, bottom=2cm, left=2cm, right=2cm]{geometry}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{natbib}
+\usepackage{xcolor}
+\usepackage{changepage}
+\usepackage{framed}
+\usepackage{hyperref}
+\usepackage{amssymb}
+\bibliographystyle{abbrvnat}
+
+% Make list items more compact
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep, topsep=0pt}
+
+[- IMPORTS -]
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%  theorem-environment styling  %%%%%%%%%%
+% Colours mirror the HTML book-theme (Tailwind palette) so that the
+% printed and online versions are visually consistent:
+%   theorem / lemma / proposition -> purple    corollary  -> orange
+%   definition                    -> green     remark     -> red
+%   exercise                      -> blue
+%   proof / observation           -> gray      example    -> green
+\usepackage[most]{tcolorbox}
+
+\definecolor{mystPurple}{HTML}{A855F7}\definecolor{mystPurpleBg}{HTML}{FAF5FF}
+\definecolor{mystBlue}{HTML}{3B82F6}  \definecolor{mystBlueBg}{HTML}{EFF6FF}
+\definecolor{mystOrange}{HTML}{F97316}\definecolor{mystOrangeBg}{HTML}{FFF7ED}
+\definecolor{mystRed}{HTML}{EF4444}   \definecolor{mystRedBg}{HTML}{FEF2F2}
+\definecolor{mystGray}{HTML}{6B7280}  \definecolor{mystGrayBg}{HTML}{F9FAFB}
+\definecolor{mystGreen}{HTML}{22C55E} \definecolor{mystGreenBg}{HTML}{F0FDF4}
+
+% Shared look: a thick coloured rule on the left, tinted background,
+% mirroring the "border-l-4" styling used by the web theme.
+\tcbset{mystbox/.style={
+  breakable, enhanced, sharp corners,
+  boxrule=0pt, leftrule=3pt,
+  left=8pt, right=8pt, top=6pt, bottom=6pt,
+  before skip=10pt, after skip=10pt
+}}
+
+\tcolorboxenvironment{theorem}    {mystbox, colframe=mystPurple, colback=mystPurpleBg}
+\tcolorboxenvironment{lemma}      {mystbox, colframe=mystPurple, colback=mystPurpleBg}
+\tcolorboxenvironment{proposition}{mystbox, colframe=mystPurple, colback=mystPurpleBg}
+\tcolorboxenvironment{axiom}      {mystbox, colframe=mystPurple, colback=mystPurpleBg}
+\tcolorboxenvironment{corollary}  {mystbox, colframe=mystOrange, colback=mystOrangeBg}
+\tcolorboxenvironment{conjecture} {mystbox, colframe=mystOrange, colback=mystOrangeBg}
+\tcolorboxenvironment{definition} {mystbox, colframe=mystGreen,  colback=mystGreenBg}
+\tcolorboxenvironment{example}    {mystbox, colframe=mystGreen,  colback=mystGreenBg}
+\tcolorboxenvironment{remark}     {mystbox, colframe=mystRed,    colback=mystRedBg}
+\tcolorboxenvironment{observation}{mystbox, colframe=mystGray,   colback=mystGrayBg}
+\tcolorboxenvironment{proof}      {mystbox, colframe=mystGray,   colback=mystGrayBg}
+
+% Exercises and admonitions both arrive as "framed"; LaTeX cannot tell them
+% apart, so they share the blue used for exercises in the web theme.
+\tcolorboxenvironment{framed}     {mystbox, colframe=mystBlue,   colback=mystBlueBg}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\hypersetup{
+  colorlinks,
+  linkcolor={black},
+  citecolor={black},
+  urlcolor={black}
+}
+
+% Style quotes
+\definecolor{darkblue}{rgb}{0.0, 0.0, 0.55}
+\definecolor{quoteshade}{rgb}{0.95, 0.95, 1}
+\renewenvironment{quote}{%
+  \def\FrameCommand{%
+    \hspace{1pt}%
+    {\color{darkblue}\vrule width 2pt}%
+    {\color{quoteshade}\vrule width 4pt}%
+    \colorbox{quoteshade}%
+  }%
+  \MakeFramed {\advance\hsize-\width \FrameRestore}%
+  \noindent\hspace{-8pt}% disable indenting first paragraph
+  \begin{adjustwidth}{0pt}{0pt}% adjust as needed
+  \vspace{2pt}\vspace{2pt}%
+}
+{%
+  \vspace{2pt}\end{adjustwidth}\endMakeFramed%
+}
+
+\title{\Huge \textbf{[-doc.title-]}[# if doc.subtitle #] \\ \huge [-doc.subtitle-][# endif #]}
+\author{\textsc{
+[#- for author in doc.authors #]
+  [#- if not loop.first #] and [# endif #][-author.name-][# if not loop.last and not loop.first #], [# endif #]
+[#- endfor -#]
+}}
+
+\begin{document}
+\sloppy
+
+\frontmatter
+\maketitle
+
+\tableofcontents
+% \listoffigures
+% \listoftables
+
+\mainmatter
+
+% \include{preface.tex}
+% \include{acknowledgements.tex}
+
+[- CONTENT -]
+
+
+[# if doc.bibliography #]
+\bibliography{[- doc.bibliography | join(", ") -]}
+[# endif #]
+
+\end{document}

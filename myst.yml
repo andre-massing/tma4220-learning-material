@@ -23,6 +23,10 @@ project:
   plugins:
     - https://github.com/jupyter-book/myst-plugins/releases/download/exercise-and-solution-pdf/exercise-admonition-pdf.mjs
  
+  # Keep the LaTeX template out of content discovery.
+  exclude:
+    - templates/**
+
   toc:
     - file: lecture_01.ipynb
     - title: Notebooks
@@ -35,8 +39,10 @@ project:
   exports:
     - format: pdf
       # template: springer
-      template: plain_latex_book
+      # template: plain_latex_book
       # template: plain_typst_book
+      # template: plain_typst_book
+      template: ./templates/tma4220-book
       output: _build/exports/tma4220-learning-material.pdf
       articles:
         - file: lecture_01.ipynb
@@ -147,3 +153,4 @@ site:
   template: book-theme
   options:
     folders: true
+    style: styles/custom.css
