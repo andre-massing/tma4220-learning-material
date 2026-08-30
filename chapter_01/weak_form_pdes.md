@@ -4,21 +4,27 @@
 ## Weak formulation of the Poisson problem
 In this chapter, we briefly discuss how the functional
 analysis and function space apparatus
-can be employed to analyse the well-posedness
-of certain class of PDEs when given in a so-called
-"weak" formulation. 
+can be employed to analyze the well-posedness
+of a certain class of PDEs when given in a so-called
+"weak" formulation.
+
+Throughout this chapter, $\Omega \subset \RR^n$ is a bounded
+$C^1$-polyhedron (or, more generally, a bounded Lipschitz domain) with boundary
+$\Gamma = \partial \Omega$. This guarantees that the Gauß theorem, the
+{prf:ref}`trace theorem<thm:trace-spaces>` and the
+{prf:ref}`Poincaré inequality<thm:poincare>` are all at our disposal.
 
 We start by considering the Poisson problem
 ```{math}
 :label: eq:poisson-wo-bc
-\nabla \cdot \nabla u =  -\Delta u  = f \quad \text{in } \Omega
+- \nabla \cdot \nabla u =  -\Delta u  = f \quad \text{in } \Omega
 ```
 supplemented with some suitable boundary conditions 
 which $u$ should satisfy on 
 the boundary $\Gamma = \partial \Omega$ of $\Omega$.
 
 ## Neumann problems
-Let us consider the homogenous Neumann problem
+Let us consider the homogeneous Neumann problem
 ```{math}
 :label: eq:neumann-problem-I
 \left\{
@@ -29,13 +35,13 @@ Let us consider the homogenous Neumann problem
 \right.
 ```
 Here, we used the slightly simplified notation $\partial_n u = \bfn \cdot \nabla u$.
-The idea to derive a so-called weak formulation of an PDE is very similar
+The idea to derive a so-called weak formulation of a PDE is very similar
 to the idea behind the introduction of weak derivatives:
 We multiply with a suitable test function $v$, integrate over $\Omega$ 
 and perform integration by parts to transfer a number of derivatives 
 to the test function $v$. 
 
-What kind of test function space we choose is often dictated by 2 considerations:
+What kind of test function space we choose is often dictated by two considerations:
 
 1. What kind of smoothness do we require to make the derived formulation work?
 
@@ -44,22 +50,22 @@ What kind of test function space we choose is often dictated by 2 considerations
 For the Neumann boundary problem, let's assume for the
 moment that $u$, our boundary $\Gamma$ and our
 test functions $v$ are smooth enough so that we can use Green's theorem,
-e.g, $u \in C^2(\overline{\Omega})$, $\Gamma$ is a $C^1$ boundary, and
+e.g., $u \in C^2(\overline{\Omega})$, $\Gamma$ is a $C^1$ boundary, and
 $v \in C^{\infty}(\overline{\Omega})$. Then multiplying 
 the PDE in {eq}`eq:neumann-problem-I` with $v$ and integrating over $\Omega$
 and applying Green's theorem leads to
 ```{math}
 :label: eq:weak-form-neumann-derivation
 \begin{aligned}
-\int_{\Omega} f v \dx
+\int_{\Omega} f v
 &= 
-- \int_{\Omega}  \nabla \cdot (\nabla u) v \dx 
-+\int_{\Omega} uv \dx
+- \int_{\Omega}  \nabla \cdot (\nabla u) v 
++\int_{\Omega} uv
 \\
 &=
-- \int_{\Gamma} \underbrace{(\bfn \cdot \nabla u)}_{=0} v \dx
-+ \int_{\Omega} \nabla u \cdot \nabla  v \dx
-+\int_{\Omega} uv \dx
+- \int_{\Gamma} \underbrace{(\bfn \cdot \nabla u)}_{=0} v
++ \int_{\Omega} \nabla u \cdot \nabla  v
++\int_{\Omega} uv
 \end{aligned}
 ```
 
@@ -68,14 +74,14 @@ makes the boundary integrals vanish.
 Also observe that the right-hand side of {eq}`eq:weak-form-neumann-derivation`
 can be interpreted as taking 
 the inner product associated with $H^1(\Omega)$ between $u$ and $v$.
-In fact, the expression makes perfectly sense even if we assume only
-assume that both $u, v \in H^1(\Omega) =:V$!.
+In fact, the expression makes perfect sense even if we only
+assume that both $u, v \in H^1(\Omega) =: V$.
 With this assumption, we can define the bilinear form 
 ```{math}
 :label: poisson-bilinear-form-a
 a(v, w) := 
-\int_{\Omega} \nabla v \cdot \nabla  w \dx
-+\int_{\Omega} vw \dx
+\int_{\Omega} \nabla v \cdot \nabla  w
++\int_{\Omega} vw
 ```
 on $V\times V$, and it is straightforward to
 show that $a(\cdot, \cdot)$ (being the $H^1$ inner product itself)
@@ -83,33 +89,36 @@ satisfies the required assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-
 ```{math}
 :label: eq-lax-milgram-assump
 \begin{aligned}
-\text{Boundedness: }  a(v,w) &:= 
-\int_{\Omega} \nabla v \cdot \nabla  w \dx
-+\int_{\Omega} vw \dx = (v, w)_{H^1(\Omega)} \leqslant \|v\|_{H^1(\Omega)} \|w\|_{H^1(\Omega)}
+\text{Boundedness: }  |a(v,w)| &=
+\Bigl| \int_{\Omega} \nabla v \cdot \nabla  w
++\int_{\Omega} vw \Bigr| = |(v, w)_{H^1(\Omega)}| \leqslant \|v\|_{H^1(\Omega)} \|w\|_{H^1(\Omega)}
 \\
 \text{Coercivity: }  a(v,v) &= 
-\int_{\Omega} |\nabla v|^2 \dx + \int_{\Omega} |v|^2 \dx
+\int_{\Omega} |\nabla v|^2 + \int_{\Omega} |v|^2
 = (v, v)_{H^1(\Omega)} = \|v\|_{H^1(\Omega)}^2 
 \end{aligned}
 ```
 
+so that the assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`
+hold with $C_a = 1$ and $\alpha = 1$.
+
 Next, we define the linear form $l : V \to \RR$
 ```{math}
 :label: poisson-linear-form-l
-l(v) := \int_{\Omega} f v \dx = (f, v)_{L^2(\Omega)}
+l(v) := \int_{\Omega} f v = (f, v)_{L^2(\Omega)}
 ```
 If we assume that $f \in L^2(\Omega)$, then thanks to the Cauchy-Schwarz inequality,
 ```{math}
 |l(v)| 
 = |(f, v)_{L^2(\Omega)}| 
 \leqslant 
-f\|_{L^2(\Omega)} \|v\|_{L^2(\Omega)}
+\|f\|_{L^2(\Omega)} \|v\|_{L^2(\Omega)}
 \leqslant
-f\|_{L^2(\Omega)} \|v\|_{H^1(\Omega)},
+\|f\|_{L^2(\Omega)} \|v\|_{H^1(\Omega)},
 ```
-we can immediately conclude that $l$ is a continuous bilinear form with $C_l = \|f\|_{L^2(\Omega)}$.
-Thus the {prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`
-let us conclude that the problem: find $u \in H^1(\Omega)=: V$ such that $\forall v \in V$
+we can immediately conclude that $l$ is a continuous linear form with $C_l = \|f\|_{L^2(\Omega)}$.
+Thus the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>`
+lets us conclude that the problem: find $u \in H^1(\Omega)=: V$ such that $\forall v \in V$
 ```{math}
 a(u,v) = l(v)
 ```
@@ -151,7 +160,7 @@ Next, we consider
 \right.
 ```
 We proceed as for the Neumann problem: we multiply with suitable test functions $v$
-and integrate by part,
+and integrate by parts,
 but this time, the boundary integral does not vanish since we don't have natural boundary conditions
 to incorporate. 
 To compensate, we only consider test functions $v \in C^{\infty}_c(\Omega)$
@@ -160,18 +169,18 @@ Then again, we obtain
 ```{math}
 :label: eq:weak-form-dirichlet-derivation
 \begin{aligned}
-\int_{\Omega} f v \dx
+\int_{\Omega} f v
 &= 
-- \int_{\Omega}  \nabla \cdot (\nabla u) v \dx 
-+\int_{\Omega} uv \dx
+- \int_{\Omega}  \nabla \cdot (\nabla u) v 
++\int_{\Omega} uv
 \\
 &=
-- \int_{\Gamma} (\bfn \cdot \nabla u)\underbrace{v}_{=0} \dx
-+ \int_{\Omega} \nabla u \cdot \nabla  v \dx
-+\int_{\Omega} uv \dx.
+- \int_{\Gamma} (\bfn \cdot \nabla u)\underbrace{v}_{=0}
++ \int_{\Omega} \nabla u \cdot \nabla  v
++\int_{\Omega} uv.
 \end{aligned}
 ```
-Intuitively speaking we know how the solution $u$ is going to look like
+Intuitively speaking, we know what the solution $u$ is going to look like
 on the boundary, namely $u=0$, so we don't need test functions which
 test for how the equation "behaves" at the boundary.
 Also, we now require that our function $u$ comes from a function space
@@ -188,9 +197,9 @@ where $a(\cdot, \cdot)$ and $l(\cdot)$
 are defined as in {eq}`poisson-bilinear-form-a` and
 {eq}`poisson-linear-form-l`, respectively.
 As in the case for the homogeneous Neumann problem {eq}`eq:neumann-problem-I`,
-we can show that $a$ and $l$ satisfy the assumption of the
-{prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`, and therefore
-we can conclude there there is a unique solution $u$ to the
+we can show that $a$ and $l$ satisfy the assumptions of the
+{prf:ref}`Lax-Milgram theorem<thm-lax-milgram>`, and therefore
+we can conclude there is a unique solution $u$ to the
 weak formulation of the homogeneous Poisson problem which depends
 continuously on the data $f$.
 
@@ -200,11 +209,11 @@ of the
 *homogeneous Neumann* problem {eq}`eq:neumann-problem-I`
 and the 
 *homogeneous Dirichlet* problem {eq}`eq:dirichlet-problem-I`
-is the Hilbert space on which they are posed on.
+is the Hilbert space on which they are posed.
 ```
 
 ### Homogeneous Dirichlet problem for $-\Delta$ operator
-Now, we consider a slightly modified problem Poisson problem where the
+Now, we consider a slightly modified Poisson problem where the
 low order term $u$ is left out:
 ```{math}
 :label: eq:dirichlet-problem-II
@@ -215,7 +224,6 @@ low order term $u$ is left out:
 \end{alignedat}
 \right.
 ```
-Refer back to @eq:dirichlet-problem-II
 
 Repeating the steps from the previous section, we arrive at the problem:
 Find $u \in V := H^1_0(\Omega)$ such that
@@ -225,7 +233,7 @@ a(u,v) = l(v) \quad \forall v \in V,
 ```
 with the only distinction that $a(\cdot, \cdot)$ is now given by
 ```{math}
-a(v, w) = \int_{\Omega} \nabla v \cdot \nabla w dx.
+a(v, w) = \int_{\Omega} \nabla v \cdot \nabla w.
 ```
 The boundedness of $a(\cdot, \cdot)$ and $l(\cdot)$ can be shown (almost) exactly as before.
 But let's have a look at the coercivity/ellipticity: Setting $u=v$, we obtain 
@@ -234,11 +242,14 @@ a(v,v) = \int_{\Omega} |\nabla v|^2
 ```
 But thanks to the {prf:ref}`Poincaré inequality<thm:poincare>`
 and {prf:ref}`cor:poincare` we not only know that $|\nabla\ \cdot |$ 
-defines norm on the closed subspace $H^1_{0}(\Omega)$ but that this norm
+defines a norm on the closed subspace $H^1_{0}(\Omega)$ but that this norm
 is equivalent to the usual $H^1$-norm. Thanks to the proof of {prf:ref}`cor:poincare` we see that
 ```{math}
-a(v,v) = \int_{\Omega} |\nabla v|^2 \geqslant (1 + C_p^2)^{-1/2} \|u\|_{1,\Omega}^2.
+a(v,v) = \int_{\Omega} |\nabla v|^2 \geqslant (1 + C_P^2)^{-1} \|v\|_{1,\Omega}^2.
 ```
+Thus the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>` applies with
+$C_a = 1$ and $\alpha = (1+C_P^2)^{-1}$, and the resulting stability estimate
+reads $\|u\|_{1,\Omega} \leqslant (1+C_P^2)\, \|f\|_{L^2(\Omega)}$.
 
 
 ### Inhomogeneous Dirichlet problem for $-\Delta$ operator
@@ -247,20 +258,20 @@ Next, we consider
 :label: eq:dirichlet-problem-inhomog
 \left\{
 \begin{alignedat}{2}
-- \Delta u + u &= f & &\quad \text{in } \Omega \\
+- \Delta u &= f & &\quad \text{in } \Omega \\
          u &= g_D & &\quad \text{on } \Gamma
 \end{alignedat}
 \right.
 ```
-Compared to our previous weak formulation for the homogenous,
-the main question is now: how can we incorporate the non-homogenous
+Compared to our previous weak formulation for the homogeneous problem,
+the main question is now: how can we incorporate the inhomogeneous
 Dirichlet b.c. $u = g_D$? First, we realize that
-the trial function $H^1_0(\Omega)$ for the solution does not 
+the trial space $H^1_0(\Omega)$ for the solution does not 
 make sense anymore. So let's start from $H^1(\Omega)$. Then
 we also observe that the data $g_D$ should be in 
 $H^{1/2}(\Gamma)$, see {prf:ref}`def:honehalf` to ensure
 that we can satisfy the equation $u = g_D$,
-and only $u$ satisfying this b.c. should be vialable solution candidates
+and only $u$ satisfying this b.c. should be viable solution candidates
 for our weak formulation. Thus we set
 ```{math}
 H^1_{g_D}(\Omega) := 
@@ -272,27 +283,27 @@ $H^1_{g_D}(\Omega)$ is not really a vector space whenever
 $g_D$ is not $0$ everywhere since the addition of 
 two functions $u_1, u_2$ with the same non-vanishing boundary data $g_D$ will result in
 a function $u$ satisfying $u = 2 g_D$!
-Is that sense, $H^1_{g_D}(\Omega)$ should rather be considered as **affine** subspace:
-For any $u_{g_D}$ satfying $\gamma(u_{g_D}) = g_D$, it holds that
+In that sense, $H^1_{g_D}(\Omega)$ should rather be considered an **affine** subspace:
+For any $u_g$ satisfying $\gamma(u_g) = g_D$, it holds that
 ```{math}
-H^1_{g_D}(\Omega) = u_{g_D} + H^1_0(\Omega)
-                  := \{ u_{g_D} + v \st v \in H^1_0(\Omega) \}
+H^1_{g_D}(\Omega) = u_g + H^1_0(\Omega)
+                  := \{ u_g + v \st v \in H^1_0(\Omega) \}
                    = \gamma^{-1}(g_D).
 ```
 So the resulting weak formulation is
 Find $u \in V := H^1_{g_D}(\Omega)$ such that
 for all $v \in \widehat{V} := H^1_0(\Omega)$,
 ```{math}
-\underbrace{\int_{\Omega} \nabla u \cdot\nabla v\dx}_{=:a(u,v)} = \underbrace{\int_{\Omega} f v \dx}_{=:l(v)}.
+\underbrace{\int_{\Omega} \nabla u \cdot\nabla v}_{=:a(u,v)} = \underbrace{\int_{\Omega} f v}_{=:l(v)}.
 ```
 Note how in this case the trial function space and test function space
 are not identical any more!  How can we prove the well-posedness of
 this weak formulation? Lax-Milgram usually requires that the first and
-second slot of $a(\cdot, \cdot)$ invokes elements from the same
+second slots of $a(\cdot, \cdot)$ invoke elements from the same
 (vector) space!  The common trick here is to "**lift**" the boundary
 condition, i.e. we know that by the definition of $H^{1/2}(\Gamma)$
-there must a $u_g \in H^1(\Omega)$ such that $\gamma_{u_g} = g_D$. 
-Then we make the ansatz $u = u_0 + u_g$ and with $u_0 \in
+there must be a $u_g \in H^1(\Omega)$ such that $\gamma(u_g) = g_D$. 
+Then we make the ansatz $u = u_0 + u_g$ with $u_0 \in
 H^1_0(\Omega)$, leading to the following weak formulation: find $u_0
 \in H^1_0(\Omega) =: V$ such that
 ```{math}
@@ -317,11 +328,23 @@ Finally, we consider the Robin problem
 \end{alignedat}
 \right.
 ```
-for some constant $\sigma > 0$.
+where $\sigma \in L^{\infty}(\Gamma)$ satisfies
+$\sigma \geqslant \sigma_0 > 0$ almost everywhere on $\Gamma$.
 
 ```{exercise} Weak formulation of the Robin problem
 :label: ex:robin-weak-formulation
 Derive a weak formulation for the Robin problem and show that it is well-posed.
+```
+
+```{hint}
+:class: dropdown
+Multiplying with a test function $v \in H^1(\Omega)$ and inserting the Robin
+condition produces a bilinear form which carries an additional boundary term
+$\int_{\Gamma} \sigma u v$. Coercivity on $H^1(\Omega)$ is the assumption
+requiring care here: it does not follow from the
+{prf:ref}`Poincaré inequality<thm:poincare>` alone, since the constants do not
+belong to $H^1_0(\Omega)$, but from a Poincaré-type inequality involving the
+boundary term. This is where $\sigma \geqslant \sigma_0 > 0$ enters.
 ```
 
 (sec:weak-form-general-pdes)=
@@ -338,12 +361,12 @@ where $A = (a_{ij}(x))_{i,j=1}^n$ is a pointwise defined matrix.
 Note that
 ```{math}
 :label: eq:def-A-operator
-\nabla \cdot ( A(x) \nabla u(x))
-= 
+\mcA u = - \nabla \cdot ( A(x) \nabla u(x))
+=
 -\sum_{i,j=1}^n \partial_{i} (a_{ij}(x) \partial_{j} u(x))
 ```
 
-For most part of the remaining lectures, we will require $A(x)$
+For most of the remaining lectures, we will require $A(x)$
 to satisfy the following definition.
 
 ```{prf:definition} Ellipticity of $\mcA$ 
@@ -351,19 +374,20 @@ to satisfy the following definition.
 
 The partial differential operator $\mcA$ given
 by {eq}`eq:def-A-operator` with coefficients
-$A = (a_{ij})_{i,j=1}^N \in (L^{\infty}(\Omega))^{n\times n}$
-is called elliptic  constant $\alpha > 0$ such that
+$A = (a_{ij})_{i,j=1}^n \in (L^{\infty}(\Omega))^{n\times n}$
+is called **(uniformly) elliptic** if there exists a constant $\alpha > 0$ such that
 * $ \lambda \cdot  A(x) \lambda \geqslant \alpha |\lambda|^2$
 
-for any $\lambda \in \RR^n$.
+for all $\lambda \in \RR^n$ and almost every $x \in \Omega$.
 ```
 
 ```{prf:remark}
 Note that $A \in (L^{\infty}(\Omega))^{n\times n}$ also implies that
-that there exists an $\beta \geqslant 0 $ such that also
+there exists a $\beta \geqslant 0 $ such that also
 * $|A(x) \lambda| \leqslant \beta  |\lambda|$
 
-holds for any $\lambda \in \RR^n$, and by ellipticity, we can
+holds for all $\lambda \in \RR^n$ and almost every $x \in \Omega$, and by
+ellipticity, we can
 conclude that in fact $\beta \geqslant \alpha > 0$.
 ```
 ```{exercise} Boundedness of the coefficient matrix
@@ -376,24 +400,25 @@ Prove the statements made in the previous remark
 * Explain why general $A(x)$ is useful, e.g. anisotropic heat conduction problems
 ```
 
-We now prepared to investigate the well-posedness of a number of boundary value
+We are now prepared to investigate the well-posedness of a number of boundary value
 problems where we supplement the partial differential operator 
 $\mcA$ with one of the following boundary conditions
 
 * **Dirichlet boundary conditions** 
-   Given function  $g_D: \Gamma  \to \RR$, we require that
+   Given a function  $g_D: \Gamma  \to \RR$, we require that
 
   ```{math}
-  u = u_D \quad \text{on } \Gamma
+  u = g_D \quad \text{on } \Gamma
   ```
 * **Neumann boundary conditions** 
-   Given function  $g_N: \Gamma  \to \RR$, we require that
+   Given a function  $g_N: \Gamma  \to \RR$, we require that
 
   ```{math}
   \bfn \cdot A \nabla u = g_N \quad \text{on } \Gamma 
   ```
 * **Robin boundary conditions** 
-   Given functions $g_R, \sigma: \Gamma  \to \RR$, we require that
+   Given $g_R \in L^2(\Gamma)$ and $\sigma \in L^{\infty}(\Gamma)$ with
+   $\sigma \geqslant \sigma_0 > 0$ almost everywhere on $\Gamma$, we require that
 
   ```{math}
   \bfn \cdot A \nabla u = \sigma(g_R - u) \quad \text{on } \Gamma 
@@ -401,7 +426,7 @@ $\mcA$ with one of the following boundary conditions
 
 These boundary conditions are called *homogeneous* if $g_D$ (respectively $g_N$, $g_R$)
 is zero, otherwise we deal with *inhomogeneous* boundary data.
-We start by looking at the Poisson supplemented with Neumann boundary conditions
+We start by looking at the Poisson problem supplemented with Neumann boundary conditions
 
 ```{admonition} TODO
 :class: :danger :dropdown

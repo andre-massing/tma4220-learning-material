@@ -22,7 +22,7 @@ kernelspec:
 
 ## Course content and objectives
 
-* The course gives an introduction to **finite element methods** for the numerical solution of partial differential equations (PDEs. 
+* The course gives an introduction to **finite element methods** for the numerical solution of partial differential equations (PDEs). 
 
 * We will discuss the **strong** and **weak formulation** of prototypical PDEs including a brief review of the functional analysis related tools like Hilbert spaces, Sobolev spaces, Lax-Milgram.  
 
@@ -34,9 +34,9 @@ kernelspec:
 
 * We will also discuss the **efficient implementation and solution** of the finite element based solution schemes.
 
-* For time-dependent problems, we discuss how to combines the finite element with various **time discretization** approaches such as one-step or multi-step methods.
+* For time-dependent problems, we discuss how to combine the finite element with various **time discretization** approaches such as one-step or multi-step methods.
 
-* The **treatment of general boundary conditions** and **interface condition* will be discussed.
+* The **treatment of general boundary conditions** and **interface conditions** will be discussed.
 
 * If time permits, we will consider some examples of **nonlinear problems** as well.
 
@@ -45,7 +45,7 @@ To this end we will develop, theoretically analyze, and practically implement nu
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 
 ### Poisson problem 
-has a wide-range of applications in, e.g. thermodynamics, Newtonian gravity and electrostatics.
+has a wide range of applications in, e.g. thermodynamics, Newtonian gravity and electrostatics.
 In its simplest form, it takes the form
 
 ```{math}
@@ -56,8 +56,8 @@ u &= g &&\quad \text{on } \partial\Omega,
 \end{alignedat} 
 ```
 
-consisting of **PDE** part and a **boundary condition** part. Throughout the course we will discuss different type of boundary conditions
-and how they can build into the weak formulation and numerical FEM-schemes.
+consisting of **PDE** part and a **boundary condition** part. Throughout the course we will discuss different types of boundary conditions
+and how they can be incorporated into the weak formulation and numerical FEM-schemes.
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 
@@ -76,7 +76,7 @@ u(x,0) &= u_0(x) &&\quad \text{for } x \in \Omega
 
 consisting of the PDE, boundary conditions and **initial conditions**
 
-If time permits, we will also have a look at how to numerical solve nonlinear time-dependent problems such as
+If time permits, we will also have a look at how to numerically solve nonlinear time-dependent problems such as
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 
@@ -100,7 +100,7 @@ Find $u, v : \Omega \times (0, T] \to \mathbb{R}$ such that
 \partial_t v &= D_v \Delta v + u v^2 - (F + k) v &&\quad \text{in } \Omega \times (0, T],
 \end{alignedat}
 ```
-which must be supplemented with boundary conditions (b.c.) and inital conditions (i.c.)
+which must be supplemented with boundary conditions (b.c.) and initial conditions (i.c.)
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "fragment"}}
 
@@ -127,9 +127,9 @@ YouTubeVideo('nw2bPnhtxN8', width=800, height=500)
 
 ## Exercises
 
-* As part of (mostly handwritten) lectures notes and Jupyter-based learning material, I will distribute a number of problem sets containing both  **theoretical and implementation task** to help you digest the material. You don't have to submit solutions for those.
+* As part of (mostly handwritten) lectures notes and Jupyter-based learning material, I will distribute a number of problem sets containing both  **theoretical and implementation tasks** to help you digest the material. You don't have to submit solutions for those.
 
-* **We won't have a weekly exercise session**, but we will schedule regular exercise session when we are close to the conclusion of topical unit.
+* **We won't have a weekly exercise session**, but we will schedule regular exercise sessions when we are close to the conclusion of topical unit.
 
 * **Group work** is very much encouraged during the exercise sessions!
 
@@ -137,14 +137,14 @@ YouTubeVideo('nw2bPnhtxN8', width=800, height=500)
 
 * For **programming exercises**, implementation guides will be given when necessary, and you can use the exercise sessions to work on the implementation while I am hanging around :)
 
-* For a typical **theoretical exercise** meet-up, the idea is that each group picks a problem to work on the first 45 min. Then each group present their ideas for the solution after the break in the second 45 min (even if you won't be able to completely solve the exercise problem!). Presention is suppose to be very informal at the black/whiteboard, and open discussion are very much encouraged!
+* For a typical **theoretical exercise** meet-up, the idea is that each group picks a problem to work on the first 45 min. Then each group presents their ideas for the solution after the break in the second 45 min (even if you won't be able to completely solve the exercise problem!). Presentation is supposed to be very informal at the black/whiteboard, and open discussion is very much encouraged!
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 
 ## Passing and Grading
 
 * One final grade composed of the exam grade (75%) and the project grade (25%)
-* Project **is not mandatory** but you loose 25% of your points -> you can at most get a $C$ (if you get an $A$ in the exam!).
+* Project **is not mandatory** but you lose 25% of your points -> you can at most get a $C$ (if you get an $A$ in the exam!).
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 
@@ -156,10 +156,10 @@ YouTubeVideo('nw2bPnhtxN8', width=800, height=500)
 * Project work will consist of 3 phases
   * Phase 1: Initial implementation of the project and report writing (~2 weeks) with a first deadline.
 
-  * Phase 2: Peer review: Each group will assess and review another's group project, write a short assessment/feedback summary (~1 page) and present it to/discuss it with that group. This will be done during the exercise sessions. I will provide some assessment guidelines.
+  * Phase 2: Peer review: Each group will assess and review another group's project, write a short assessment/feedback summary (~1 page) and present it to/discuss it with that group. This will be done during the exercise sessions. I will provide some assessment guidelines.
     
 
-  * Phase 3: After the feedback receival, each group has time to improve their reports and incorporate the given feedback before final submission. If you don't agree with certain points in the received feedback, you can account for this in the report.
+  * Phase 3: After receiving the feedback, each group has time to improve their reports and incorporate the given feedback before final submission. If you don't agree with certain points in the received feedback, you can account for this in the report.
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 
@@ -182,7 +182,7 @@ We will settle for the lecture times (or possible alternative times) during a me
 
 ## Reading material
 
-A digital reading list consisting of book chapters from multiple source, handwritten and jupyter-based lectures
+A digital reading list consisting of book chapters from multiple sources, handwritten and jupyter-based lectures
 will be provided at
 <a href="https://wiki.math.ntnu.no/tma4220/2026h/start">wiki page</a>.
 
@@ -192,7 +192,7 @@ will be provided at
 
 * In the beginning, we will use the traditional Python software stack for scientific computing, i.e. numpy, scipy, matplotlib etc.
 * When we have understood the algorithmic realization of the finite element methods, we will switch to the open source finite element library
-* <a href="https://ngsolve.org/">ngsolve</a> which provides with a high-level Python interface to solve PDE complex problems
+* <a href="https://ngsolve.org/">ngsolve</a> which provides a high-level Python interface to solve complex PDE problems
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 

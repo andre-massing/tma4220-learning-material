@@ -16,11 +16,11 @@ d(x,y): X \times X \to \RR.
 converges to some $x \in X$.
 
 [Normed vector space](https://en.wikipedia.org/wiki/Metric_space)
-: A vector space $(V, \|\cdot\|_V)$ consist of a vector space $V$ which is 
+: A vector space $(V, \|\cdot\|_V)$ consists of a vector space $V$ which is 
 equipped with a [norm](https://en.wikipedia.org/wiki/Norm_(mathematics)) 
 
 ```{math}
-\| \cdot \|_V : V \to \RR
+\| \cdot \|_V : V \to [0,\infty)
 ``` 
 
 Note that every norm induces a natural metric $d(x, y) := \|x-y\|_V$.
@@ -33,45 +33,52 @@ the context.
 : A normed vector space which is complete with respect to the induced metric.
 
 [Inner product space](https://en.wikipedia.org/wiki/Inner_product_space)
-: An inner product space $\bigl(V, (\cdot, \cdot)\bigr)_V$ is a real 
-(or complex) vector space $V$ equipped with a [inner product](https://en.wikipedia.org/wiki/Inner_product_space#Basic_properties)
+: An inner product space $\bigl(V, (\cdot, \cdot)_V\bigr)$ is a real
+vector space $V$ equipped with an [inner product](https://en.wikipedia.org/wiki/Inner_product_space#Basic_properties)
     
 ```{math}
-(\cdot, \cdot)_V : V \times V \to \RR \quad (\text{or } \CC )
+(\cdot, \cdot)_V : V \times V \to \RR
 ``` 
 
 Every inner product induces a natural norm $\| \cdot \| := \sqrt{(\cdot, \cdot)}$, and thereby a metric. 
 Again, we typically do not use the verbose notation $\bigl(V, (\cdot,
-\cdot)\bigr)$, instead we simply speak of a inner product space $V$,
+\cdot)\bigr)$, instead we simply speak of an inner product space $V$,
 and we often omit the subscript $_V$
-in $(\cdot, \cdot)_V$ symbol when the inner product is clear from
+in the $(\cdot, \cdot)_V$ symbol when the inner product is clear from
 the context.
 
 Inner products satisfy the *Cauchy-Schwarz inequality:*
 ```{math}
-(u,v)_V \leqslant \|u\|_V \|v\|_V.
+|(u,v)_V| \leqslant \|u\|_V \|v\|_V.
 ```
 <!-- and inequality only holds -->
 
 
+[Hilbert space](https://en.wikipedia.org/wiki/Hilbert_space)
+: An inner product space which is complete with respect to the induced norm;
+equivalently, a Banach space whose norm is induced by an inner product.
+
 [Bounded linear operator](https://en.wikipedia.org/wiki/Operator_(mathematics)#Bounded_operators)
 : A linear operator $L: V \to W$ between two normed vector spaces 
 $(V, \|\cdot\|_V)$ and $(W, \|\cdot\|_W)$
-is call bounded if there is a constant $C \in \RR^+_0$ such that
+is called bounded if there is a constant $C \in \RR^+_0$ such that
 ```{math}
 \| L v \|_W \leqslant C \|v\|_V.
 ```
 
-The *operator norm* $\|L\|_{V\to W}$ of $T$ is then the smallest such constant given by 
+The *operator norm* $\|L\|_{V\to W}$ of $L$ is then the smallest such constant given by 
 ```{math}
 \begin{aligned}
 \|L\|
-&= \inf \{C \in \RR^+_0 : \|L v \|_W \leqslant \|v\|_V \, \forall v \in V\} \\
+&= \inf \{C \in \RR^+_0 : \|L v \|_W \leqslant C \|v\|_V \, \forall v \in V\} \\
 & = \sup_{v \in V \setminus \{0\}} \dfrac{\|L v \|_W}{\|v\|_V} \\
 & = \sup_{v \in V, \|v\|_V = 1} \|L v \|_W.
 \end{aligned}
 ```
-It can be shown that the the following statements are equivalent for **linear operators**:
+As for norms, we omit the subscript ${}_{V \to W}$ and simply write $\|L\|$
+whenever no confusion can arise.
+
+It can be shown that the following statements are equivalent for **linear operators**:
 * $L: V \to W$ is bounded
 * $L: V \to W$ is continuous
 
@@ -81,35 +88,34 @@ It can be shown that the the following statements are equivalent for **linear op
 Before you look up the proof, try to prove the previous claim yourself.
 ```
 
-A linear operator $l : V \to \RR \; (\text{or } \CC )$ is often called
+A linear operator $l : V \to \RR$ is often called
 a *linear functional* or a *linear form* on $V$.
 
 Dual space
-: The dual space $V^*$ for a normed vector space $(V, \|\cdot\|)$ consist
+: The dual space $V'$ for a normed vector space $(V, \|\cdot\|)$ consists
 of all **continuous** linear functionals defined on $V$.
 
-Note that for inner product spaces $V$, every $u \in V$ give rise to a 
+Note that for inner product spaces $V$, every $u \in V$ gives rise to a 
 continuous linear functional $l_u$ defined by
 ```{math}
 l_u(v) := (v, u)_V \quad \forall v \in V.
 ```
 
-For Hilbert space $H$, that is in essence all the continuous linear functionals
+For a Hilbert space $H$, that is in essence all the continuous linear functionals
 you can construct on $H$ thanks to the following theorem.
 
-Riesz representation theorem 
 ````{prf:theorem} Riesz representation theorem
 :label: thm-riesz-representation
 
-Let $H$ be a Hilbert space with a inner product $(\cdot, \cdot)$. Then for
-every continuous functional $l:H \to \RR$, there is a unique vector $u_l \in H$
+Let $H$ be a Hilbert space with an inner product $(\cdot, \cdot)$. Then for
+every continuous linear functional $l:H \to \RR$, there is a unique vector $u_l \in H$
 such that
 ```{math}
 l(v) = (v, u_l) \quad \forall v \in H,
 ```
-and we have that
+and we have
 ```{math}
-\| l_u \|_{V^*} = \| u \|_{V}.
+\| l \|_{H'} = \| u_l \|_{H}.
 ```
 ````
 

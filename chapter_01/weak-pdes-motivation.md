@@ -3,13 +3,13 @@
 
 ## Towards a weak formulation of the Poisson problem
 The concept of a *weak formulation* of a PDE and the corresponding
-analysis of the well-posedness of this formulation plays a central role
+analysis of the well-posedness of this formulation play a central role
 in the design and analysis of finite element methods.
 
 The point of departure for this theory is the insight that a ("regular enough")
 function $u$ on an open set $\Omega \subseteq \RR^n$ can be identified by considering
 all its weighted integrals $\int_{\Omega} u v$ if the **weight or test function**
-$v$ is coming from a rich enough space:
+$v$ comes from a rich enough space:
 
 ````{prf:lemma} Fundamental lemma of calculus of variations
 :label: lem-fundamental-calc-var
@@ -124,7 +124,7 @@ Exercise.
 ```
 
 With the previous lemma at our disposal, we consider the
-"Hello world" example of a 2nd order, elliptic PDE,
+"Hello world" example of a 2nd-order elliptic PDE,
 namely the **Poisson problem**: Find a function $u : \Omega \to \RR$ s.t.
 
 ```{math}
@@ -165,7 +165,7 @@ canonical measures.
 
 Now we need to recall some analysis tools to reformulate {eq}`eq:poisson-weighted`.
 In particular, we need to recall the Gauß theorem and its relatives.
-Gauß' theorem holds only on certain domain types, and throughout this course
+The Gauß theorem holds only on certain domain types, and throughout this course
 we require $\Omega$ to be at least a $C^1$-polyhedron:
 
 ````{prf:definition} $C^1$-polyhedron
@@ -191,6 +191,58 @@ we require $\Omega$ to be at least a $C^1$-polyhedron:
 * An open domain $\Omega \subseteq \RR^n$ is called a **$C^1$-polyhedron** if
   $\partial_s \Omega$ is an $(n-1)$-dimensional null set.
 ````
+
+For a regular boundary point $\overline{x} \in \partial_r \Omega$ with a
+defining function $q$ as in {prf:ref}`def-c1-polyhedron`, we set
+```{math}
+:label: eq:outer-normal
+\bfn(\overline{x}) := \dfrac{\nabla q(\overline{x})}{|\nabla q(\overline{x})|}.
+```
+We call $\bfn(\overline{x})$ the **outer** (or outward) unit normal of $\Omega$
+at $\overline{x}$. The name is justified as follows: $q$ is negative on
+$\Omega \cap \mcN(\overline{x})$ and vanishes on the boundary piece
+$\partial\Omega \cap \mcN(\overline{x})$, so $\nabla q(\overline{x})$ points in
+the direction in which $q$ increases, that is, away from $\Omega$.
+
+Of course, a regular boundary point may admit many different defining
+functions $q$, and we should convince ourselves that they all lead to the same
+normal vector.
+
+````{prf:lemma} The outer unit normal is well defined
+:label: lem-outer-normal
+Let $\Omega \subseteq \RR^n$ be open and let
+$\overline{x} \in \partial_r \Omega$ be a regular boundary point. Then the
+vector $\bfn(\overline{x})$ defined in {eq}`eq:outer-normal` satisfies
+$|\bfn(\overline{x})| = 1$, and it does not depend on the choice of the
+defining function: if $q_1$ and $q_2$ both satisfy the conditions of
+{prf:ref}`def-c1-polyhedron` at $\overline{x}$, then they define one and the
+same vector $\bfn(\overline{x})$.
+````
+
+```{exercise} Well-definedness of the outer unit normal
+:label: exer-outer-normal
+Prove {prf:ref}`lem-outer-normal`.
+```
+
+```{hint}
+:class: dropdown
+Near $\overline{x}$, both defining functions vanish exactly on the same piece
+of $\partial\Omega$, so their zero level sets coincide there. Recall that the
+gradient of a $C^1$ function with non-vanishing gradient is orthogonal to its
+own zero level set. Hence $\nabla q_1(\overline{x})$ and
+$\nabla q_2(\overline{x})$ are both orthogonal to the same $(n-1)$-dimensional
+tangent space, and are therefore parallel. It remains to exclude opposite
+signs, which follows since $q_1$ and $q_2$ are negative on the same side of
+the boundary, namely on $\Omega$.
+```
+
+Since the outer unit normal is only available on the regular part
+$\partial_r \Omega$, integration over the boundary of a $C^1$-polyhedron is
+always understood as integration over the regular part of the boundary, that
+is, $\int_{\partial\Omega} := \int_{\partial_r \Omega}$. This is no
+restriction: by {prf:ref}`def-c1-polyhedron`, the singular boundary
+$\partial_s \Omega$ is an $(n-1)$-dimensional null set and therefore does not
+contribute to such integrals.
 
 ```{figure} figures/c1-polyhedron-sketch.svg
 :label: fig-c1-polyhedron
@@ -263,7 +315,13 @@ Deduce {eq}`eq:green-a`--{eq}`eq:green-d` from the Gauß theorem.
 ```
 
 Now we can return to the integral equation in {eq}`eq:poisson-weighted` and
-rewrite it via {eq}`eq:green-b` to see that
+rewrite it via {eq}`eq:green-b`. Note that {eq}`eq:green-b` is stated for
+$u \in C^2(\overline{\Omega})$, while we only assumed
+$u \in C^2(\Omega) \cap C(\overline{\Omega})$. This is not a problem here:
+since $v \in C^{\infty}_c(\Omega)$ vanishes outside a compact subset of
+$\Omega$, we may apply {eq}`eq:green-b` on a subdomain
+$\Omega' \Subset \Omega$ containing $\operatorname{supp} v$, so that no
+regularity of $u$ up to $\partial\Omega$ is required. We thus see that
 $-\Delta u(x) = f(x) \;\; \forall x \in \Omega \Leftrightarrow$
 
 ```{math}
@@ -272,7 +330,7 @@ $-\Delta u(x) = f(x) \;\; \forall x \in \Omega \Leftrightarrow$
 = - \int_{\Omega} \Delta u \, v
 = \int_{\Omega} \nabla u \cdot \nabla v
 - \underbrace{\int_{\partial\Omega} \partial_n u \, v}_{= \, 0
-\text{ since } v|_{\partial\Omega} = 0}
+\text{ since } v \text{ vanishes near } \partial\Omega}
 = \int_{\Omega} \nabla u \cdot \nabla v
 \quad \forall v \in C^{\infty}_c(\Omega).
 ```
@@ -294,12 +352,13 @@ is used to enforce the boundary condition $u = 0$ on $\partial\Omega$,
 which is **not** directly imposed in our integral rewrite of the PDE part,
 as $C^{\infty}_c(\Omega)$ test functions "don't see" the boundary.
 
-* Also note that for each $u$ that solves {eq}`eq:poisson-almost-weak`,
-  $u + \text{constant}$ also solves {eq}`eq:poisson-almost-weak`!
+* Note that the integral identity in {eq}`eq:poisson-almost-weak` alone does
+  not determine $u$: if $u$ satisfies it, so does $u + c$ for every constant
+  $c$, since $\nabla (u + c) = \nabla u$. It is precisely the membership
+  $u \in C_0(\overline{\Omega})$ which removes this non-uniqueness.
 
 * Note that {eq}`eq:poisson-almost-weak` uses different function spaces for
-  $u$ and $v$, which differ in their differentiability requirements, despite
-  the fact that the expression $\int_{\Omega} \nabla u \cdot \nabla v$
+  $u$ and $v$, which differ in their differentiability requirements, although the expression $\int_{\Omega} \nabla u \cdot \nabla v$
   requires precisely $1$ derivative.
 
 So to make sense of $\int_{\Omega} \nabla u \cdot \nabla v$, we need two things:
@@ -310,16 +369,16 @@ Point 1. says something about **differentiability**, point 2. about **integrabil
 properties of $u$ and $v$.
 
 So the main idea of the weak formulation is to
-   * cast the strong PDE into a so-called weak formulation of the form {eq}`eq:poisson-almost-weak`
+   * to cast the strong PDE into a so-called weak formulation of the form {eq}`eq:poisson-almost-weak`
    which uses the weighted integral form 
    * to use suitable function spaces with relaxed differentiability and certain integrability properties 
-   so that weak formulation still makes sense, 
+   so that the weak formulation still makes sense, 
    * to use the tools of functional analysis to prove well-posedness of the weak formulation.
 
 The well-posedness of the weak formulation will then typically only
 guarantee solutions in a weaker sense than the strong formulation.
 To obtain "classical" solutions with the desired differentiability properties, one typically then needs to invoke **regularity theory**,
-which we only will discuss very briefly in this course.
+which we will only discuss very briefly in this course.
 
 In the next two sections, we will introduce the necessary tools from [functional analysis](#sec:functional-analysis)
  and [Sobolev spaces](#ssec:sobolev-spaces) to make the above ideas precise. 

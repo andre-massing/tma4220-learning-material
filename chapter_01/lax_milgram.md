@@ -10,9 +10,10 @@ Throughout this section, we rely on the concepts and results collected in
 
 ````{prf:theorem} Lax-Milgram
 :label: thm-lax-milgram
-Given a Hilbert space $(V,\| \cdot\|)$, a bilinear form
-$a(\cdot, \cdot): V \times V \to \RR$ (or $\CC$), and a linear form 
-$l(\cdot): V \to \RR$ (or $\CC$). Then the problem: Find $u \in V$ such 
+Given a real Hilbert space $\bigl(V, (\cdot,\cdot)\bigr)$ with induced norm
+$\| \cdot \| := (\cdot,\cdot)^{1/2}$, a bilinear form
+$a(\cdot, \cdot): V \times V \to \RR$, and a linear form
+$l(\cdot): V \to \RR$, the problem: Find $u \in V$ such 
 that 
 ```{math}
 :label: eq:lax-milgram-problem
@@ -43,12 +44,7 @@ Moreover, the solution $u$ satisfies the stability (or a priori) estimate
 
 ````{prf:proof}
 
-We give the proof for a real Hilbert space $V$. The complex case is completely
-analogous; one only has to work with sesquilinear forms and to replace the
-coercivity assumption {eq}`eq:lax-milgram-coerc` by
-$\Re \, a(v,v) \geqslant \alpha \|v\|^2$.
-
-If $V = \{0\}$ the assertion is trivial, so we assume $V \neq \{0\}$ from now on.
+If $V = \{0\}$, the assertion is trivial, so we assume $V \neq \{0\}$ from now on.
 In that case, testing {eq}`eq:lax-milgram-bounded-a` and {eq}`eq:lax-milgram-coerc`
 with $v = w \neq 0$ shows that $0 < \alpha \leqslant C_a$; in particular $C_a > 0$.
 
@@ -56,14 +52,14 @@ with $v = w \neq 0$ shows that $0 < \alpha \leqslant C_a$; in particular $C_a > 
 
 Fix $u \in V$. Then $v \mapsto a(u, v)$ is a linear form on $V$, which by the
 boundedness {eq}`eq:lax-milgram-bounded-a` of $a$ is continuous with
-$\| a(u, \cdot) \|_{V^{\ast}} \leqslant C_a \|u\|$. The
+$\| a(u, \cdot) \|_{V'} \leqslant C_a \|u\|$. The
 {prf:ref}`Riesz representation theorem<thm-riesz-representation>` therefore provides a **unique** element
 of $V$, which we denote by $A u$, such that
 ```{math}
 :label: eq:lax-milgram-def-A
 a(u, v) = (A u, v) \quad \forall v \in V,
 \qquad \text{and} \qquad
-\|A u\| = \| a(u, \cdot) \|_{V^{\ast}} \leqslant C_a \|u\|.
+\|A u\| = \| a(u, \cdot) \|_{V'} \leqslant C_a \|u\|.
 ```
 This defines a map $A: V \to V$, which is linear: for $u_1, u_2 \in V$ and
 $\lambda \in \RR$, the bilinearity of $a$ gives
@@ -85,20 +81,22 @@ bounded linear form $l$ yields a unique $f \in V$ with
 :label: eq:lax-milgram-def-f
 l(v) = (f, v) \quad \forall v \in V,
 \qquad \text{and} \qquad
-\|f\| = \|l\|_{V^{\ast}} \leqslant C_l.
+\|f\| = \|l\|_{V'} \leqslant C_l.
 ```
 
 In total, we thus have
 ```{math}
 (A u, v) = a(u, v) = l(v) = (f, v) \quad \forall v \in V,
 ```
-and therefore problem {eq}`eq:lax-milgram-problem` 
+and therefore, for the element $f \in V$ representing $l$ in the sense of
+{eq}`eq:lax-milgram-def-f`, problem {eq}`eq:lax-milgram-problem`
 is equivalent to the operator equation
 ```{math}
 :label: eq:lax-milgram-operator-eq
-\text{For every } f \in V, \text{ there is a unique } u \in V \text{ such that } \quad A u = f.
+A u = f.
 ```
-which in turn is equivalent to the statement that $A$ is bijective,
+Unique solvability of {eq}`eq:lax-milgram-operator-eq` for *every* $f \in V$ is
+in turn equivalent to the statement that $A$ is bijective,
 while the stability estimate {eq}`eq:lax-milgram-stab` is equivalent to
 the boundedness of the inverse operator $A^{-1}$.
 
@@ -107,13 +105,14 @@ For a non-zero $u \in V$,
 ```{math}
 \alpha \|u\|^2 \leqslant a(u, u) = (A u, u) \leqslant \|A u\| \, \|u\|
 ```
-thanks to coericivity {eq}`eq:lax-milgram-coerc`, and dividing by $\|u\|$ and $\alpha>0$ gives
+thanks to coercivity {eq}`eq:lax-milgram-coerc` and the Cauchy-Schwarz
+inequality, and dividing by $\|u\|$ and $\alpha>0$ gives
 the important lower bound for $Au$
 ```{math}
 :label: eq:lax-milgram-A-lower-bound
 \|u\| \leqslant \frac{1}{\alpha} \|A u\|.
 ```
-(For $u=0$ the inequality is trivially satisfied.) This lower bound is crucial,
+(For $u=0$ the inequality is trivially satisfied.) This lower bound is crucial;
 we will use it to show that $A$ is injective and that its range
 ```{math}
 :label: eq:lax-milgram-range
@@ -189,7 +188,7 @@ Together with the norm identity in {eq}`eq:lax-milgram-def-f`, the solution
 $u = A^{-1} f$ therefore satisfies
 ```{math}
 \|u\| \leqslant \dfrac{1}{\alpha} \| A u \| = \dfrac{1}{\alpha} \| f \|
-= \dfrac{1}{\alpha} \| l \|_{V^{\ast}} \leqslant \dfrac{C_l}{\alpha},
+= \dfrac{1}{\alpha} \| l \|_{V'} \leqslant \dfrac{C_l}{\alpha},
 ```
 which is the desired stability estimate {eq}`eq:lax-milgram-stab`.
 
@@ -213,8 +212,10 @@ instead. In that case $C_l = 0$ and thus $0\leqslant\|u_1 - u_2 \| \leqslant \tf
 
 The existence part of the previous proof was non-constructive: it relied on the
 {prf:ref}`orthogonal decomposition theorem<thm-orthogonal-decomposition>` to conclude
-that $\mathrm{ran}(A) = V$. The following alternative argument replaces Steps 3 and 4
-by a fixed-point iteration, which has the advantage of being constructive.
+that $\mathrm{ran}(A) = V$. The following alternative argument replaces Step 3
+by a fixed-point iteration, which has the advantage of being constructive;
+the stability estimate is then obtained as in the second, direct argument of
+Step 4.
 
 ````{admonition} Alternative existence proof via a contraction argument
 :class: dropdown
@@ -295,8 +296,14 @@ The {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>` ensures that
 problem {eq}`eq:lax-milgram-problem`
 is well-posed, i.e.,
 * **Existence** of a solution
-* **Uniquessness** of the solution
-* **Continuous dependency on the data** (or **Stability**) of the solution.
-  In the particular case of {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>`, stability is guaranteed through {eq}`eq:lax-milgram-stab` which implies that
-  "small changes" in $a$ and $l$ will only lead to small changes in the solution $u$.
+* **Uniqueness** of the solution
+* **Continuous dependence on the data** (or **Stability**) of the solution.
+  In the particular case of the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>`,
+  stability is guaranteed through {eq}`eq:lax-milgram-stab`: applying it to the
+  difference of the solutions $u_1, u_2$ associated with two right-hand sides
+  $l_1, l_2$ yields
+  $\|u_1 - u_2\| \leqslant \alpha^{-1} \| l_1 - l_2 \|_{V'}$, so that "small
+  changes" in the data $l$ will only lead to small changes in the solution $u$.
+  Perturbations of the bilinear form $a$ require a separate argument, which we
+  will encounter later in the form of Strang's lemma.
 ```
