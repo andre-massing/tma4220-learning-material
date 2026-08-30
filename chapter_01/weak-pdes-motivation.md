@@ -128,11 +128,11 @@ namely the **Poisson problem**: Find a function $u : \Omega \to \RR$ s.t.
 
 ```{math}
 :label: eq:poisson-strong-form
-\begin{alignat}{2}
+\begin{alignedat}{2}
 -\nabla \cdot (\nabla u(x)) = - \Delta u(x) &= f(x) &&\quad \forall x \in \Omega,
 \\
 u(x) &= 0 &&\quad \forall x \in \partial\Omega,
-\end{alignat}
+\end{alignedat}
 ```
 
 for a given function $f : \Omega \to \RR$. This is called the **strong formulation**
@@ -318,5 +318,5 @@ guarantee solutions in a weaker sense than the strong formulation.
 To obtain "classical" solutions with the desired differentiability properties, one typically then needs to invoke **regularity theory**,
 which we only will discuss very briefly in this course.
 
-In the next two sections, we will introduce the necessary tools from [functional analysis](sec:functional-analysis)
- and [Sobolev spaces](ssec:sobolev-spaces) to make the above ideas precise. 
+In the next two sections, we will introduce the necessary tools from [functional analysis](#sec:functional-analysis)
+ and [Sobolev spaces](#ssec:sobolev-spaces) to make the above ideas precise. 

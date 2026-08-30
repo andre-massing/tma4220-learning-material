@@ -175,11 +175,13 @@ in $L^1_{\mathrm{loc}}(\Omega)$.
 ````{prf:proof}
 For
 two weak derivatives $u_{\alpha}$ and $\tilde{u}_{\alpha}$ we have that
-\begin{align}
+```{math}
+\begin{aligned}
 \int_{\Omega} u_{\alpha} \phi &= (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi dx
 \\
 \int_{\Omega} \tilde{u}_{\alpha} \phi &= (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi dx
-\end{align}
+\end{aligned}
+```
 and by substracting the second from the first inequality, we obtain that 
 ```{math}
 \int_{\Omega}
@@ -192,12 +194,12 @@ by {prf:ref}`lem:uniqueness-by-testing`.
 ````{exercise} Relation between the modulus function and the Heaviside function
 Let $\Omega = (-1,1)$ and set
 ```{math}
-\begin{align}
+\begin{aligned}
 u(x) &= |x| \\
 H(x) &= \begin{cases} -1 &\quad x \in (-1,0) \\ 
                       1  &\quad x \in [0, 1)
         \end{cases}
-\end{align}
+\end{aligned}
 ```
 By simply using the definition of the weak derivative, show that
 $H(x)$ is the weak derivative of $u$.

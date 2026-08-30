@@ -64,12 +64,12 @@ is call bounded if there is a constant $C \in \RR^+_0$ such that
 
 The *operator norm* $\|L\|_{V\to W}$ of $T$ is then the smallest such constant given by 
 ```{math}
-\begin{align}
+\begin{aligned}
 \|L\|
 &= \inf \{C \in \RR^+_0 : \|L v \|_W \leqslant \|v\|_V \, \forall v \in V\} \\
 & = \sup_{v \in V \setminus \{0\}} \dfrac{\|L v \|_W}{\|v\|_V} \\
 & = \sup_{v \in V, \|v\|_V = 1} \|L v \|_W.
-\end{align}
+\end{aligned}
 ```
 It can be shown that the the following statements are equivalent for **linear operators**:
 * $L: V \to W$ is bounded
