@@ -38,9 +38,7 @@ project:
         - file: chapter_01/weak_form_pdes.md
   exports:
     - format: pdf
-      # template: springer
       # template: plain_latex_book
-      # template: plain_typst_book
       # template: plain_typst_book
       template: ./templates/tma4220-book
       output: _build/exports/tma4220-learning-material.pdf
@@ -58,12 +56,8 @@ project:
         - file: chapter_01/weak_form_pdes.md
           level: 1
   math:
-    # Note the 'single quotes'
-    '\dobs': '\mathbf{d}_\text{obs}'
-    '\dpred': '\mathbf{d}_\text{pred}\left(#1\right)'
-    '\mref': '\mathbf{m}_\text{ref}'
-
     # Macros ported from notation.sty
+    # Note the 'single quotes'
     # Operators
     '\Div': '\mathrm{div}'
     '\Grad': '\mathrm{grad}'
@@ -126,7 +120,6 @@ project:
 
     # Roman/calligraphic
     '\mrm': '\mathrm{#1}'
-    # '\dpred': '\mathbf{d}_\text{pred}\left(#1\right)'
     '\mcA': '\mathcal{A}'
     '\mcK': '\mathcal{K}'
     '\mcN': '\mathcal{N}'
