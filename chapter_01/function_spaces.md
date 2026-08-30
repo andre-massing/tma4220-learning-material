@@ -77,6 +77,17 @@ If $f \in L^p(\Omega)$ and $g \in L^q(\Omega)$, then $f g \in L^1(\Omega)$ and
 ```
 ````
 
+```{prf:remark}
+For an open domain with finite measure $|\Omega| = \int_{\Omega} 1 \dx < \infty$, 
+Hölder's inequality implies that 
+$L^p(\Omega) \subset L^q(\Omega)$ for $1 \leqslant q \leqslant p \leqslant \infty$.
+```
+
+```{exercise}
+Proof this.
+```
+
+
 Among the Lebesgue spaces, $L^2(\Omega)$ plays a special role, as it can be
 endowed with an inner product.
 
@@ -130,6 +141,91 @@ instead of comparing their values at (almost) every point.
 Here, the "action" is simply the resulting number computed from multiplying the functions in question with the test function $\phi$
 and integrating over $\Omega$. 
 ```
+
+### Lebesque spaces with vanishing mean value
+
+For domains of finite measure it is often convenient to single out those
+$L^p$ functions whose average vanishes. Note that $|\Omega| < \infty$
+implies $L^p(\Omega) \subset L^1(\Omega)$, so that the integral in the
+following definition is well-defined for every $v \in L^p(\Omega)$.
+
+````{prf:definition} Mean value and Lebesque spaces with vanishing mean
+:label: def:mean-zero-lp
+Let $\Omega \subset \RR^n$ be an open domain of finite measure,
+$|\Omega| = \int_{\Omega} 1 \dx < \infty$.
+For $v \in L^1(\Omega)$, we call
+```{math}
+:label: eq:mean-value
+\overline{v} := \dfrac{1}{|\Omega|} \int_{\Omega} v \dx
+```
+the *mean value* (or *average*) of $v$ over $\Omega$.
+For $1 \leqslant p \leqslant \infty$, we then define
+```{math}
+:label: eq:mean-zero-lp
+L^p_{\#}(\Omega) :=
+\Bigl\{ v \in L^p(\Omega) \mid \int_{\Omega} v \dx = 0 \Bigr\}
+= \{ v \in L^p(\Omega) \mid \overline{v} = 0 \},
+```
+the subspace of $L^p$ functions with *vanishing mean value*.
+````
+
+Since $|\Omega| > 0$, the two descriptions in {eq}`eq:mean-zero-lp` indeed
+agree. Every $L^p$ function can be split into its mean value and a
+fluctuation around it.
+
+````{prf:lemma} Decomposition into mean value and fluctuation
+:label: lem:mean-zero-decomposition
+Let $\Omega$ be of finite measure and $1 \leqslant p \leqslant \infty$.
+Then every $v \in L^p(\Omega)$ can be written uniquely as
+```{math}
+:label: eq:mean-zero-decomposition
+v = \overline{v} + v_{\#},
+\qquad
+v_{\#} := v - \overline{v} \in L^p_{\#}(\Omega),
+```
+where the first summand is understood as a constant function on $\Omega$.
+In other words, $L^p(\Omega) = \RR \oplus L^p_{\#}(\Omega)$, and
+$L^p_{\#}(\Omega)$ is a closed subspace of $L^p(\Omega)$.
+````
+
+````{prf:proof}
+Constants belong to $L^p(\Omega)$ because $|\Omega| < \infty$, so
+$v_{\#} = v - \overline{v} \in L^p(\Omega)$, and
+```{math}
+\int_{\Omega} v_{\#} \dx
+= \int_{\Omega} v \dx - \overline{v} \, |\Omega|
+= \int_{\Omega} v \dx - \int_{\Omega} v \dx = 0,
+```
+so $v_{\#} \in L^p_{\#}(\Omega)$. For uniqueness, assume
+$v = c_1 + w_1 = c_2 + w_2$ with constants $c_i$ and
+$w_i \in L^p_{\#}(\Omega)$. Integrating over $\Omega$ and using
+$\int_{\Omega} w_i \dx = 0$ gives $c_1 |\Omega| = c_2 |\Omega|$, hence
+$c_1 = c_2$ and therefore $w_1 = w_2$.
+
+Closedness follows since $v \mapsto \int_{\Omega} v \dx$ is a continuous
+linear functional on $L^p(\Omega)$ --- by
+{prf:ref}`Hölder's inequality<lem:hoelder>` applied with $g \equiv 1$ ---
+and $L^p_{\#}(\Omega)$ is precisely its kernel.
+````
+
+```{prf:remark}
+For $p = 2$, the space $L^2_{\#}(\Omega)$ is a closed subspace of the
+Hilbert space $L^2(\Omega)$ and hence itself a Hilbert space with respect
+to the inner product from {prf:ref}`def:l2-inner-product`. Spaces of this
+type appear naturally whenever a boundary value problem determines its
+solution only up to an additive constant --- the pure Neumann problem being
+the prototypical example --- since normalizing the mean value to zero
+singles out exactly one representative.
+```
+
+```{exercise} Mean value as an orthogonal projection
+Show that the map $P : L^2(\Omega) \to L^2_{\#}(\Omega)$,
+$P v := v - \overline{v}$, is linear, satisfies $P^2 = P$, and is the
+orthogonal projection onto $L^2_{\#}(\Omega)$ with respect to
+$(\cdot, \cdot)_{L^2(\Omega)}$. Deduce that
+$\|v - \overline{v}\|_{L^2(\Omega)} \leqslant \|v\|_{L^2(\Omega)}$.
+```
+
 
 (ssec:sobolev-spaces)=
 ## Sobolev spaces
