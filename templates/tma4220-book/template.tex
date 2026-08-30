@@ -108,6 +108,27 @@
 
 \mainmatter
 
+% The first article (the kick-off lecture) is typeset as an unnumbered
+% chapter, so that the substantive chapters start at 1. MyST emits a plain
+% \chapter{...} for every article, so \chapter is wrapped in a one-shot
+% toggle: the first call becomes \chapter*, is added to the table of
+% contents by hand, and has section numbering switched off; every later
+% call restores normal numbering and behaves as usual.
+\newif\ifmystfirstchapter
+\mystfirstchaptertrue
+\let\mystorigchapter\chapter
+\renewcommand{\chapter}[1]{%
+  \ifmystfirstchapter
+    \mystfirstchapterfalse
+    \setcounter{secnumdepth}{-1}%
+    \mystorigchapter*{#1}%
+    \addcontentsline{toc}{chapter}{#1}%
+    \markboth{#1}{}%
+  \else
+    \setcounter{secnumdepth}{2}%
+    \mystorigchapter{#1}%
+  \fi}
+
 % \include{preface.tex}
 % \include{acknowledgements.tex}
 
