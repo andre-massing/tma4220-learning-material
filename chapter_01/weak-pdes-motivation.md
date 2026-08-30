@@ -318,5 +318,5 @@ guarantee solutions in a weaker sense than the strong formulation.
 To obtain "classical" solutions with the desired differentiability properties, one typically then needs to invoke **regularity theory**,
 which we only will discuss very briefly in this course.
 
-In the next two sections, we will introduce the necessary tools from [functional analysis](sec:functioal-analysis)
+In the next two sections, we will introduce the necessary tools from [functional analysis](sec:functional-analysis)
  and [Sobolev spaces](ssec:sobolev-spaces) to make the above ideas precise. 

@@ -159,7 +159,6 @@ on $V\times V$, and it is straightforward to
 show that $a(\cdot, \cdot)$ (being the $H^1$ inner product itself)
 satisfies the required assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`:
 ```{math}
-:nowrap: True
 :label: eq-lax-milgram-assump
 \begin{align}
 \text{Boundedness: }  a(v,w) &:= 
@@ -198,7 +197,6 @@ has a unique solution for every $f \in L^2(\Omega)$ with $\|u\|_{H^1(\Omega)} \l
 :class: :danger :dropdown
 Discuss Neumann problems when a) lower term is not present b) $g_N \neq 0$:
 ```{math}
-:nowrap: True
 \begin{equation}
 \left\{
 \begin{alignedat}{2}
@@ -210,7 +208,6 @@ Discuss Neumann problems when a) lower term is not present b) $g_N \neq 0$:
 ```
 and
 ```{math}
-:nowrap: True
 \begin{equation}
 \left\{
 \begin{alignedat}{2}
@@ -227,7 +224,6 @@ and
 ### Homogeneous Dirichlet problem for $-\Delta + \mathrm{Id}$ operator
 Next, we consider 
 ```{math}
-:nowrap: True
 :label: eq:dirichlet-problem-I
 \begin{equation}
 \left\{
@@ -295,7 +291,6 @@ is the Hilbert space on which they are posed on.
 Now, we consider a slightly modified problem Poisson problem where the
 low order term $u$ is left out:
 ```{math}
-:nowrap: True
 :label: eq:dirichlet-problem-II
 \begin{equation}
 \left\{
@@ -333,7 +328,6 @@ a(v,v) = \int_{\Omega} |\nabla v|^2 \geqslant (1 + C_p^2)^{-1/2} \|u\|_{1,\Omega
 ### Inhomogeneous Dirichlet problem for $-\Delta$ operator
 Next, we consider 
 ```{math}
-:nowrap: True
 :label: eq:dirichlet-problem-inhomog
 \begin{equation}
 \left\{
@@ -402,7 +396,6 @@ requires a little extra checking?
 ## Robin problems
 Finally, we consider the Robin problem
 ```{math}
-:nowrap: True
 \begin{equation}
 \left\{
 \begin{alignedat}{2}

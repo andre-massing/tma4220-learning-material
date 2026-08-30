@@ -1,4 +1,4 @@
-(sec:functioal-analysis)=
+(sec:functional-analysis)=
 # Relevant concepts from functional analysis
 
 Vector space

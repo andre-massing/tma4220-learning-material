@@ -3,9 +3,7 @@
 
 <!-- Later, when we have introduced the concept of weak formulation of partial differential equations, we will make heavily use of the  Lax-Milgram theorem. -->
 Throughout this section, we rely on the concepts and results collected in
-@sec:functioal-analysis, in particular the
-@sec:kick-off-meeting, in particular the
-<!-- {ref}`sec:functioal-analysis`, in particular the -->
+{ref}`sec:functional-analysis`, in particular the
 {prf:ref}`Riesz representation theorem<thm-riesz-representation>`, the
 {prf:ref}`orthogonal decomposition theorem<thm-orthogonal-decomposition>` and the
 {prf:ref}`Banach fixed-point theorem<thm-banach-fixed-point>`.
@@ -263,8 +261,7 @@ $u$ is the unique solution of {eq}`eq:lax-milgram-problem`.
 Note that the proof does **not** require the bilinear form $a$ to be symmetric.
 For symmetric $a$, the Lax-Milgram theorem reduces to the
 {prf:ref}`Riesz representation theorem<thm-riesz-representation>`,
-as you are asked to show in following
-[exercise](#exer-lax-milgram-symmetric).
+as you are asked to show in following exercise.
 ```
 
 ```{exercise} Lax-Milgram for symmetric bilinear forms
@@ -275,14 +272,8 @@ Prove the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>` in this simplified set
 including the stability estimate {eq}`eq:lax-milgram-stab`.
 ```
 
-<!-- ```{exercise} Linktest
-:label: linktest
-We are testing linking.
-```
-Now add a link [](#linktest) to the previous exercise. -->
-
-```{admonition} Hint
-:class: hint dropdown
+```{hint}
+:class: dropdown
 First show that $a(\cdot, \cdot)$ defines an inner product on $V$ whose
 induced *energy norm* $\|v\|_a := \sqrt{a(v,v)}$ is equivalent to $\|\cdot\|$,
 thanks to {eq}`eq:lax-milgram-bounded-a` and {eq}`eq:lax-milgram-coerc`.
@@ -296,8 +287,7 @@ The alternative contraction argument is constructive: the Picard iteration
 $u_{n+1} = u_n - \rho\,(A u_n - f)$ associated with {eq}`eq:lax-milgram-fixed-point-map`
 is nothing but a *preconditioned Richardson iteration* for the operator equation
 {eq}`eq:lax-milgram-operator-eq`, and {eq}`eq:lax-milgram-contraction` quantifies its
-convergence rate in terms of $\alpha$ and $C_a$. See also {cite}`Evans2010` for a
-further variant of the existence proof.
+convergence rate in terms of $\alpha$ and $C_a$. 
 ```
 
 ```{prf:remark}

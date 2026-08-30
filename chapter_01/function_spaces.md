@@ -4,7 +4,7 @@
 In this chapter we collect some results on various function space we will
 use throughout the book. One essential property of many function
 space we will consider is that they are *complete*, i.e. they are either 
-Banach or Hilbert space, see Section {ref}`sec:functioal-analysis`.
+Banach or Hilbert space, see Section {ref}`sec:functional-analysis`.
 
 
 ```{note}
