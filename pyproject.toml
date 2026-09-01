@@ -18,3 +18,7 @@ dependencies = [
     "sympy>=1.14.0",
     "tqdm>=4.70.0",
 ]
+
+[tool.jupytext]
+formats = "ipynb,md:myst"
+notebook_metadata_filter = "math,title,subtitle,authors,kernelspec,jupytext"
