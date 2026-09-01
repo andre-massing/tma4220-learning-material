@@ -27,13 +27,13 @@ curriculum on *Measure and Integration theory*, see Chapters 9-10 in
 To this end, 
 
 ````{prf:definition} Lebesgue spaces
-Let $\Omega \subset \RR^n$ be an open domain. 
+Let $\Omega \subset \mathbb{R}^n$ be an open domain. 
 
 Then
 the Lebesgue spaces $L^p(\Omega)$ are defined by
 ```{math}
 :label: eq:lebesque-spaces
-L^p(\Omega) = \{ f : \Omega \to \RR \text{ is measurable and } 
+L^p(\Omega) = \{ f : \Omega \to \mathbb{R} \text{ is measurable and } 
 \|f\|_{L^p(\Omega)} 
 < \infty
  \}.
@@ -61,7 +61,7 @@ We also introduce the space of *locally* $L^p$-integrable functions on $\Omega$;
 functions that are $L^p$ integrable on every compact subset $K \Subset \Omega$,
 ```{math}
 :label: eq:loc-lebesque-spaces
-L^p_{\mathrm{loc}}(\Omega) = \{ f: \Omega \to \RR | f \in L^p(K)  \; \forall K \Subset \Omega \}.
+L^p_{\mathrm{loc}}(\Omega) = \{ f: \Omega \to \mathbb{R} | f \in L^p(K)  \; \forall K \Subset \Omega \}.
 ```
 ````
 
@@ -168,7 +168,7 @@ following definition is well-defined for every $v \in L^p(\Omega)$.
 
 ````{prf:definition} Mean value and Lebesgue spaces with vanishing mean
 :label: def:mean-zero-lp
-Let $\Omega \subset \RR^n$ be an open domain of finite measure,
+Let $\Omega \subset \mathbb{R}^n$ be an open domain of finite measure,
 $|\Omega| = \int_{\Omega} 1 < \infty$.
 For $v \in L^1(\Omega)$, we call
 ```{math}
@@ -201,7 +201,7 @@ v = \overline{v} + v_{\#},
 v_{\#} := v - \overline{v} \in L^p_{\#}(\Omega),
 ```
 where the first summand is understood as a constant function on $\Omega$.
-In other words, $L^p(\Omega) = \RR \oplus L^p_{\#}(\Omega)$, and
+In other words, $L^p(\Omega) = \mathbb{R} \oplus L^p_{\#}(\Omega)$, and
 $L^p_{\#}(\Omega)$ is a closed subspace of $L^p(\Omega)$.
 ````
 
@@ -258,7 +258,7 @@ we see that
 - \int_{\Omega} u \partial_{x_i} \phi,
 ```
 and iterating this formula, we observe that for any multiindex
-$\alpha \in \NN_0^n$, where $\NN_0 := \NN \cup \{0\}$, with
+$\alpha \in \mathbb{N}_0^n$, where $\mathbb{N}_0 := \mathbb{N} \cup \{0\}$, with
 $|\alpha| \leqslant k$,
 ```{math}
 :label: eq:weak-deriv-alpha
@@ -272,7 +272,7 @@ sense even for $u\in L^1_{\mathrm{loc}}$ and not only $u\in C^k(\Omega)$.
 This leads to a possibility to generalize or weaken the classical definition of derivatives. 
 
 ````{prf:definition} Weak derivative
-Let $\alpha \in \NN_0^n$ be a multiindex and $u, u_{\alpha} \in L^1_{\mathrm{loc}}(\Omega)$.
+Let $\alpha \in \mathbb{N}_0^n$ be a multiindex and $u, u_{\alpha} \in L^1_{\mathrm{loc}}(\Omega)$.
 We say that $u_{\alpha}$ is *$\alpha$-th weak derivative* of $u$ if
 ```{math}
 \int_{\Omega}  u_{\alpha} \phi = 
@@ -372,13 +372,13 @@ For first order Sobolev spaces, we abbreviate the norm of the gradient by
 ```
 so that $\| u \|_{W^{1,p}(\Omega)}^p = \| u \|_{L^p(\Omega)}^p + \| \nabla u \|_{L^p(\Omega)}^p$.
 For $p = 2$, this agrees with $\bigl( \int_{\Omega} |\nabla u|^2 \bigr)^{1/2}$,
-where $|\cdot|$ denotes the Euclidean norm on $\RR^n$.
+where $|\cdot|$ denotes the Euclidean norm on $\mathbb{R}^n$.
 
 Later we will need the following important result known as Poincaré inequality.
 
 ````{prf:theorem} Poincaré inequality
 :label: thm:poincare
-Let $\Omega$ be an open and bounded subset of $\RR^n$ and let
+Let $\Omega$ be an open and bounded subset of $\mathbb{R}^n$ and let
 $1 \leqslant p < \infty$. Then there is a constant $C_P = C_P(p,n,\Omega)$ such that
 ```{math}
 :label: eq:poincare

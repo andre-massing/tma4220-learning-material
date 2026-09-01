@@ -8,7 +8,7 @@ Vector space
 : A metric space is a set $X$ which is equipped with a [distance function (or metric)](https://en.wikipedia.org/wiki/Metric_space#Definition)
 
 ```{math}
-d(x,y): X \times X \to \RR.
+d(x,y): X \times X \to \mathbb{R}.
 ```
 
 [Complete metric space](https://en.wikipedia.org/wiki/Complete_metric_space)
@@ -37,7 +37,7 @@ the context.
 vector space $V$ equipped with an [inner product](https://en.wikipedia.org/wiki/Inner_product_space#Basic_properties)
     
 ```{math}
-(\cdot, \cdot)_V : V \times V \to \RR
+(\cdot, \cdot)_V : V \times V \to \mathbb{R}
 ``` 
 
 Every inner product induces a natural norm $\| \cdot \| := \sqrt{(\cdot, \cdot)}$, and thereby a metric. 
@@ -61,7 +61,7 @@ equivalently, a Banach space whose norm is induced by an inner product.
 [Bounded linear operator](https://en.wikipedia.org/wiki/Operator_(mathematics)#Bounded_operators)
 : A linear operator $L: V \to W$ between two normed vector spaces 
 $(V, \|\cdot\|_V)$ and $(W, \|\cdot\|_W)$
-is called bounded if there is a constant $C \in \RR^+_0$ such that
+is called bounded if there is a constant $C \in \mathbb{R}^+_0$ such that
 ```{math}
 \| L v \|_W \leqslant C \|v\|_V.
 ```
@@ -70,7 +70,7 @@ The *operator norm* $\|L\|_{V\to W}$ of $L$ is then the smallest such constant g
 ```{math}
 \begin{aligned}
 \|L\|
-&= \inf \{C \in \RR^+_0 : \|L v \|_W \leqslant C \|v\|_V \, \forall v \in V\} \\
+&= \inf \{C \in \mathbb{R}^+_0 : \|L v \|_W \leqslant C \|v\|_V \, \forall v \in V\} \\
 & = \sup_{v \in V \setminus \{0\}} \dfrac{\|L v \|_W}{\|v\|_V} \\
 & = \sup_{v \in V, \|v\|_V = 1} \|L v \|_W.
 \end{aligned}
@@ -88,7 +88,7 @@ It can be shown that the following statements are equivalent for **linear operat
 Before you look up the proof, try to prove the previous claim yourself.
 ```
 
-A linear operator $l : V \to \RR$ is often called
+A linear operator $l : V \to \mathbb{R}$ is often called
 a *linear functional* or a *linear form* on $V$.
 
 Dual space
@@ -108,7 +108,7 @@ you can construct on $H$ thanks to the following theorem.
 :label: thm-riesz-representation
 
 Let $H$ be a Hilbert space with an inner product $(\cdot, \cdot)$. Then for
-every continuous linear functional $l:H \to \RR$, there is a unique vector $u_l \in H$
+every continuous linear functional $l:H \to \mathbb{R}$, there is a unique vector $u_l \in H$
 such that
 ```{math}
 l(v) = (v, u_l) \quad \forall v \in H,

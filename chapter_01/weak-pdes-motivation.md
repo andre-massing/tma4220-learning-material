@@ -7,7 +7,7 @@ analysis of the well-posedness of this formulation play a central role
 in the design and analysis of finite element methods.
 
 The point of departure for this theory is the insight that a ("regular enough")
-function $u$ on an open set $\Omega \subseteq \RR^n$ can be identified by considering
+function $u$ on an open set $\Omega \subseteq \mathbb{R}^n$ can be identified by considering
 all its weighted integrals $\int_{\Omega} u v$ if the **weight or test function**
 $v$ comes from a rich enough space:
 
@@ -60,12 +60,12 @@ Then
 ```
 ````
 
-`````{exercise} Construction of bump functions in $\RR^n$
+`````{exercise} Construction of bump functions in $\mathbb{R}^n$
 :label: exer-bump-functions
 In this exercise, we construct the bump functions used in the proof of the
 fundamental lemma.
 
-1. Consider the function $f : \RR \to \RR$ defined by
+1. Consider the function $f : \mathbb{R} \to \mathbb{R}$ defined by
    ```{math}
    f(t) :=
    \begin{cases}
@@ -73,10 +73,10 @@ fundamental lemma.
    0 & \text{for } t \leqslant 0.
    \end{cases}
    ```
-   Show that $f \in C^{\infty}(\RR)$.
+   Show that $f \in C^{\infty}(\mathbb{R})$.
 
-2. Define $\varphi : \RR^n \to \RR$ by $\varphi(x) := f(1 - \|x\|^2)$.
-   Show that $\varphi \in C^{\infty}_c(\RR^n)$ with
+2. Define $\varphi : \mathbb{R}^n \to \mathbb{R}$ by $\varphi(x) := f(1 - \|x\|^2)$.
+   Show that $\varphi \in C^{\infty}_c(\mathbb{R}^n)$ with
    $\varphi(x) > 0$ for $\|x\| < 1$ and
    $\operatorname{supp} \varphi = \overline{B_1(0)}$.
 
@@ -95,7 +95,7 @@ fundamental lemma.
 ````{hint}
 :class: hint dropdown
 For 1., the only critical point is $t = 0$. Show first by induction that for
-every $k \in \NN$ there is a polynomial $p_k$ such that
+every $k \in \mathbb{N}$ there is a polynomial $p_k$ such that
 ```{math}
 f^{(k)}(t) = p_k(1/t) \, e^{-1/t} \quad \text{for } t > 0,
 ```
@@ -125,7 +125,7 @@ Exercise.
 
 With the previous lemma at our disposal, we consider the
 "Hello world" example of a 2nd-order elliptic PDE,
-namely the **Poisson problem**: Find a function $u : \Omega \to \RR$ s.t.
+namely the **Poisson problem**: Find a function $u : \Omega \to \mathbb{R}$ s.t.
 
 ```{math}
 :label: eq:poisson-strong-form
@@ -136,7 +136,7 @@ u(x) &= 0 &&\quad \forall x \in \partial\Omega,
 \end{alignedat}
 ```
 
-for a given function $f : \Omega \to \RR$. This is called the **strong formulation**
+for a given function $f : \Omega \to \mathbb{R}$. This is called the **strong formulation**
 of the Poisson problem, as the equations are supposed to hold *pointwise*
 $\forall x \in \Omega$ (or $\in \partial\Omega$).
 
@@ -156,7 +156,7 @@ $u \in C^2(\Omega) \cap C(\overline{\Omega})$ and $f \in C(\Omega)$, then
 ```
 
 ```{note}
-We usually don't write down integration measures such as $\dx$, $\dt$,
+We usually don't write down integration measures such as $\,\mathrm{d}x$, $\,\mathrm{d}t$,
 as they can be deduced from the domain of integration using the
 canonical measures.
 ```
@@ -171,14 +171,14 @@ we require $\Omega$ to be at least a $C^1$-polyhedron:
 ````{prf:definition} $C^1$-polyhedron
 :label: def-c1-polyhedron
 
-* Let $\Omega \subseteq \RR^n$ be open. A point $\overline{x} \in \partial\Omega$
+* Let $\Omega \subseteq \mathbb{R}^n$ be open. A point $\overline{x} \in \partial\Omega$
   is called a **regular boundary point** of $\Omega$ if there is a neighborhood
-  $\mcN(\overline{x}) \subseteq \RR^n$ of $\overline{x}$ and a $C^1$ function
-  $q : \mcN(\overline{x}) \to \RR$ s.t.
-  1. $\nabla q(x) \neq 0 \quad \forall x \in \mcN(\overline{x})$,
-  2. $\Omega \cap \mcN(\overline{x}) = \{ x \in \mcN(\overline{x}) \st q(x) < 0 \}$.
+  $\mathcal{N}(\overline{x}) \subseteq \mathbb{R}^n$ of $\overline{x}$ and a $C^1$ function
+  $q : \mathcal{N}(\overline{x}) \to \mathbb{R}$ s.t.
+  1. $\nabla q(x) \neq 0 \quad \forall x \in \mathcal{N}(\overline{x})$,
+  2. $\Omega \cap \mathcal{N}(\overline{x}) = \{ x \in \mathcal{N}(\overline{x}) \;|\; q(x) < 0 \}$.
 
-* **Regular boundary** $\partial_r \Omega := \{ x \in \partial\Omega \st x \text{ is a regular boundary point} \}$
+* **Regular boundary** $\partial_r \Omega := \{ x \in \partial\Omega \;|\; x \text{ is a regular boundary point} \}$
 
 * **Singular boundary** $\partial_s \Omega := \partial\Omega \setminus \partial_r \Omega$
 
@@ -188,7 +188,7 @@ we require $\Omega$ to be at least a $C^1$-polyhedron:
   1. $M \subseteq \bigcup_{k=1}^{\infty} B^{\varepsilon}_k$,
   2. $\sum_{k=1}^{\infty} r_k^d < \varepsilon$.
 
-* An open domain $\Omega \subseteq \RR^n$ is called a **$C^1$-polyhedron** if
+* An open domain $\Omega \subseteq \mathbb{R}^n$ is called a **$C^1$-polyhedron** if
   $\partial_s \Omega$ is an $(n-1)$-dimensional null set.
 ````
 
@@ -196,12 +196,12 @@ For a regular boundary point $\overline{x} \in \partial_r \Omega$ with a
 defining function $q$ as in {prf:ref}`def-c1-polyhedron`, we set
 ```{math}
 :label: eq:outer-normal
-\bfn(\overline{x}) := \dfrac{\nabla q(\overline{x})}{|\nabla q(\overline{x})|}.
+\mathbf{n}(\overline{x}) := \dfrac{\nabla q(\overline{x})}{|\nabla q(\overline{x})|}.
 ```
-We call $\bfn(\overline{x})$ the **outer** (or outward) unit normal of $\Omega$
+We call $\mathbf{n}(\overline{x})$ the **outer** (or outward) unit normal of $\Omega$
 at $\overline{x}$. The name is justified as follows: $q$ is negative on
-$\Omega \cap \mcN(\overline{x})$ and vanishes on the boundary piece
-$\partial\Omega \cap \mcN(\overline{x})$, so $\nabla q(\overline{x})$ points in
+$\Omega \cap \mathcal{N}(\overline{x})$ and vanishes on the boundary piece
+$\partial\Omega \cap \mathcal{N}(\overline{x})$, so $\nabla q(\overline{x})$ points in
 the direction in which $q$ increases, that is, away from $\Omega$.
 
 Of course, a regular boundary point may admit many different defining
@@ -210,13 +210,13 @@ normal vector.
 
 ````{prf:lemma} The outer unit normal is well defined
 :label: lem-outer-normal
-Let $\Omega \subseteq \RR^n$ be open and let
+Let $\Omega \subseteq \mathbb{R}^n$ be open and let
 $\overline{x} \in \partial_r \Omega$ be a regular boundary point. Then the
-vector $\bfn(\overline{x})$ defined in {eq}`eq:outer-normal` satisfies
-$|\bfn(\overline{x})| = 1$, and it does not depend on the choice of the
+vector $\mathbf{n}(\overline{x})$ defined in {eq}`eq:outer-normal` satisfies
+$|\mathbf{n}(\overline{x})| = 1$, and it does not depend on the choice of the
 defining function: if $q_1$ and $q_2$ both satisfy the conditions of
 {prf:ref}`def-c1-polyhedron` at $\overline{x}$, then they define one and the
-same vector $\bfn(\overline{x})$.
+same vector $\mathbf{n}(\overline{x})$.
 ````
 
 ```{exercise} Well-definedness of the outer unit normal
@@ -251,8 +251,8 @@ contribute to such integrals.
 
 A $C^1$-polyhedron $\Omega$: a regular boundary point $\overline{x} \in \partial_r\Omega$
 on a smooth part of the boundary, with its neighborhood
-$\mcN(\overline{x})$. The shaded region is
-$\Omega \cap \mcN(\overline{x}) = \{ x \in \mcN(\overline{x}) \st q(x) < 0 \}$,
+$\mathcal{N}(\overline{x})$. The shaded region is
+$\Omega \cap \mathcal{N}(\overline{x}) = \{ x \in \mathcal{N}(\overline{x}) \;|\; q(x) < 0 \}$,
 and the highlighted piece of $\partial\Omega$ is the zero level set of $q$.
 The corners of $\partial\Omega$ are singular boundary points and form the
 singular boundary $\partial_s\Omega$ — a finite set of points, and thus an
@@ -261,16 +261,16 @@ $(n-1)$-dimensional null set for $n = 2$.
 
 ````{prf:theorem} Gauß theorem
 :label: thm-gauss
-Let $\Omega \subseteq \RR^n$ be a bounded $C^1$-polyhedron and
-$\mathbf{F} : \Omega \to \RR^n$ be a vector field s.t.
-1. $\mathbf{F} \in C^1(\Omega, \RR^n) \cap C(\overline{\Omega}, \RR^n)$,
+Let $\Omega \subseteq \mathbb{R}^n$ be a bounded $C^1$-polyhedron and
+$\mathbf{F} : \Omega \to \mathbb{R}^n$ be a vector field s.t.
+1. $\mathbf{F} \in C^1(\Omega, \mathbb{R}^n) \cap C(\overline{\Omega}, \mathbb{R}^n)$,
 2. $\nabla \cdot \mathbf{F}$ is integrable over $\Omega$,
-3. $\mathbf{F} \cdot \bfn$ is integrable over $\partial\Omega$.
+3. $\mathbf{F} \cdot \mathbf{n}$ is integrable over $\partial\Omega$.
 
 Then
 ```{math}
 :label: eq:gauss-theorem
-\int_{\Omega} \nabla \cdot \mathbf{F} = \int_{\partial\Omega} \mathbf{F} \cdot \bfn.
+\int_{\Omega} \nabla \cdot \mathbf{F} = \int_{\partial\Omega} \mathbf{F} \cdot \mathbf{n}.
 ```
 ````
 
@@ -280,12 +280,12 @@ The Gauß theorem has some immediate and important consequences.
 :label: cor-greens-formulas
 Let $\Omega$ be a bounded $C^1$-polyhedron. Then we have
 
-1. for $u \in C^1(\overline{\Omega})$, $\mathbf{F} \in C^1(\overline{\Omega}, \RR^n)$:
+1. for $u \in C^1(\overline{\Omega})$, $\mathbf{F} \in C^1(\overline{\Omega}, \mathbb{R}^n)$:
    ```{math}
    :label: eq:green-a
    \int_{\Omega} \nabla u \cdot \mathbf{F}
    = - \int_{\Omega} u \, \nabla \cdot \mathbf{F}
-   + \int_{\partial\Omega} u \, \mathbf{F} \cdot \bfn
+   + \int_{\partial\Omega} u \, \mathbf{F} \cdot \mathbf{n}
    ```
 2. for $u \in C^2(\overline{\Omega})$, $v \in C^1(\overline{\Omega})$:
    ```{math}
@@ -293,7 +293,7 @@ Let $\Omega$ be a bounded $C^1$-polyhedron. Then we have
    \int_{\Omega} \nabla u \cdot \nabla v
    = - \int_{\Omega} \Delta u \, v
    + \int_{\partial\Omega} \partial_n u \, v,
-   \qquad \text{where } \partial_n u := \nabla u \cdot \bfn,
+   \qquad \text{where } \partial_n u := \nabla u \cdot \mathbf{n},
    ```
 3. for $u, v \in C^2(\overline{\Omega})$:
    ```{math}
@@ -346,7 +346,7 @@ solve the following problem: Find $u \in C^2(\Omega) \cap C_0(\overline{\Omega})
 
 Here
 ```{math}
-C_0(\overline{\Omega}) = \{ u \in C(\overline{\Omega}) \st u|_{\partial\Omega} = 0 \}
+C_0(\overline{\Omega}) = \{ u \in C(\overline{\Omega}) \;|\; u|_{\partial\Omega} = 0 \}
 ```
 is used to enforce the boundary condition $u = 0$ on $\partial\Omega$,
 which is **not** directly imposed in our integral rewrite of the PDE part,

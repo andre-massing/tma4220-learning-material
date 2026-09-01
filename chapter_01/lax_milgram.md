@@ -12,8 +12,8 @@ Throughout this section, we rely on the concepts and results collected in
 :label: thm-lax-milgram
 Given a real Hilbert space $\bigl(V, (\cdot,\cdot)\bigr)$ with induced norm
 $\| \cdot \| := (\cdot,\cdot)^{1/2}$, a bilinear form
-$a(\cdot, \cdot): V \times V \to \RR$, and a linear form
-$l(\cdot): V \to \RR$, the problem: Find $u \in V$ such 
+$a(\cdot, \cdot): V \times V \to \mathbb{R}$, and a linear form
+$l(\cdot): V \to \mathbb{R}$, the problem: Find $u \in V$ such 
 that 
 ```{math}
 :label: eq:lax-milgram-problem
@@ -62,7 +62,7 @@ a(u, v) = (A u, v) \quad \forall v \in V,
 \|A u\| = \| a(u, \cdot) \|_{V'} \leqslant C_a \|u\|.
 ```
 This defines a map $A: V \to V$, which is linear: for $u_1, u_2 \in V$ and
-$\lambda \in \RR$, the bilinearity of $a$ gives
+$\lambda \in \mathbb{R}$, the bilinearity of $a$ gives
 ```{math}
 (A(u_1 + \lambda u_2), v)
 = a(u_1 + \lambda u_2, v)
@@ -124,7 +124,7 @@ is closed.
 
 **Closedness of $\mathrm{ran}(A)$.** Since $A$ is linear, its range
 is a linear subspace of $V$. To show that it is closed, let
-$(w_n)_{n \in \NN} \subset \mathrm{ran}(A)$ be a sequence converging to some
+$(w_n)_{n \in \mathbb{N}} \subset \mathrm{ran}(A)$ be a sequence converging to some
 $w \in V$, 
 and pick $u_n \in V$ with $A u_n = w_n$. Applying the lower bound
 {eq}`eq:lax-milgram-A-lower-bound` to $u_n - u_m$ and using the linearity of $A$,
@@ -133,7 +133,7 @@ we obtain
 :label: eq:lax-milgram-cauchy
 \|u_n - u_m\| \leqslant \dfrac{1}{\alpha} \| A(u_n - u_m) \|
 = \dfrac{1}{\alpha} \| w_n - w_m \|
-\quad \forall n, m \in \NN.
+\quad \forall n, m \in \mathbb{N}.
 ```
 Being convergent, $(w_n)_n$ is a Cauchy sequence in $V$, and hence so is $(u_n)_n$
 by {eq}`eq:lax-milgram-cauchy`. Since the Hilbert space $V$ is complete, $(u_n)_n$

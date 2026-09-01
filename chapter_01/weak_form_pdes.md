@@ -8,7 +8,7 @@ can be employed to analyze the well-posedness
 of a certain class of PDEs when given in a so-called
 "weak" formulation.
 
-Throughout this chapter, $\Omega \subset \RR^n$ is a bounded
+Throughout this chapter, $\Omega \subset \mathbb{R}^n$ is a bounded
 $C^1$-polyhedron (or, more generally, a bounded Lipschitz domain) with boundary
 $\Gamma = \partial \Omega$. This guarantees that the Gauß theorem, the
 {prf:ref}`trace theorem<thm:trace-spaces>` and the
@@ -34,7 +34,7 @@ Let us consider the homogeneous Neumann problem
 \end{alignedat}
 \right.
 ```
-Here, we used the slightly simplified notation $\partial_n u = \bfn \cdot \nabla u$.
+Here, we used the slightly simplified notation $\partial_n u = \mathbf{n} \cdot \nabla u$.
 The idea to derive a so-called weak formulation of a PDE is very similar
 to the idea behind the introduction of weak derivatives:
 We multiply with a suitable test function $v$, integrate over $\Omega$ 
@@ -63,13 +63,13 @@ and applying Green's theorem leads to
 +\int_{\Omega} uv
 \\
 &=
-- \int_{\Gamma} \underbrace{(\bfn \cdot \nabla u)}_{=0} v
+- \int_{\Gamma} \underbrace{(\mathbf{n} \cdot \nabla u)}_{=0} v
 + \int_{\Omega} \nabla u \cdot \nabla  v
 +\int_{\Omega} uv
 \end{aligned}
 ```
 
-Note that the Neumann boundary condition $\bfn \cdot \nabla u = 0$
+Note that the Neumann boundary condition $\mathbf{n} \cdot \nabla u = 0$
 makes the boundary integrals vanish.
 Also observe that the right-hand side of {eq}`eq:weak-form-neumann-derivation`
 can be interpreted as taking 
@@ -86,8 +86,9 @@ a(v, w) :=
 on $V\times V$, and it is straightforward to
 show that $a(\cdot, \cdot)$ (being the $H^1$ inner product itself)
 satisfies the required assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`:
-```{math}
-:label: eq-lax-milgram-assump
+Here is some other text.
+
+$$
 \begin{aligned}
 \text{Boundedness: }  |a(v,w)| &=
 \Bigl| \int_{\Omega} \nabla v \cdot \nabla  w
@@ -97,12 +98,12 @@ satisfies the required assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-
 \int_{\Omega} |\nabla v|^2 + \int_{\Omega} |v|^2
 = (v, v)_{H^1(\Omega)} = \|v\|_{H^1(\Omega)}^2 
 \end{aligned}
-```
+$$ (eq-lax-milgram-assump)
 
 so that the assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`
 hold with $C_a = 1$ and $\alpha = 1$.
 
-Next, we define the linear form $l : V \to \RR$
+Next, we define the linear form $l : V \to \mathbb{R}$
 ```{math}
 :label: poisson-linear-form-l
 l(v) := \int_{\Omega} f v = (f, v)_{L^2(\Omega)}
@@ -175,7 +176,7 @@ Then again, we obtain
 +\int_{\Omega} uv
 \\
 &=
-- \int_{\Gamma} (\bfn \cdot \nabla u)\underbrace{v}_{=0}
+- \int_{\Gamma} (\mathbf{n} \cdot \nabla u)\underbrace{v}_{=0}
 + \int_{\Omega} \nabla u \cdot \nabla  v
 +\int_{\Omega} uv.
 \end{aligned}
@@ -275,7 +276,7 @@ and only $u$ satisfying this b.c. should be viable solution candidates
 for our weak formulation. Thus we set
 ```{math}
 H^1_{g_D}(\Omega) := 
-\{ v \in H^1(\Omega) \st \gamma(v) = g_D \}.
+\{ v \in H^1(\Omega) \;|\; \gamma(v) = g_D \}.
 ```
 Since $g_D \in H^{1/2}(\Gamma)$, this set is not empty.
 Note that 
@@ -287,7 +288,7 @@ In that sense, $H^1_{g_D}(\Omega)$ should rather be considered an **affine** sub
 For any $u_g$ satisfying $\gamma(u_g) = g_D$, it holds that
 ```{math}
 H^1_{g_D}(\Omega) = u_g + H^1_0(\Omega)
-                  := \{ u_g + v \st v \in H^1_0(\Omega) \}
+                  := \{ u_g + v \;|\; v \in H^1_0(\Omega) \}
                    = \gamma^{-1}(g_D).
 ```
 So the resulting weak formulation is
@@ -308,7 +309,7 @@ H^1_0(\Omega)$, leading to the following weak formulation: find $u_0
 \in H^1_0(\Omega) =: V$ such that
 ```{math}
 :label: eq:weak-form-dirichlet-inhomog-lifted
-a(u_0,v) = l(v) - a(u_g, v) =: \widetilde{l}(v) \quad \foralls v \in V.
+a(u_0,v) = l(v) - a(u_g, v) =: \widetilde{l}(v) \quad \forall\, v \in V.
 ``` 
 
 ```{exercise} Well-posedness of the lifted Dirichlet formulation
@@ -355,13 +356,13 @@ of a 2nd order elliptic operator.
 More generally and without any significant complications, 
 we can consider a more general PDE of the form
 ```{math}
-\mcA u := - \nabla \cdot ( A \nabla u) = f
+\mathcal{A} u := - \nabla \cdot ( A \nabla u) = f
 ```
 where $A = (a_{ij}(x))_{i,j=1}^n$ is a pointwise defined matrix.
 Note that
 ```{math}
 :label: eq:def-A-operator
-\mcA u = - \nabla \cdot ( A(x) \nabla u(x))
+\mathcal{A} u = - \nabla \cdot ( A(x) \nabla u(x))
 =
 -\sum_{i,j=1}^n \partial_{i} (a_{ij}(x) \partial_{j} u(x))
 ```
@@ -369,16 +370,16 @@ Note that
 For most of the remaining lectures, we will require $A(x)$
 to satisfy the following definition.
 
-```{prf:definition} Ellipticity of $\mcA$ 
+```{prf:definition} Ellipticity of $\mathcal{A}$ 
 :label: def:ellipticity
 
-The partial differential operator $\mcA$ given
+The partial differential operator $\mathcal{A}$ given
 by {eq}`eq:def-A-operator` with coefficients
 $A = (a_{ij})_{i,j=1}^n \in (L^{\infty}(\Omega))^{n\times n}$
 is called **(uniformly) elliptic** if there exists a constant $\alpha > 0$ such that
 * $ \lambda \cdot  A(x) \lambda \geqslant \alpha |\lambda|^2$
 
-for all $\lambda \in \RR^n$ and almost every $x \in \Omega$.
+for all $\lambda \in \mathbb{R}^n$ and almost every $x \in \Omega$.
 ```
 
 ```{prf:remark}
@@ -386,7 +387,7 @@ Note that $A \in (L^{\infty}(\Omega))^{n\times n}$ also implies that
 there exists a $\beta \geqslant 0 $ such that also
 * $|A(x) \lambda| \leqslant \beta  |\lambda|$
 
-holds for all $\lambda \in \RR^n$ and almost every $x \in \Omega$, and by
+holds for all $\lambda \in \mathbb{R}^n$ and almost every $x \in \Omega$, and by
 ellipticity, we can
 conclude that in fact $\beta \geqslant \alpha > 0$.
 ```
@@ -396,32 +397,32 @@ Prove the statements made in the previous remark
 
 ```{admonition} TODO
 :class: :danger :dropdown
-* Relate $\mcA$ to classical Poisson problem
+* Relate $\mathcal{A}$ to classical Poisson problem
 * Explain why general $A(x)$ is useful, e.g. anisotropic heat conduction problems
 ```
 
 We are now prepared to investigate the well-posedness of a number of boundary value
 problems where we supplement the partial differential operator 
-$\mcA$ with one of the following boundary conditions
+$\mathcal{A}$ with one of the following boundary conditions
 
 * **Dirichlet boundary conditions** 
-   Given a function  $g_D: \Gamma  \to \RR$, we require that
+   Given a function  $g_D: \Gamma  \to \mathbb{R}$, we require that
 
   ```{math}
   u = g_D \quad \text{on } \Gamma
   ```
 * **Neumann boundary conditions** 
-   Given a function  $g_N: \Gamma  \to \RR$, we require that
+   Given a function  $g_N: \Gamma  \to \mathbb{R}$, we require that
 
   ```{math}
-  \bfn \cdot A \nabla u = g_N \quad \text{on } \Gamma 
+  \mathbf{n} \cdot A \nabla u = g_N \quad \text{on } \Gamma 
   ```
 * **Robin boundary conditions** 
    Given $g_R \in L^2(\Gamma)$ and $\sigma \in L^{\infty}(\Gamma)$ with
    $\sigma \geqslant \sigma_0 > 0$ almost everywhere on $\Gamma$, we require that
 
   ```{math}
-  \bfn \cdot A \nabla u = \sigma(g_R - u) \quad \text{on } \Gamma 
+  \mathbf{n} \cdot A \nabla u = \sigma(g_R - u) \quad \text{on } \Gamma 
   ```
 
 These boundary conditions are called *homogeneous* if $g_D$ (respectively $g_N$, $g_R$)
