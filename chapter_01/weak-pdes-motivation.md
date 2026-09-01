@@ -14,12 +14,13 @@ $v$ comes from a rich enough space:
 ````{prf:lemma} Fundamental lemma of calculus of variations
 :label: lem-fundamental-calc-var
 For $u \in C(\Omega)$ we have that
-```{math}
-:label: eq:fundamental-lemma
+
+$$
 u = 0
 \quad \Leftrightarrow \quad
 \int_{\Omega} u v = 0 \quad \forall v \in C^{\infty}_c(\Omega).
-```
+$$ (eq:fundamental-lemma)
+
 ````
 
 ````{prf:proof}
@@ -34,30 +35,31 @@ s.t. $u(x_0) = c_0 > 0$. Since $u$ is continuous and $\Omega$ is open,
 there must be an open ball $B_{\varepsilon}(x_0) \subseteq \Omega$ of radius
 $\varepsilon > 0$ and center $x_0$ s.t.
 
-```{math}
+$$
 u(x) \geqslant \frac{c_0}{2} \quad \forall x \in B_{\varepsilon}(x_0).
 \qquad (+)
-```
+$$
 
 Next, we take $v \in C^{\infty}_c(\Omega)$ to be a so-called *bump function*
 satisfying
 
-```{math}
+$$
 v(x_0) = 1, \quad v(x) \geqslant 0 \;\; \forall x \in \Omega,
 \quad \operatorname{supp} v \subseteq B_{\varepsilon}(x_0).
 \qquad (*)
-```
+$$
 
 (The existence of such bump functions is discussed in the exercise below.)
 Then
 
-```{math}
+$$
 \int_{\Omega} u v
 \overset{(*)}{=} \int_{B_{\varepsilon}(x_0)} u v
 \overset{(+)}{\geqslant} \frac{c_0}{2}
 \underbrace{\int_{B_{\varepsilon}(x_0)} v}_{>\, 0 \;\text{(why?)}}
 > 0.
-```
+$$
+
 ````
 
 `````{exercise} Construction of bump functions in $\mathbb{R}^n$
@@ -66,13 +68,15 @@ In this exercise, we construct the bump functions used in the proof of the
 fundamental lemma.
 
 1. Consider the function $f : \mathbb{R} \to \mathbb{R}$ defined by
-   ```{math}
+
+   $$
    f(t) :=
    \begin{cases}
    e^{-1/t} & \text{for } t > 0, \\
    0 & \text{for } t \leqslant 0.
    \end{cases}
-   ```
+   $$
+
    Show that $f \in C^{\infty}(\mathbb{R})$.
 
 2. Define $\varphi : \mathbb{R}^n \to \mathbb{R}$ by $\varphi(x) := f(1 - \|x\|^2)$.
@@ -81,10 +85,12 @@ fundamental lemma.
    $\operatorname{supp} \varphi = \overline{B_1(0)}$.
 
 3. For a given ball $B_{\varepsilon}(x_0) \subseteq \Omega$, define
-   ```{math}
+
+   $$
    v(x) := \frac{1}{\varphi(0)}\,
    \varphi\Bigl( \frac{2 (x - x_0)}{\varepsilon} \Bigr).
-   ```
+   $$
+
    Show that $v \in C^{\infty}_c(\Omega)$ satisfies the properties $(*)$
    required in the proof of the fundamental lemma, namely
    $v(x_0) = 1$, $v(x) \geqslant 0$ for all $x \in \Omega$, and
@@ -96,9 +102,11 @@ fundamental lemma.
 :class: hint dropdown
 For 1., the only critical point is $t = 0$. Show first by induction that for
 every $k \in \mathbb{N}$ there is a polynomial $p_k$ such that
-```{math}
+
+$$
 f^{(k)}(t) = p_k(1/t) \, e^{-1/t} \quad \text{for } t > 0,
-```
+$$
+
 and then use that exponential decay beats polynomial growth, i.e.
 $\lim_{s \to \infty} p(s) e^{-s} = 0$ for every polynomial $p$, to conclude
 that $f^{(k)}(0) = 0$ exists for all $k$.
@@ -113,9 +121,11 @@ and scaling.
 ````{prf:corollary}
 :label: cor-weighted-integrals
 If $u_1, u_2 \in C(\Omega)$ satisfy
-```{math}
+
+$$
 \int_{\Omega} u_1 v = \int_{\Omega} u_2 v \quad \forall v \in C^{\infty}_c(\Omega),
-```
+$$
+
 then $u_1 = u_2$.
 ````
 
@@ -127,14 +137,13 @@ With the previous lemma at our disposal, we consider the
 "Hello world" example of a 2nd-order elliptic PDE,
 namely the **Poisson problem**: Find a function $u : \Omega \to \mathbb{R}$ s.t.
 
-```{math}
-:label: eq:poisson-strong-form
+$$
 \begin{alignedat}{2}
 -\nabla \cdot (\nabla u(x)) = - \Delta u(x) &= f(x) &&\quad \forall x \in \Omega,
 \\
 u(x) &= 0 &&\quad \forall x \in \partial\Omega,
 \end{alignedat}
-```
+$$ (eq:poisson-strong-form)
 
 for a given function $f : \Omega \to \mathbb{R}$. This is called the **strong formulation**
 of the Poisson problem, as the equations are supposed to hold *pointwise*
@@ -147,13 +156,12 @@ The idea is now to use the previous Corollary to reformulate the
 strong formulation into a **weighted integral** version: If
 $u \in C^2(\Omega) \cap C(\overline{\Omega})$ and $f \in C(\Omega)$, then
 
-```{math}
-:label: eq:poisson-weighted
+$$
 -\Delta u(x) = f(x) \;\; \forall x \in \Omega
 \quad \Leftrightarrow \quad
 - \int_{\Omega} \Delta u \, v = \int_{\Omega} f v
 \quad \forall v \in C^{\infty}_c(\Omega).
-```
+$$ (eq:poisson-weighted)
 
 ```{note}
 We usually don't write down integration measures such as $\,\mathrm{d}x$, $\,\mathrm{d}t$,
@@ -194,10 +202,11 @@ we require $\Omega$ to be at least a $C^1$-polyhedron:
 
 For a regular boundary point $\overline{x} \in \partial_r \Omega$ with a
 defining function $q$ as in {prf:ref}`def-c1-polyhedron`, we set
-```{math}
-:label: eq:outer-normal
+
+$$
 \mathbf{n}(\overline{x}) := \dfrac{\nabla q(\overline{x})}{|\nabla q(\overline{x})|}.
-```
+$$ (eq:outer-normal)
+
 We call $\mathbf{n}(\overline{x})$ the **outer** (or outward) unit normal of $\Omega$
 at $\overline{x}$. The name is justified as follows: $q$ is negative on
 $\Omega \cap \mathcal{N}(\overline{x})$ and vanishes on the boundary piece
@@ -268,10 +277,11 @@ $\mathbf{F} : \Omega \to \mathbb{R}^n$ be a vector field s.t.
 3. $\mathbf{F} \cdot \mathbf{n}$ is integrable over $\partial\Omega$.
 
 Then
-```{math}
-:label: eq:gauss-theorem
+
+$$
 \int_{\Omega} \nabla \cdot \mathbf{F} = \int_{\partial\Omega} \mathbf{F} \cdot \mathbf{n}.
-```
+$$ (eq:gauss-theorem)
+
 ````
 
 The Gauß theorem has some immediate and important consequences.
@@ -281,33 +291,37 @@ The Gauß theorem has some immediate and important consequences.
 Let $\Omega$ be a bounded $C^1$-polyhedron. Then we have
 
 1. for $u \in C^1(\overline{\Omega})$, $\mathbf{F} \in C^1(\overline{\Omega}, \mathbb{R}^n)$:
-   ```{math}
-   :label: eq:green-a
+
+   $$
    \int_{\Omega} \nabla u \cdot \mathbf{F}
    = - \int_{\Omega} u \, \nabla \cdot \mathbf{F}
    + \int_{\partial\Omega} u \, \mathbf{F} \cdot \mathbf{n}
-   ```
+   $$ (eq:green-a)
+
 2. for $u \in C^2(\overline{\Omega})$, $v \in C^1(\overline{\Omega})$:
-   ```{math}
-   :label: eq:green-b
+
+   $$
    \int_{\Omega} \nabla u \cdot \nabla v
    = - \int_{\Omega} \Delta u \, v
    + \int_{\partial\Omega} \partial_n u \, v,
    \qquad \text{where } \partial_n u := \nabla u \cdot \mathbf{n},
-   ```
+   $$ (eq:green-b)
+
 3. for $u, v \in C^2(\overline{\Omega})$:
-   ```{math}
-   :label: eq:green-c
+
+   $$
    \int_{\Omega} (\Delta u \, v - u \, \Delta v)
    = \int_{\partial\Omega} (\partial_n u \, v - u \, \partial_n v)
-   ```
+   $$ (eq:green-c)
+
 4. for $u, v \in C^1(\overline{\Omega})$:
-   ```{math}
-   :label: eq:green-d
+
+   $$
    \int_{\Omega} \partial_{x_i} u \, v
    = - \int_{\Omega} u \, \partial_{x_i} v
    + \int_{\partial\Omega} u v \, n_i.
-   ```
+   $$ (eq:green-d)
+
 ````
 
 ```{exercise} Proving Green's formulas
@@ -324,8 +338,7 @@ $\Omega' \Subset \Omega$ containing $\operatorname{supp} v$, so that no
 regularity of $u$ up to $\partial\Omega$ is required. We thus see that
 $-\Delta u(x) = f(x) \;\; \forall x \in \Omega \Leftrightarrow$
 
-```{math}
-:label: eq:poisson-weak-derivation
+$$
 \int_{\Omega} f v
 = - \int_{\Omega} \Delta u \, v
 = \int_{\Omega} \nabla u \cdot \nabla v
@@ -333,21 +346,22 @@ $-\Delta u(x) = f(x) \;\; \forall x \in \Omega \Leftrightarrow$
 \text{ since } v \text{ vanishes near } \partial\Omega}
 = \int_{\Omega} \nabla u \cdot \nabla v
 \quad \forall v \in C^{\infty}_c(\Omega).
-```
+$$ (eq:poisson-weak-derivation)
 
 So instead of the strong form, we could now be tempted to
 solve the following problem: Find $u \in C^2(\Omega) \cap C_0(\overline{\Omega})$ s.t.
 
-```{math}
-:label: eq:poisson-almost-weak
+$$
 \underbrace{\int_{\Omega} \nabla u \cdot \nabla v}_{:= a(u,v)} = \underbrace{\int_{\Omega} f v}_{:= l(v)}
 \quad \forall v \in C^{\infty}_c(\Omega).
-```
+$$ (eq:poisson-almost-weak)
 
 Here
-```{math}
+
+$$
 C_0(\overline{\Omega}) = \{ u \in C(\overline{\Omega}) \;|\; u|_{\partial\Omega} = 0 \}
-```
+$$
+
 is used to enforce the boundary condition $u = 0$ on $\partial\Omega$,
 which is **not** directly imposed in our integral rewrite of the PDE part,
 as $C^{\infty}_c(\Omega)$ test functions "don't see" the boundary.

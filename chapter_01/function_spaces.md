@@ -31,16 +31,17 @@ Let $\Omega \subset \mathbb{R}^n$ be an open domain.
 
 Then
 the Lebesgue spaces $L^p(\Omega)$ are defined by
-```{math}
-:label: eq:lebesque-spaces
+
+$$
 L^p(\Omega) = \{ f : \Omega \to \mathbb{R} \text{ is measurable and } 
 \|f\|_{L^p(\Omega)} 
 < \infty
  \}.
-```
+$$ (eq:lebesque-spaces)
+
 Here, the $L^p$-norm $\|\cdot\|_{L^p(\Omega)}$ is defined by
-```{math}
-:label: eq:lebesque-norm
+
+$$
 \|f\|_{L^p(\Omega)} 
 :=  
 \begin{cases}
@@ -52,17 +53,18 @@ Here, the $L^p$-norm $\|\cdot\|_{L^p(\Omega)}$ is defined by
 \mathrm{ess}\sup_{\Omega} |f|
 &\quad p=\infty
 \end{cases}
-```
+$$ (eq:lebesque-norm)
 
 Sometimes we write $\|f\|_{p,\Omega}$ instead of $\|f\|_{L^p(\Omega)}$.
 A function $f \in L^p(\Omega)$ is often called $L^p$-integrable. 
 
 We also introduce the space of *locally* $L^p$-integrable functions on $\Omega$; that is,
 functions that are $L^p$ integrable on every compact subset $K \Subset \Omega$,
-```{math}
-:label: eq:loc-lebesque-spaces
+
+$$
 L^p_{\mathrm{loc}}(\Omega) = \{ f: \Omega \to \mathbb{R} | f \in L^p(K)  \; \forall K \Subset \Omega \}.
-```
+$$ (eq:loc-lebesque-spaces)
+
 ````
 
 ```{prf:remark}
@@ -78,11 +80,12 @@ $\|f\|_{L^p(\Omega)} = 0$ without being the zero function.
 Let $1 \leqslant p, q \leqslant \infty$ with $\frac{1}{p} + \frac{1}{q} = 1$
 (with the convention $\frac{1}{\infty} := 0$).
 If $f \in L^p(\Omega)$ and $g \in L^q(\Omega)$, then $f g \in L^1(\Omega)$ and
-```{math}
-:label: eq:hoelder
+
+$$
 \| f g \|_{L^1(\Omega)} = \int_{\Omega} |f g|
 \leqslant \|f\|_{L^p(\Omega)} \|g\|_{L^q(\Omega)}.
-```
+$$ (eq:hoelder)
+
 ````
 
 ```{prf:remark}
@@ -102,10 +105,11 @@ endowed with an inner product.
 ````{prf:definition} Inner product on $L^2(\Omega)$
 :label: def:l2-inner-product
 For $f, g \in L^2(\Omega)$, we define
-```{math}
-:label: eq:l2-inner-product
+
+$$
 (f, g)_{L^2(\Omega)} := \int_{\Omega} f g.
-```
+$$ (eq:l2-inner-product)
+
 Sometimes we write $(f,g)_{\Omega}$ instead of $(f, g)_{L^2(\Omega)}$.
 ````
 
@@ -115,26 +119,31 @@ $f g \in L^1(\Omega)$, so the integral in {eq}`eq:l2-inner-product` is finite. I
 to check that $(\cdot, \cdot)_{L^2(\Omega)}$ is bilinear, symmetric and positive
 definite, so it is indeed an inner product on $L^2(\Omega)$, and it
 induces exactly the $L^2$-norm from {eq}`eq:lebesque-norm`,
-```{math}
+
+$$
 (f, f)_{L^2(\Omega)}^{1/2} = \Bigl( \int_{\Omega} |f|^2 \Bigr)^{1/2}
 = \|f\|_{L^2(\Omega)}.
-```
+$$
+
 Moreover, rewriting {prf:ref}`Hölder's inequality<lem:hoelder>` for $p = q = 2$
 in terms of the inner product and the $L^2$-norm yields
-```{math}
-:label: eq:l2-cauchy-schwarz
+
+$$
 | (f, g)_{L^2(\Omega)} | \leqslant \int_{\Omega} |f g|
 \leqslant \|f\|_{L^2(\Omega)} \|g\|_{L^2(\Omega)},
-```
+$$ (eq:l2-cauchy-schwarz)
+
 that is, the *Cauchy-Schwarz inequality* on $L^2(\Omega)$ arises as the
 special case $p = q = 2$ of Hölder's inequality.
 
 ````{prf:lemma} Determining uniqueness through testing
 :label: lem:uniqueness-by-testing
 Let $u_1, u_2 \in L^1_{\mathrm{loc}}(\Omega)$ and assume that
-```{math}
+
+$$
 \int_{\Omega} (u_1 - u_2) \phi = 0  \quad \forall \phi \in C^{\infty}_c(\Omega).
-```
+$$
+
 Then $u_1 = u_2$ almost everywhere in $\Omega$; that is, up to a set of measure $0$.
 ````
 
@@ -171,18 +180,20 @@ following definition is well-defined for every $v \in L^p(\Omega)$.
 Let $\Omega \subset \mathbb{R}^n$ be an open domain of finite measure,
 $|\Omega| = \int_{\Omega} 1 < \infty$.
 For $v \in L^1(\Omega)$, we call
-```{math}
-:label: eq:mean-value
+
+$$
 \overline{v} := \dfrac{1}{|\Omega|} \int_{\Omega} v
-```
+$$ (eq:mean-value)
+
 the *mean value* (or *average*) of $v$ over $\Omega$.
 For $1 \leqslant p \leqslant \infty$, we then define
-```{math}
-:label: eq:mean-zero-lp
+
+$$
 L^p_{\#}(\Omega) :=
 \Bigl\{ v \in L^p(\Omega) \mid \int_{\Omega} v = 0 \Bigr\}
 = \{ v \in L^p(\Omega) \mid \overline{v} = 0 \},
-```
+$$ (eq:mean-zero-lp)
+
 the subspace of $L^p$ functions with *vanishing mean value*.
 ````
 
@@ -194,12 +205,13 @@ fluctuation around it.
 :label: lem:mean-zero-decomposition
 Let $\Omega$ be of finite measure and $1 \leqslant p \leqslant \infty$.
 Then every $v \in L^p(\Omega)$ can be written uniquely as
-```{math}
-:label: eq:mean-zero-decomposition
+
+$$
 v = \overline{v} + v_{\#},
 \qquad
 v_{\#} := v - \overline{v} \in L^p_{\#}(\Omega),
-```
+$$ (eq:mean-zero-decomposition)
+
 where the first summand is understood as a constant function on $\Omega$.
 In other words, $L^p(\Omega) = \mathbb{R} \oplus L^p_{\#}(\Omega)$, and
 $L^p_{\#}(\Omega)$ is a closed subspace of $L^p(\Omega)$.
@@ -208,11 +220,13 @@ $L^p_{\#}(\Omega)$ is a closed subspace of $L^p(\Omega)$.
 ````{prf:proof}
 Constants belong to $L^p(\Omega)$ because $|\Omega| < \infty$, so
 $v_{\#} = v - \overline{v} \in L^p(\Omega)$, and
-```{math}
+
+$$
 \int_{\Omega} v_{\#}
 = \int_{\Omega} v - \overline{v} \, |\Omega|
 = \int_{\Omega} v - \int_{\Omega} v = 0,
-```
+$$
+
 so $v_{\#} \in L^p_{\#}(\Omega)$. For uniqueness, assume
 $v = c_1 + w_1 = c_2 + w_2$ with constants $c_i$ and
 $w_i \in L^p_{\#}(\Omega)$. Integrating over $\Omega$ and using
@@ -252,34 +266,37 @@ $\|v - \overline{v}\|_{L^2(\Omega)} \leqslant \|v\|_{L^2(\Omega)}$.
 Let us start with a motivating example. Let $u \in C^k(\Omega)$ and $\phi \in C^{\infty}_c(\Omega)$.
 Using Green's theorem and taking into account that $\phi = 0$ on an open neighborhood of the boundary of $\Omega$, 
 we see that
-```{math}
-:label: eq:weak-deriv-first
+
+$$
 \int_{\Omega} \partial_{x_i} u \phi = 
 - \int_{\Omega} u \partial_{x_i} \phi,
-```
+$$ (eq:weak-deriv-first)
+
 and iterating this formula, we observe that for any multiindex
 $\alpha \in \mathbb{N}_0^n$, where $\mathbb{N}_0 := \mathbb{N} \cup \{0\}$, with
 $|\alpha| \leqslant k$,
-```{math}
-:label: eq:weak-deriv-alpha
+
+$$
 \int_{\Omega} \partial^{\alpha} u \phi = 
 (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi,
-```
+$$ (eq:weak-deriv-alpha)
 
 where $|\alpha| = \alpha_1 + \cdots + \alpha_n$.
 Note that the integral expression on the right-hand side of {eq}`eq:weak-deriv-alpha` makes perfect
 sense even for $u\in L^1_{\mathrm{loc}}$ and not only $u\in C^k(\Omega)$.
 This leads to a possibility to generalize or weaken the classical definition of derivatives. 
 
-````{prf:definition} Weak derivative
+:::{prf:definition} Weak derivative
 Let $\alpha \in \mathbb{N}_0^n$ be a multiindex and $u, u_{\alpha} \in L^1_{\mathrm{loc}}(\Omega)$.
 We say that $u_{\alpha}$ is *$\alpha$-th weak derivative* of $u$ if
-```{math}
+
+$$
 \int_{\Omega}  u_{\alpha} \phi = 
 (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi
-```
+$$
+
 holds for all $\phi \in C^{\infty}_c(\Omega)$.
-````
+:::
 
 ```{prf:lemma} Uniqueness of weak derivatives
 If $u \in L^1_{\mathrm{loc}}(\Omega)$ possesses an $\alpha$-th weak derivative, it is uniquely defined
@@ -289,32 +306,38 @@ in $L^1_{\mathrm{loc}}(\Omega)$.
 ````{prf:proof}
 For
 two weak derivatives $u_{\alpha}$ and $\tilde{u}_{\alpha}$ we have that
-```{math}
+
+$$
 \begin{aligned}
 \int_{\Omega} u_{\alpha} \phi &= (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi
 \\
 \int_{\Omega} \tilde{u}_{\alpha} \phi &= (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi
 \end{aligned}
-```
+$$
+
 and by subtracting the second from the first equation, we obtain that 
-```{math}
+
+$$
 \int_{\Omega}
 (u_{\alpha} - \tilde{u}_{\alpha} ) \phi =  0 \quad \forall \phi \in C_c^{\infty}(\Omega),
-```
+$$
+
 and thus $u_{\alpha} = \tilde{u}_{\alpha}$ almost everywhere
 by {prf:ref}`lem:uniqueness-by-testing`.
 ````
 
 ````{exercise} Relation between the modulus function and the sign function
 Let $\Omega = (-1,1)$ and set
-```{math}
+
+$$
 \begin{aligned}
 u(x) &= |x| \\
 \mathrm{sgn}(x) &= \begin{cases} -1 &\quad x \in (-1,0) \\ 
                       1  &\quad x \in [0, 1)
         \end{cases}
 \end{aligned}
-```
+$$
+
 By simply using the definition of the weak derivative, show that
 $\mathrm{sgn}(x)$ is the weak derivative of $u$.
 ````
@@ -327,16 +350,21 @@ $\mathrm{sgn}(x)$ is the weak derivative of $u$.
   \}
   $
 * For $p=2$, we usually write
-  ```{math}
+
+  $$
   H^k(\Omega) := W^{k,2}(\Omega)
-  ```
+  $$
+
   Note that the $\| \cdot \|_{H^k(\Omega)}$ is induced by the inner product
-  ```{math}
+
+  $$
   (v,w)_{H^k(\Omega)} := 
     \sum_{|\alpha| \leqslant k} (\partial^{\alpha} v, \partial^{\alpha} w)_{L^2(\Omega)}
-  ```
+  $$
+
 * For $u \in W^{k,p}(\Omega)$, we set 
-  ```{math}
+
+  $$
   \| u \|_{W^{k,p}({\Omega})} := \|u\|_{k,p,\Omega} 
   :=
   \begin{cases}
@@ -348,16 +376,21 @@ $\mathrm{sgn}(x)$ is the weak derivative of $u$.
     \sum_{|\alpha| \leqslant k} \| \partial^{\alpha} u \|_{L^{\infty}(\Omega)}
   & p =  \infty.
   \end{cases}
-  ```
+  $$
+
 * We set
-  ```{math}
+
+  $$
   W_0^{k,p}(\Omega) := \overline{C_c^{\infty}(\Omega)}^{\|\cdot\|_{k,p,\Omega}},
-  ```
+  $$
+
   that is, the topological closure of $C_c^{\infty}(\Omega)$ in $W^{k,p}(\Omega)$.
 * Finally, we introduce the common notation for the dual space of $H^1_0(\Omega)$, 
-  ```{math}
+
+  $$
   H^{-1}(\Omega) := (H^1_0(\Omega))'. 
-  ``` 
+  $$
+
 ````
 
 ```{prf:remark}
@@ -366,10 +399,11 @@ consisting of those functions $\phi$ in $W^{k,p}(\Omega)$ which are limits
 of sequences $\{\phi_n\}_{n=1}^\infty \subset C_c^{\infty}(\Omega)$.
 ```
 For first order Sobolev spaces, we abbreviate the norm of the gradient by
-```{math}
-:label: eq:gradient-norm
+
+$$
 \| \nabla u \|_{L^p(\Omega)}^p := \sum_{i=1}^n \| \partial_{x_i} u \|_{L^p(\Omega)}^p,
-```
+$$ (eq:gradient-norm)
+
 so that $\| u \|_{W^{1,p}(\Omega)}^p = \| u \|_{L^p(\Omega)}^p + \| \nabla u \|_{L^p(\Omega)}^p$.
 For $p = 2$, this agrees with $\bigl( \int_{\Omega} |\nabla u|^2 \bigr)^{1/2}$,
 where $|\cdot|$ denotes the Euclidean norm on $\mathbb{R}^n$.
@@ -380,10 +414,11 @@ Later we will need the following important result known as Poincaré inequality.
 :label: thm:poincare
 Let $\Omega$ be an open and bounded subset of $\mathbb{R}^n$ and let
 $1 \leqslant p < \infty$. Then there is a constant $C_P = C_P(p,n,\Omega)$ such that
-```{math}
-:label: eq:poincare
+
+$$
 \|u \|_{L^p(\Omega)} \leqslant C_P \|\nabla u \|_{L^p(\Omega)}.
-```
+$$ (eq:poincare)
+
 for any $u \in W^{1,p}_0(\Omega)$.
 ````
 ```{prf:proof}
@@ -393,22 +428,26 @@ For a proof we refer to {cite}`Evans2010` (p. 279).
 ````{prf:corollary}
 :label: cor:poincare
 On $W^{1,p}_0(\Omega)$, the norm $\| \cdot\|_{W^{1,p}(\Omega)}$ is equivalent to
-```{math}
+
+$$
 \| u \|_{W^{1,p}_0(\Omega)} := \| \nabla u \|_{L^{p}(\Omega)}.
-```
+$$
+
 More precisely,
-```{math}
-:label: eq:poincare-norm-equivalence
+
+$$
 \| \nabla u \|_{L^p(\Omega)}
 \leqslant \| u \|_{W^{1,p}(\Omega)}
 \leqslant (1+C_P^p)^{1/p} \| \nabla u \|_{L^p(\Omega)}
 \quad \forall u \in W^{1,p}_0(\Omega).
-```
+$$ (eq:poincare-norm-equivalence)
+
 ````
 
 ````{prf:proof}
 A simple application of the Poincaré inequality yields
-```{math}
+
+$$
 \|\nabla u\|_{L^p(\Omega)}^p
 \leqslant
 \| u \|_{L^p(\Omega)}^p +
@@ -416,7 +455,8 @@ A simple application of the Poincaré inequality yields
 = \| u \|_{W^{1,p}(\Omega)}^p
 \leqslant
 (1+C_P^p) \|\nabla u\|_{L^p(\Omega)}^p,
-```
+$$
+
 and taking $p$-th roots gives {eq}`eq:poincare-norm-equivalence`.
 ````
 
@@ -446,9 +486,11 @@ exists a bounded operator $\gamma : H^1(\Omega) \to L^2(\Gamma)$ (the so-called 
 $\gamma(u) = u|_{\Gamma}$ for all $u \in H^1(\Omega) \cap C(\overline{\Omega})$.
 
 Moreover, under the same assumptions on $\Omega$, one can show that
-```{math}
+
+$$
 H^1_0(\Omega) = \mathrm{ker} \gamma = \{v \in H^1(\Omega) \mid \gamma(v) = 0 \}.
-```
+$$
+
 ````
 
 It turns out that the trace operator $\gamma$ **is not onto $L^2(\Gamma)$**. Thus, when we later want
@@ -460,17 +502,23 @@ That motivates the following
 ````{prf:definition} $H^{1/2}(\Gamma)$
 :label: def:honehalf
 We set
-```{math}
+
+$$
 H^{1/2}(\Gamma) := \{ v \in L^2(\Gamma) \mid v = \gamma(w) \text{ for some } w \in H^1(\Omega) \}
 = \mathrm{ran}\, \gamma
-```
+$$
+
 and define a corresponding norm by
-```{math}
+
+$$
   \|v \|_{H^{1/2}(\Gamma)} := \|v\|_{1/2, \Gamma} := \inf \{ \|w\|_{1,\Omega} \mid w \in H^1(\Omega), \; \gamma(w) = v\}.
-```
+$$
+
 Consequently,
-```{math}
+
+$$
 \|\gamma(w)\|_{1/2,\Gamma} \leqslant \| w\|_{1, \Omega} \quad \forall w \in H^1(\Omega),
-```
+$$
+
 that is, $\gamma : H^1(\Omega) \to H^{1/2}(\Gamma)$ is bounded with norm at most $1$.
 ````

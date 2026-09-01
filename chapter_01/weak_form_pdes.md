@@ -15,25 +15,27 @@ $\Gamma = \partial \Omega$. This guarantees that the Gauß theorem, the
 {prf:ref}`Poincaré inequality<thm:poincare>` are all at our disposal.
 
 We start by considering the Poisson problem
-```{math}
-:label: eq:poisson-wo-bc
+
+$$
 - \nabla \cdot \nabla u =  -\Delta u  = f \quad \text{in } \Omega
-```
+$$ (eq:poisson-wo-bc)
+
 supplemented with some suitable boundary conditions 
 which $u$ should satisfy on 
 the boundary $\Gamma = \partial \Omega$ of $\Omega$.
 
 ## Neumann problems
 Let us consider the homogeneous Neumann problem
-```{math}
-:label: eq:neumann-problem-I
+
+$$
 \left\{
 \begin{alignedat}{2}
 - \Delta u + u &= f & &\quad \text{in } \Omega \\
          \partial_n u &= 0 & &\quad \text{on } \Gamma
 \end{alignedat}
 \right.
-```
+$$ (eq:neumann-problem-I)
+
 Here, we used the slightly simplified notation $\partial_n u = \mathbf{n} \cdot \nabla u$.
 The idea to derive a so-called weak formulation of a PDE is very similar
 to the idea behind the introduction of weak derivatives:
@@ -54,8 +56,8 @@ e.g., $u \in C^2(\overline{\Omega})$, $\Gamma$ is a $C^1$ boundary, and
 $v \in C^{\infty}(\overline{\Omega})$. Then multiplying 
 the PDE in {eq}`eq:neumann-problem-I` with $v$ and integrating over $\Omega$
 and applying Green's theorem leads to
-```{math}
-:label: eq:weak-form-neumann-derivation
+
+$$
 \begin{aligned}
 \int_{\Omega} f v
 &= 
@@ -67,7 +69,7 @@ and applying Green's theorem leads to
 + \int_{\Omega} \nabla u \cdot \nabla  v
 +\int_{\Omega} uv
 \end{aligned}
-```
+$$ (eq:weak-form-neumann-derivation)
 
 Note that the Neumann boundary condition $\mathbf{n} \cdot \nabla u = 0$
 makes the boundary integrals vanish.
@@ -77,12 +79,13 @@ the inner product associated with $H^1(\Omega)$ between $u$ and $v$.
 In fact, the expression makes perfect sense even if we only
 assume that both $u, v \in H^1(\Omega) =: V$.
 With this assumption, we can define the bilinear form 
-```{math}
-:label: poisson-bilinear-form-a
+
+$$
 a(v, w) := 
 \int_{\Omega} \nabla v \cdot \nabla  w
 +\int_{\Omega} vw
-```
+$$ (poisson-bilinear-form-a)
+
 on $V\times V$, and it is straightforward to
 show that $a(\cdot, \cdot)$ (being the $H^1$ inner product itself)
 satisfies the required assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`:
@@ -104,62 +107,72 @@ so that the assumptions of {prf:ref}`the Lax-Milgram theorem<thm-lax-milgram>`
 hold with $C_a = 1$ and $\alpha = 1$.
 
 Next, we define the linear form $l : V \to \mathbb{R}$
-```{math}
-:label: poisson-linear-form-l
+
+$$
 l(v) := \int_{\Omega} f v = (f, v)_{L^2(\Omega)}
-```
+$$ (poisson-linear-form-l)
+
 If we assume that $f \in L^2(\Omega)$, then thanks to the Cauchy-Schwarz inequality,
-```{math}
+
+$$
 |l(v)| 
 = |(f, v)_{L^2(\Omega)}| 
 \leqslant 
 \|f\|_{L^2(\Omega)} \|v\|_{L^2(\Omega)}
 \leqslant
 \|f\|_{L^2(\Omega)} \|v\|_{H^1(\Omega)},
-```
+$$
+
 we can immediately conclude that $l$ is a continuous linear form with $C_l = \|f\|_{L^2(\Omega)}$.
 Thus the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>`
 lets us conclude that the problem: find $u \in H^1(\Omega)=: V$ such that $\forall v \in V$
-```{math}
+
+$$
 a(u,v) = l(v)
-```
+$$
+
 has a unique solution for every $f \in L^2(\Omega)$ with $\|u\|_{H^1(\Omega)} \leqslant \|f\|_{L^2(\Omega)}$.
 
 ````{admonition} (variants of Neumann problems)
 :class: :danger :dropdown
 Discuss Neumann problems when a) lower term is not present b) $g_N \neq 0$:
-```{math}
+
+$$
 \left\{
 \begin{alignedat}{2}
 - \Delta u  &= f & &\quad \text{in } \Omega \\
          \partial_n u &= 0 & &\quad \text{on } \Gamma
 \end{alignedat}
 \right.
-```
+$$
+
 and
-```{math}
+
+$$
 \left\{
 \begin{alignedat}{2}
 - \Delta u  &= f & &\quad \text{in } \Omega \\
          \partial_n u &= g_N & &\quad \text{on } \Gamma
 \end{alignedat}
 \right.
-```
+$$
+
 ````
 
 ## Dirichlet problems
 
 ### Homogeneous Dirichlet problem for $-\Delta + \mathrm{Id}$ operator
 Next, we consider 
-```{math}
-:label: eq:dirichlet-problem-I
+
+$$
 \left\{
 \begin{alignedat}{2}
 - \Delta u + u &= f & &\quad \text{in } \Omega \\
          u &= 0 & &\quad \text{on } \Gamma
 \end{alignedat}
 \right.
-```
+$$ (eq:dirichlet-problem-I)
+
 We proceed as for the Neumann problem: we multiply with suitable test functions $v$
 and integrate by parts,
 but this time, the boundary integral does not vanish since we don't have natural boundary conditions
@@ -167,8 +180,8 @@ to incorporate.
 To compensate, we only consider test functions $v \in C^{\infty}_c(\Omega)$
 which vanish at the boundary. 
 Then again, we obtain
-```{math}
-:label: eq:weak-form-dirichlet-derivation
+
+$$
 \begin{aligned}
 \int_{\Omega} f v
 &= 
@@ -180,7 +193,8 @@ Then again, we obtain
 + \int_{\Omega} \nabla u \cdot \nabla  v
 +\int_{\Omega} uv.
 \end{aligned}
-```
+$$ (eq:weak-form-dirichlet-derivation)
+
 Intuitively speaking, we know what the solution $u$ is going to look like
 on the boundary, namely $u=0$, so we don't need test functions which
 test for how the equation "behaves" at the boundary.
@@ -190,10 +204,11 @@ This is exactly what the $H^1_0(\Omega)$ space is made for!
 So the weak formulation for {eq}`eq:dirichlet-problem-I` is:
 
 Find $u \in V := H^1_0(\Omega)$ such that
-```{math}
-:label: eq:dirichlet-problem-I-weak
+
+$$
 a(u,v) = l(v) \quad \forall v \in V,
-```
+$$ (eq:dirichlet-problem-I-weak)
+
 where $a(\cdot, \cdot)$ and $l(\cdot)$
 are defined as in {eq}`poisson-bilinear-form-a` and
 {eq}`poisson-linear-form-l`, respectively.
@@ -216,38 +231,45 @@ is the Hilbert space on which they are posed.
 ### Homogeneous Dirichlet problem for $-\Delta$ operator
 Now, we consider a slightly modified Poisson problem where the
 low order term $u$ is left out:
-```{math}
-:label: eq:dirichlet-problem-II
+
+$$
 \left\{
 \begin{alignedat}{2}
 - \Delta u &= f & &\quad \text{in } \Omega \\
          u &= 0 & &\quad \text{on } \Gamma
 \end{alignedat}
 \right.
-```
+$$ (eq:dirichlet-problem-II)
 
 Repeating the steps from the previous section, we arrive at the problem:
 Find $u \in V := H^1_0(\Omega)$ such that
-```{math}
-:label: eq:dirichlet-problem-II-weak
+
+$$
 a(u,v) = l(v) \quad \forall v \in V,
-```
+$$ (eq:dirichlet-problem-II-weak)
+
 with the only distinction that $a(\cdot, \cdot)$ is now given by
-```{math}
+
+$$
 a(v, w) = \int_{\Omega} \nabla v \cdot \nabla w.
-```
+$$
+
 The boundedness of $a(\cdot, \cdot)$ and $l(\cdot)$ can be shown (almost) exactly as before.
 But let's have a look at the coercivity/ellipticity: Setting $u=v$, we obtain 
-```{math}
+
+$$
 a(v,v) = \int_{\Omega} |\nabla v|^2
-```
+$$
+
 But thanks to the {prf:ref}`Poincaré inequality<thm:poincare>`
 and {prf:ref}`cor:poincare` we not only know that $|\nabla\ \cdot |$ 
 defines a norm on the closed subspace $H^1_{0}(\Omega)$ but that this norm
 is equivalent to the usual $H^1$-norm. Thanks to the proof of {prf:ref}`cor:poincare` we see that
-```{math}
+
+$$
 a(v,v) = \int_{\Omega} |\nabla v|^2 \geqslant (1 + C_P^2)^{-1} \|v\|_{1,\Omega}^2.
-```
+$$
+
 Thus the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>` applies with
 $C_a = 1$ and $\alpha = (1+C_P^2)^{-1}$, and the resulting stability estimate
 reads $\|u\|_{1,\Omega} \leqslant (1+C_P^2)\, \|f\|_{L^2(\Omega)}$.
@@ -255,15 +277,16 @@ reads $\|u\|_{1,\Omega} \leqslant (1+C_P^2)\, \|f\|_{L^2(\Omega)}$.
 
 ### Inhomogeneous Dirichlet problem for $-\Delta$ operator
 Next, we consider 
-```{math}
-:label: eq:dirichlet-problem-inhomog
+
+$$
 \left\{
 \begin{alignedat}{2}
 - \Delta u &= f & &\quad \text{in } \Omega \\
          u &= g_D & &\quad \text{on } \Gamma
 \end{alignedat}
 \right.
-```
+$$ (eq:dirichlet-problem-inhomog)
+
 Compared to our previous weak formulation for the homogeneous problem,
 the main question is now: how can we incorporate the inhomogeneous
 Dirichlet b.c. $u = g_D$? First, we realize that
@@ -274,10 +297,12 @@ $H^{1/2}(\Gamma)$, see {prf:ref}`def:honehalf` to ensure
 that we can satisfy the equation $u = g_D$,
 and only $u$ satisfying this b.c. should be viable solution candidates
 for our weak formulation. Thus we set
-```{math}
+
+$$
 H^1_{g_D}(\Omega) := 
 \{ v \in H^1(\Omega) \;|\; \gamma(v) = g_D \}.
-```
+$$
+
 Since $g_D \in H^{1/2}(\Gamma)$, this set is not empty.
 Note that 
 $H^1_{g_D}(\Omega)$ is not really a vector space whenever 
@@ -286,17 +311,21 @@ two functions $u_1, u_2$ with the same non-vanishing boundary data $g_D$ will re
 a function $u$ satisfying $u = 2 g_D$!
 In that sense, $H^1_{g_D}(\Omega)$ should rather be considered an **affine** subspace:
 For any $u_g$ satisfying $\gamma(u_g) = g_D$, it holds that
-```{math}
+
+$$
 H^1_{g_D}(\Omega) = u_g + H^1_0(\Omega)
                   := \{ u_g + v \;|\; v \in H^1_0(\Omega) \}
                    = \gamma^{-1}(g_D).
-```
+$$
+
 So the resulting weak formulation is
 Find $u \in V := H^1_{g_D}(\Omega)$ such that
 for all $v \in \widehat{V} := H^1_0(\Omega)$,
-```{math}
+
+$$
 \underbrace{\int_{\Omega} \nabla u \cdot\nabla v}_{=:a(u,v)} = \underbrace{\int_{\Omega} f v}_{=:l(v)}.
-```
+$$
+
 Note how in this case the trial function space and test function space
 are not identical any more!  How can we prove the well-posedness of
 this weak formulation? Lax-Milgram usually requires that the first and
@@ -307,10 +336,10 @@ there must be a $u_g \in H^1(\Omega)$ such that $\gamma(u_g) = g_D$.
 Then we make the ansatz $u = u_0 + u_g$ with $u_0 \in
 H^1_0(\Omega)$, leading to the following weak formulation: find $u_0
 \in H^1_0(\Omega) =: V$ such that
-```{math}
-:label: eq:weak-form-dirichlet-inhomog-lifted
+
+$$
 a(u_0,v) = l(v) - a(u_g, v) =: \widetilde{l}(v) \quad \forall\, v \in V.
-``` 
+$$ (eq:weak-form-dirichlet-inhomog-lifted)
 
 ```{exercise} Well-posedness of the lifted Dirichlet formulation
 Show that 
@@ -321,14 +350,16 @@ requires a little extra checking?
 
 ## Robin problems
 Finally, we consider the Robin problem
-```{math}
+
+$$
 \left\{
 \begin{alignedat}{2}
 - \Delta u  &= f & &\quad \text{in } \Omega, \\
          \partial_n u &= \sigma(g_R-u) & &\quad \text{on } \Gamma,
 \end{alignedat}
 \right.
-```
+$$
+
 where $\sigma \in L^{\infty}(\Gamma)$ satisfies
 $\sigma \geqslant \sigma_0 > 0$ almost everywhere on $\Gamma$.
 
@@ -355,17 +386,19 @@ The PDE {eq}`eq:poisson-wo-bc` is the prototype example
 of a 2nd order elliptic operator.
 More generally and without any significant complications, 
 we can consider a more general PDE of the form
-```{math}
+
+$$
 \mathcal{A} u := - \nabla \cdot ( A \nabla u) = f
-```
+$$
+
 where $A = (a_{ij}(x))_{i,j=1}^n$ is a pointwise defined matrix.
 Note that
-```{math}
-:label: eq:def-A-operator
+
+$$
 \mathcal{A} u = - \nabla \cdot ( A(x) \nabla u(x))
 =
 -\sum_{i,j=1}^n \partial_{i} (a_{ij}(x) \partial_{j} u(x))
-```
+$$ (eq:def-A-operator)
 
 For most of the remaining lectures, we will require $A(x)$
 to satisfy the following definition.
@@ -408,22 +441,24 @@ $\mathcal{A}$ with one of the following boundary conditions
 * **Dirichlet boundary conditions** 
    Given a function  $g_D: \Gamma  \to \mathbb{R}$, we require that
 
-  ```{math}
+  $$
   u = g_D \quad \text{on } \Gamma
-  ```
+  $$
+
 * **Neumann boundary conditions** 
    Given a function  $g_N: \Gamma  \to \mathbb{R}$, we require that
 
-  ```{math}
+  $$
   \mathbf{n} \cdot A \nabla u = g_N \quad \text{on } \Gamma 
-  ```
+  $$
+
 * **Robin boundary conditions** 
    Given $g_R \in L^2(\Gamma)$ and $\sigma \in L^{\infty}(\Gamma)$ with
    $\sigma \geqslant \sigma_0 > 0$ almost everywhere on $\Gamma$, we require that
 
-  ```{math}
+  $$
   \mathbf{n} \cdot A \nabla u = \sigma(g_R - u) \quad \text{on } \Gamma 
-  ```
+  $$
 
 These boundary conditions are called *homogeneous* if $g_D$ (respectively $g_N$, $g_R$)
 is zero, otherwise we deal with *inhomogeneous* boundary data.

@@ -7,9 +7,9 @@ Vector space
 [Metric space](https://en.wikipedia.org/wiki/Metric_space)
 : A metric space is a set $X$ which is equipped with a [distance function (or metric)](https://en.wikipedia.org/wiki/Metric_space#Definition)
 
-```{math}
+$$
 d(x,y): X \times X \to \mathbb{R}.
-```
+$$
 
 [Complete metric space](https://en.wikipedia.org/wiki/Complete_metric_space)
 : A metric space is called *complete* if every [Cauchy sequence](https://en.wikipedia.org/wiki/Cauchy_sequence#In_a_metric_space)
@@ -19,9 +19,9 @@ converges to some $x \in X$.
 : A vector space $(V, \|\cdot\|_V)$ consists of a vector space $V$ which is 
 equipped with a [norm](https://en.wikipedia.org/wiki/Norm_(mathematics)) 
 
-```{math}
+$$
 \| \cdot \|_V : V \to [0,\infty)
-``` 
+$$
 
 Note that every norm induces a natural metric $d(x, y) := \|x-y\|_V$.
 Typically we do not use the verbose notation $(V, \|\cdot\|_V)$, instead
@@ -36,9 +36,9 @@ the context.
 : An inner product space $\bigl(V, (\cdot, \cdot)_V\bigr)$ is a real
 vector space $V$ equipped with an [inner product](https://en.wikipedia.org/wiki/Inner_product_space#Basic_properties)
     
-```{math}
+$$
 (\cdot, \cdot)_V : V \times V \to \mathbb{R}
-``` 
+$$
 
 Every inner product induces a natural norm $\| \cdot \| := \sqrt{(\cdot, \cdot)}$, and thereby a metric. 
 Again, we typically do not use the verbose notation $\bigl(V, (\cdot,
@@ -48,9 +48,11 @@ in the $(\cdot, \cdot)_V$ symbol when the inner product is clear from
 the context.
 
 Inner products satisfy the *Cauchy-Schwarz inequality:*
-```{math}
+
+$$
 |(u,v)_V| \leqslant \|u\|_V \|v\|_V.
-```
+$$
+
 <!-- and inequality only holds -->
 
 
@@ -62,19 +64,22 @@ equivalently, a Banach space whose norm is induced by an inner product.
 : A linear operator $L: V \to W$ between two normed vector spaces 
 $(V, \|\cdot\|_V)$ and $(W, \|\cdot\|_W)$
 is called bounded if there is a constant $C \in \mathbb{R}^+_0$ such that
-```{math}
+
+$$
 \| L v \|_W \leqslant C \|v\|_V.
-```
+$$
 
 The *operator norm* $\|L\|_{V\to W}$ of $L$ is then the smallest such constant given by 
-```{math}
+
+$$
 \begin{aligned}
 \|L\|
 &= \inf \{C \in \mathbb{R}^+_0 : \|L v \|_W \leqslant C \|v\|_V \, \forall v \in V\} \\
 & = \sup_{v \in V \setminus \{0\}} \dfrac{\|L v \|_W}{\|v\|_V} \\
 & = \sup_{v \in V, \|v\|_V = 1} \|L v \|_W.
 \end{aligned}
-```
+$$
+
 As for norms, we omit the subscript ${}_{V \to W}$ and simply write $\|L\|$
 whenever no confusion can arise.
 
@@ -97,9 +102,10 @@ of all **continuous** linear functionals defined on $V$.
 
 Note that for inner product spaces $V$, every $u \in V$ gives rise to a 
 continuous linear functional $l_u$ defined by
-```{math}
+
+$$
 l_u(v) := (v, u)_V \quad \forall v \in V.
-```
+$$
 
 For a Hilbert space $H$, that is in essence all the continuous linear functionals
 you can construct on $H$ thanks to the following theorem.
@@ -110,13 +116,17 @@ you can construct on $H$ thanks to the following theorem.
 Let $H$ be a Hilbert space with an inner product $(\cdot, \cdot)$. Then for
 every continuous linear functional $l:H \to \mathbb{R}$, there is a unique vector $u_l \in H$
 such that
-```{math}
+
+$$
 l(v) = (v, u_l) \quad \forall v \in H,
-```
+$$
+
 and we have
-```{math}
+
+$$
 \| l \|_{H'} = \| u_l \|_{H}.
-```
+$$
+
 ````
 
 ```{prf:proof}
@@ -130,17 +140,20 @@ decomposition of a Hilbert space with respect to a *closed* subspace.
 ````{prf:theorem} Orthogonal decomposition
 :label: thm-orthogonal-decomposition
 Let $H$ be a Hilbert space and let $M \subset H$ be a **closed** subspace. Then
-```{math}
+
+$$
 H = M \oplus M^{\perp},
 \qquad \text{where} \quad
 M^{\perp} := \{ w \in H : (v, w) = 0 \;\; \forall v \in M \},
-```
+$$
+
 that is, every $x \in H$ can be written uniquely as $x = m + m^{\perp}$ with
 $m \in M$ and $m^{\perp} \in M^{\perp}$. In particular,
-```{math}
-:label: eq:orthogonal-decomposition-trivial
+
+$$
 M^{\perp} = \{0\} \quad \implies \quad M = H.
-```
+$$ (eq:orthogonal-decomposition-trivial)
+
 ````
 
 ```{prf:proof}
@@ -155,10 +168,11 @@ existence proof for the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>`.
 :label: thm-banach-fixed-point
 Let $(X, d)$ be a non-empty complete metric space and let $T: X \to X$ be a
 *contraction*, that is, there exists a constant $k \in [0, 1)$ such that
-```{math}
-:label: eq:banach-contraction
+
+$$
 d(T x, T y) \leqslant k \, d(x, y) \quad \forall x, y \in X.
-```
+$$ (eq:banach-contraction)
+
 Then $T$ possesses exactly one fixed point $x^{\ast} \in X$, i.e. $T x^{\ast} = x^{\ast}$.
 ````
 

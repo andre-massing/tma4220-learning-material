@@ -48,13 +48,13 @@ To this end we will develop, theoretically analyze, and practically implement nu
 has a wide range of applications in, e.g. thermodynamics, Newtonian gravity and electrostatics.
 In its simplest form, it takes the form
 
-```{math}
+$$
 \begin{alignedat}{2}
 -\Delta u &= f &&\quad \text{in } \Omega,
 \\
 u &= g &&\quad \text{on } \partial\Omega,
 \end{alignedat} 
-```
+$$
 
 consisting of **PDE** part and a **boundary condition** part. Throughout the course we will discuss different types of boundary conditions
 and how they can be incorporated into the weak formulation and numerical FEM-schemes.
@@ -64,7 +64,7 @@ and how they can be incorporated into the weak formulation and numerical FEM-sch
 ### Parabolic equation
 is a time-dependent variant of the Poisson problem
 
-```{math}
+$$
 \begin{alignedat}{2}
 \partial_t u(x,t) -\Delta u(x,t) &= f(x,t) &&\quad \text{for } (x,t) \in \Omega \times (0,T],
 \\
@@ -72,7 +72,7 @@ u(x,t) &= g(x,t) &&\quad \text{for } (x,t) \in \partial\Omega \times (0,T],
 \\
 u(x,0) &= u_0(x) &&\quad \text{for } x \in \Omega
 \end{alignedat} 
-```
+$$
 
 consisting of the PDE, boundary conditions and **initial conditions**
 
@@ -92,14 +92,14 @@ time-dependent test problem for the finite element method
 
 Find $u, v : \Omega \times (0, T] \to \mathbb{R}$ such that
 
-```{math}
-:label: eq:gray-scott
+$$
 \begin{alignedat}{2}
 \partial_t u &= D_u \Delta u - u v^2 + F(1 - u) &&\quad \text{in } \Omega \times (0, T],
 \\
 \partial_t v &= D_v \Delta v + u v^2 - (F + k) v &&\quad \text{in } \Omega \times (0, T],
 \end{alignedat}
-```
+$$ (eq:gray-scott)
+
 which must be supplemented with boundary conditions (b.c.) and initial conditions (i.c.)
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "fragment"}}
