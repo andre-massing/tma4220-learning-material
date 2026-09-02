@@ -20,6 +20,28 @@ kernelspec:
 
 +++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
 
+```{admonition} Work in progress --- and a note on AI assistance
+:class: warning
+
+This learning material is **very much work in progress**. Chapters are
+incomplete, and content is added, rewritten and reorganized while the course is
+running.
+
+Parts of it have been produced with the help of the AI assistant **Claude**,
+which was used, for instance, to generate and refactor code examples, to
+typeset and restructure existing hand-written notes, and to check text passages
+and computations. Everything is reviewed by the author, but errors --- typos,
+broken references, wrong signs, misleading formulations, or code that does not
+run --- will inevitably have slipped through.
+
+If you discover an issue of any kind, please report it as an
+[issue on GitHub](https://github.com/andre-massing/tma4220-learning-material/issues).
+Your feedback improves the notes for everybody taking the course, and is much
+appreciated!
+```
+
++++ {"deletable": true, "editable": true, "slideshow": {"slide_type": "slide"}}
+
 ## Course content and objectives
 
 * The course gives an introduction to **finite element methods** for the numerical solution of partial differential equations (PDEs). 
