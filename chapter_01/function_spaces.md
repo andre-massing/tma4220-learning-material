@@ -389,12 +389,19 @@ $\mathrm{sgn}(x)$ is the weak derivative of $u$.
   vanishing mean value condition from {prf:ref}`def:mean-zero-lp` and set
 
   $$
-  H^1_{\#}(\Omega) := H^1(\Omega) \cap L^2_{\#}(\Omega)
-  = \Bigl\{ v \in H^1(\Omega) \mid \overline{v} = 0 \Bigr\},
-  $$ (eq:mean-zero-h1)
+  W^{k,p}_{\#}(\Omega) := W^{k,p}(\Omega) \cap L^p_{\#}(\Omega)
+  = \Bigl\{ v \in W^{k,p}(\Omega) \mid \overline{v} = 0 \Bigr\},
+  $$ (eq:mean-zero-sobolev)
 
-  which we endow with the norm $\|\cdot\|_{H^1(\Omega)}$ inherited from
-  $H^1(\Omega)$.
+  which we endow with the norm $\|\cdot\|_{k,p,\Omega}$ inherited from
+  $W^{k,p}(\Omega)$. For $p = 2$, we write as before
+
+  $$
+  H^k_{\#}(\Omega) := W^{k,2}_{\#}(\Omega),
+  $$
+
+  and the case $H^1_{\#}(\Omega) = H^1(\Omega) \cap L^2_{\#}(\Omega)$ is the
+  one we will encounter when we discuss the pure Neumann problem.
 * Finally, we introduce the common notation for the dual space of $H^1_0(\Omega)$, 
 
   $$
@@ -468,6 +475,84 @@ $$
 $$
 
 and taking $p$-th roots gives {eq}`eq:poincare-norm-equivalence`.
+````
+
+The Poincaré inequality relies on the boundary condition encoded in
+$W^{1,p}_0(\Omega)$ to rule out the constant functions, for which the
+right-hand side of {eq}`eq:poincare` vanishes. Normalizing the mean value
+to zero serves the same purpose, and leads to the following variant, known
+as the *Poincaré--Wirtinger inequality*.
+
+````{prf:theorem} Poincaré--Wirtinger inequality
+:label: thm:poincare-wirtinger
+Let $\Omega$ be an open, bounded and **connected** subset of $\mathbb{R}^n$
+with Lipschitz boundary and let $1 \leqslant p < \infty$. Then there is a
+constant $C_{PW} = C_{PW}(p,n,\Omega)$ such that
+
+$$
+\| v - \overline{v} \|_{L^p(\Omega)} \leqslant C_{PW} \| \nabla v \|_{L^p(\Omega)}
+$$ (eq:poincare-wirtinger)
+
+for any $v \in W^{1,p}(\Omega)$. In particular, since $\overline{v} = 0$ and
+$\nabla v = \nabla (v - \overline{v})$ for $v \in W^{1,p}_{\#}(\Omega)$,
+
+$$
+\| v \|_{L^p(\Omega)} \leqslant C_{PW} \| \nabla v \|_{L^p(\Omega)}
+\quad \forall v \in W^{1,p}_{\#}(\Omega).
+$$ (eq:poincare-wirtinger-mean-zero)
+
+````
+```{prf:proof}
+For a proof we refer to {cite}`Evans2010` (p. 275).
+```
+
+```{prf:remark}
+Connectedness of $\Omega$ cannot be dropped: if $\Omega = \Omega_1 \cup \Omega_2$
+consists of two disjoint open sets, the function which equals $|\Omega_2|$ on
+$\Omega_1$ and $-|\Omega_1|$ on $\Omega_2$ belongs to $W^{1,p}_{\#}(\Omega)$ and
+has a vanishing gradient, so no inequality of the form
+{eq}`eq:poincare-wirtinger-mean-zero` can hold.
+```
+
+Exactly as in {prf:ref}`cor:poincare`, the inequality
+{eq}`eq:poincare-wirtinger-mean-zero` turns the gradient into a norm on
+$W^{1,p}_{\#}(\Omega)$.
+
+````{prf:corollary}
+:label: cor:poincare-wirtinger
+On $W^{1,p}_{\#}(\Omega)$, the norm $\| \cdot \|_{W^{1,p}(\Omega)}$ is
+equivalent to
+
+$$
+\| v \|_{W^{1,p}_{\#}(\Omega)} := \| \nabla v \|_{L^{p}(\Omega)}.
+$$
+
+More precisely,
+
+$$
+\| \nabla v \|_{L^p(\Omega)}
+\leqslant \| v \|_{W^{1,p}(\Omega)}
+\leqslant (1+C_{PW}^p)^{1/p} \| \nabla v \|_{L^p(\Omega)}
+\quad \forall v \in W^{1,p}_{\#}(\Omega).
+$$ (eq:poincare-wirtinger-norm-equivalence)
+
+````
+
+````{prf:proof}
+The proof of {prf:ref}`cor:poincare` applies verbatim, with
+{eq}`eq:poincare-wirtinger-mean-zero` taking the role of the Poincaré
+inequality {eq}`eq:poincare`:
+
+$$
+\|\nabla v\|_{L^p(\Omega)}^p
+\leqslant
+\| v \|_{L^p(\Omega)}^p +
+\|\nabla v\|_{L^p(\Omega)}^p
+= \| v \|_{W^{1,p}(\Omega)}^p
+\leqslant
+(1+C_{PW}^p) \|\nabla v\|_{L^p(\Omega)}^p.
+$$
+
 ````
 
 <!-- ### Approximation results -->
