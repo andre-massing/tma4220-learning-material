@@ -385,6 +385,16 @@ $\mathrm{sgn}(x)$ is the weak derivative of $u$.
   $$
 
   that is, the topological closure of $C_c^{\infty}(\Omega)$ in $W^{k,p}(\Omega)$.
+* If $\Omega$ has finite measure, we combine the Sobolev spaces with the
+  vanishing mean value condition from {prf:ref}`def:mean-zero-lp` and set
+
+  $$
+  H^1_{\#}(\Omega) := H^1(\Omega) \cap L^2_{\#}(\Omega)
+  = \Bigl\{ v \in H^1(\Omega) \mid \overline{v} = 0 \Bigr\},
+  $$ (eq:mean-zero-h1)
+
+  which we endow with the norm $\|\cdot\|_{H^1(\Omega)}$ inherited from
+  $H^1(\Omega)$.
 * Finally, we introduce the common notation for the dual space of $H^1_0(\Omega)$, 
 
   $$
@@ -408,9 +418,9 @@ so that $\| u \|_{W^{1,p}(\Omega)}^p = \| u \|_{L^p(\Omega)}^p + \| \nabla u \|_
 For $p = 2$, this agrees with $\bigl( \int_{\Omega} |\nabla u|^2 \bigr)^{1/2}$,
 where $|\cdot|$ denotes the Euclidean norm on $\mathbb{R}^n$.
 
-Later we will need the following important result known as Poincaré inequality.
+Later we will need the following important result known as Poincaré inequalities.
 
-````{prf:theorem} Poincaré inequality
+````{prf:theorem} Poincaré inequality for $H^1_0(\Omega)$
 :label: thm:poincare
 Let $\Omega$ be an open and bounded subset of $\mathbb{R}^n$ and let
 $1 \leqslant p < \infty$. Then there is a constant $C_P = C_P(p,n,\Omega)$ such that

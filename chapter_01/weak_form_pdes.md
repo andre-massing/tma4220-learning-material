@@ -24,7 +24,7 @@ supplemented with some suitable boundary conditions
 which $u$ should satisfy on 
 the boundary $\Gamma = \partial \Omega$ of $\Omega$.
 
-## Neumann problems
+### Homogeneous Neumann problem for $-\Delta + \mathrm{Id}$ operator
 Let us consider the homogeneous Neumann problem
 
 $$
@@ -133,33 +133,6 @@ $$
 
 has a unique solution for every $f \in L^2(\Omega)$ with $\|u\|_{H^1(\Omega)} \leqslant \|f\|_{L^2(\Omega)}$.
 
-````{admonition} (variants of Neumann problems)
-:class: :danger :dropdown
-Discuss Neumann problems when a) lower term is not present b) $g_N \neq 0$:
-
-$$
-\left\{
-\begin{alignedat}{2}
-- \Delta u  &= f & &\quad \text{in } \Omega \\
-         \partial_n u &= 0 & &\quad \text{on } \Gamma
-\end{alignedat}
-\right.
-$$
-
-and
-
-$$
-\left\{
-\begin{alignedat}{2}
-- \Delta u  &= f & &\quad \text{in } \Omega \\
-         \partial_n u &= g_N & &\quad \text{on } \Gamma
-\end{alignedat}
-\right.
-$$
-
-````
-
-## Dirichlet problems
 
 ### Homogeneous Dirichlet problem for $-\Delta + \mathrm{Id}$ operator
 Next, we consider 
@@ -348,6 +321,261 @@ Which of the assumptions of the Lax-Milgram theorem
 requires a little extra checking? 
 ```
 
+### Homogeneous Neumann problem for $-\Delta$ operator
+Now we drop the low order term $u$ in the PDE and consider the homogeneous
+Neumann problem for the Laplace operator:
+
+$$
+\left\{
+\begin{alignedat}{2}
+- \Delta u  &= f & &\quad \text{in } \Omega \\
+         \partial_n u &= 0 & &\quad \text{on } \Gamma
+\end{alignedat}
+\right.
+$$ (eq:neumann-problem-II)
+
+For this section, we assume in addition that $\Omega$ is **connected**, so that
+the {prf:ref}`Poincaré--Wirtinger inequality<thm:poincare-wirtinger>` is at our
+disposal.
+
+Repeating the derivation {eq}`eq:weak-form-neumann-derivation` --- the boundary
+term still vanishes, since $\partial_n u = 0$ is a *natural* boundary condition
+--- but now without the low order term, we arrive at
+
+$$
+\int_{\Omega} f v = \int_{\Omega} \nabla u \cdot \nabla v,
+$$
+
+which suggests the bilinear and linear forms
+
+$$
+a(v, w) := \int_{\Omega} \nabla v \cdot \nabla w,
+\qquad
+l(v) := \int_{\Omega} f v.
+$$ (eq:neumann-problem-II-forms)
+
+At first sight we can now proceed exactly as for the homogeneous Neumann problem
+{eq}`eq:neumann-problem-I` and simply pose the weak formulation on
+$V = H^1(\Omega)$. But this time the resulting problem is **not** well-posed, and
+it is instructive to see what goes wrong.
+
+#### The problem is not uniquely solvable on $H^1(\Omega)$
+Neither the differential equation nor the boundary condition in
+{eq}`eq:neumann-problem-II` sees an additive constant: if $u$ is a solution and
+$c \in \mathbb{R}$, then $-\Delta (u + c) = -\Delta u = f$ and
+$\partial_n (u+c) = \partial_n u = 0$, so $u + c$ is a solution as well. Since
+$\Omega$ is bounded, the constants belong to $H^1(\Omega)$, and the same
+degeneracy is visible in the weak formulation:
+
+$$
+a(v + c, w) = a(v,w)
+\quad \forall\, v, w \in H^1(\Omega), \; c \in \mathbb{R},
+$$ (eq:neumann-II-constants)
+
+because $\nabla c = 0$. Consequently the solution of
+$a(u,v) = l(v) \; \forall v \in H^1(\Omega)$ can never be unique.
+
+On the level of the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>` this shows
+up as a failure of the coercivity assumption: boundedness still holds with
+$C_a = 1$, since
+
+$$
+|a(v,w)| =
+\Bigl| \int_{\Omega} \nabla v \cdot \nabla w \Bigr|
+\leqslant \| \nabla v\|_{L^2(\Omega)} \| \nabla w \|_{L^2(\Omega)}
+\leqslant \|v\|_{1,\Omega} \|w\|_{1,\Omega},
+$$
+
+but testing the coercivity requirement $a(v,v) \geqslant \alpha \|v\|_{1,\Omega}^2$
+with the constant function $v \equiv 1$ gives
+
+$$
+a(v,v) = \int_{\Omega} |\nabla v|^2 = 0
+\quad \text{while} \quad
+\|v\|_{1,\Omega}^2 = |\Omega| > 0,
+$$
+
+so that no $\alpha > 0$ can work. Note that this is *not* a deficiency of the
+Lax-Milgram theorem: it faithfully reflects the genuine non-uniqueness
+{eq}`eq:neumann-II-constants` of the problem. Note also the contrast with the
+Neumann problem {eq}`eq:neumann-problem-I`, where the low order term
+$\int_{\Omega} uv$ contributed the missing $\|v\|_{L^2(\Omega)}^2$ and thus
+rendered $a(\cdot,\cdot)$ coercive on all of $H^1(\Omega)$.
+
+#### Removing the constants: the space $H^1_{\#}(\Omega)$
+The remedy is the same as for the Dirichlet problem: we choose a smaller
+space. Since $\Omega$ is connected, $a(v,v) = \|\nabla v\|_{L^2(\Omega)}^2 = 0$
+implies that $v$ is constant, so the constants are *exactly* the obstruction we
+have to eliminate. In other words, a solution is determined only up to its mean
+value, and we can single out one representative by prescribing that mean value
+--- most conveniently by setting it to $0$. This is precisely what the space
+$H^1_{\#}(\Omega)$ from {prf:ref}`def:mean-zero-lp` and
+{eq}`eq:mean-zero-sobolev` was introduced for, and we take
+
+$$
+V := H^1_{\#}(\Omega) = H^1(\Omega) \cap L^2_{\#}(\Omega)
+= \Bigl\{ v \in H^1(\Omega) \mid \overline{v} = 0 \Bigr\}.
+$$
+
+Note that the boundary condition $u=0$ is what excludes the constants from
+$H^1_0(\Omega)$, while here it is the normalization $\overline{u} = 0$ that does
+the job.
+By {prf:ref}`lem:mean-zero-decomposition`, every $v \in H^1(\Omega)$ splits
+uniquely as $v = \overline{v} + v_{\#}$ with $v_{\#} \in H^1_{\#}(\Omega)$, so
+$H^1_{\#}(\Omega)$ contains exactly one representative of each class
+$v + \mathbb{R}$ of functions which {eq}`eq:neumann-II-constants` does not
+distinguish. Moreover, $H^1_{\#}(\Omega)$ is the kernel of the continuous linear
+functional $v \mapsto \int_{\Omega} v$ on $H^1(\Omega)$ and thus a *closed*
+subspace, hence itself a Hilbert space with respect to
+$(\cdot, \cdot)_{H^1(\Omega)}$ --- exactly what the Lax-Milgram theorem requires.
+
+#### Coercivity via the Poincaré--Wirtinger inequality
+On this space the coercivity we lost is restored, and the mechanism is the exact
+analogue of the one used for the homogeneous Dirichlet problem
+{eq}`eq:dirichlet-problem-II`: there the
+{prf:ref}`Poincaré inequality<thm:poincare>` controlled $\|v\|_{L^2(\Omega)}$ by
+$\|\nabla v\|_{L^2(\Omega)}$ on $H^1_0(\Omega)$, here the
+{prf:ref}`Poincaré--Wirtinger inequality<thm:poincare-wirtinger>` does so on
+$H^1_{\#}(\Omega)$. In particular, {prf:ref}`cor:poincare-wirtinger` tells us
+that $\|\nabla \cdot\|_{L^2(\Omega)}$ is a norm on $H^1_{\#}(\Omega)$ which is
+equivalent to the usual $H^1$-norm, and its proof shows that
+
+$$
+a(v,v) = \int_{\Omega} |\nabla v|^2
+\geqslant (1 + C_{PW}^2)^{-1} \| v \|_{1,\Omega}^2
+\quad \forall\, v \in H^1_{\#}(\Omega).
+$$ (eq:neumann-II-coercivity)
+
+Thus $a(\cdot,\cdot)$ is bounded and coercive on $V \times V$ with $C_a = 1$ and
+$\alpha = (1+C_{PW}^2)^{-1}$.
+
+#### A compatibility condition on the right-hand side
+There is one more difference to the Dirichlet case, and this time it concerns the
+**data** rather than the space. Assume for a moment that $u$ is a classical
+solution of {eq}`eq:neumann-problem-II`. Integrating the PDE over $\Omega$ and
+applying the Gauß theorem together with the boundary condition yields
+
+$$
+\int_{\Omega} f
+= - \int_{\Omega} \Delta u
+= - \int_{\Gamma} \partial_n u
+= 0.
+$$ (eq:neumann-compatibility)
+
+So {eq}`eq:neumann-problem-II` has *no* solution at all unless the right-hand
+side satisfies the **compatibility condition** {eq}`eq:neumann-compatibility`,
+that is, unless $f \in L^2_{\#}(\Omega)$. Equivalently, and more in the spirit of
+the weak formulation, {eq}`eq:neumann-compatibility` is what makes testing with
+$H^1_{\#}(\Omega)$ instead of the full space $H^1(\Omega)$ harmless.
+
+````{prf:lemma} Compatibility condition
+:label: lem:neumann-compatibility
+Let $f \in L^2(\Omega)$ and $u \in H^1_{\#}(\Omega)$, and let $a(\cdot,\cdot)$
+and $l(\cdot)$ be given by {eq}`eq:neumann-problem-II-forms`. Then
+
+$$
+a(u,v) = l(v) \quad \forall\, v \in H^1(\Omega)
+$$
+
+holds if and only if
+
+$$
+a(u,v) = l(v) \quad \forall\, v \in H^1_{\#}(\Omega)
+\qquad \text{and} \qquad
+\int_{\Omega} f = 0.
+$$
+
+````
+
+````{prf:proof}
+Let $v \in H^1(\Omega)$ and split it as $v = \overline{v} + v_{\#}$ according to
+{prf:ref}`lem:mean-zero-decomposition`. Since the first summand is a constant, we
+have $\nabla v = \nabla v_{\#}$ and therefore $a(u,v) = a(u, v_{\#})$, while
+
+$$
+l(v) = \int_{\Omega} f v_{\#} + \overline{v} \int_{\Omega} f
+= l(v_{\#}) + \overline{v} \int_{\Omega} f.
+$$
+
+Consequently,
+
+$$
+a(u,v) - l(v)
+= \bigl( a(u,v_{\#}) - l(v_{\#}) \bigr) - \overline{v} \int_{\Omega} f
+\quad \forall\, v \in H^1(\Omega).
+$$ (eq:neumann-II-splitting)
+
+If the left-hand side vanishes for all $v \in H^1(\Omega)$, then choosing
+$v \in H^1_{\#}(\Omega)$ (so that $\overline{v} = 0$) gives the first assertion,
+and choosing $v \equiv 1$ (so that $a(u,v) = l(v) - \int_{\Omega} f \cdot 1$
+reduces to $0 = \int_{\Omega} f$) gives the second. Conversely, if both
+assertions hold, then both terms on the right-hand side of
+{eq}`eq:neumann-II-splitting` vanish for every $v \in H^1(\Omega)$.
+````
+
+#### The weak formulation and its well-posedness
+Collecting everything, the weak formulation of {eq}`eq:neumann-problem-II` reads:
+given $f \in L^2_{\#}(\Omega)$, find $u \in V := H^1_{\#}(\Omega)$ such that
+
+$$
+a(u,v) = l(v) \quad \forall\, v \in V,
+$$ (eq:neumann-problem-II-weak)
+
+with $a(\cdot,\cdot)$ and $l(\cdot)$ from {eq}`eq:neumann-problem-II-forms`.
+Boundedness of $l$ follows as before from the Cauchy--Schwarz inequality,
+$|l(v)| \leqslant \|f\|_{L^2(\Omega)} \|v\|_{1,\Omega}$, so with
+{eq}`eq:neumann-II-coercivity` the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>`
+applies with $C_a = 1$ and $\alpha = (1+C_{PW}^2)^{-1}$: the problem
+{eq}`eq:neumann-problem-II-weak` has a unique solution, and it satisfies the
+stability estimate
+
+$$
+\|u\|_{1,\Omega} \leqslant (1+C_{PW}^2) \, \|f\|_{L^2(\Omega)}.
+$$
+
+By {prf:ref}`lem:neumann-compatibility`, this $u$ also satisfies
+$a(u,v) = l(v)$ for **all** $v \in H^1(\Omega)$, and by
+{eq}`eq:neumann-II-constants` the complete set of solutions in $H^1(\Omega)$ is
+the affine subspace $u + \mathbb{R}$. Uniqueness therefore holds "up to
+constants" only, and $H^1_{\#}(\Omega)$ is nothing but a convenient way of
+picking one member of that family.
+
+```{important}
+Compared with the homogeneous Dirichlet problem {eq}`eq:dirichlet-problem-II`,
+the pure Neumann problem {eq}`eq:neumann-problem-II` differs in **two**
+respects, and both stem from the fact that the constants solve the homogeneous
+problem:
+* the solution space is $H^1_{\#}(\Omega)$ instead of $H^1_0(\Omega)$, and
+  coercivity comes from the Poincaré--Wirtinger inequality instead of the
+  Poincaré inequality;
+* the data must satisfy the compatibility condition
+  $\int_{\Omega} f = 0$, i.e. $f \in L^2_{\#}(\Omega)$, otherwise no solution
+  exists.
+```
+
+```{exercise} Uniqueness up to constants
+:label: ex:neumann-uniqueness-up-to-constants
+Let $f \in L^2(\Omega)$ and assume $u_1, u_2 \in H^1(\Omega)$ both satisfy
+$a(u_i, v) = l(v)$ for all $v \in H^1(\Omega)$. Show that $u_1 - u_2$ is
+constant, and deduce that exactly one function in $u_1 + \mathbb{R}$ belongs to
+$H^1_{\#}(\Omega)$. Where did you use that $\Omega$ is connected?
+```
+
+
+```{exercise} Inhomogeneous Neumann problems
+Discuss Neumann problems when $g_N \neq 0$:
+$$
+\left\{
+\begin{alignedat}{2}
+- \Delta u  &= f & &\quad \text{in } \Omega \\
+         \partial_n u &= g_N & &\quad \text{on } \Gamma
+\end{alignedat}
+\right.
+$$
+```
+
+
+
 ## Robin problems
 Finally, we consider the Robin problem
 
@@ -400,6 +628,11 @@ $$
 -\sum_{i,j=1}^n \partial_{i} (a_{ij}(x) \partial_{j} u(x))
 $$ (eq:def-A-operator)
 
+We say that $\mathcal{A}$ is a **second order operator in divergence form**.
+Note that the expression {eq}`eq:def-A-operator` 
+  * is a generalization of the Laplace operator;
+  * *does not make sense in a strong/pointwise sense* if $a_ij$ are not smooth enough, but as we see below, it can be interpreted very easily in a weak sense.
+
 For most of the remaining lectures, we will require $A(x)$
 to satisfy the following definition.
 
@@ -428,11 +661,11 @@ conclude that in fact $\beta \geqslant \alpha > 0$.
 Prove the statements made in the previous remark
 ```
 
-```{admonition} TODO
+<!-- ```{admonition} TODO
 :class: :danger :dropdown
 * Relate $\mathcal{A}$ to classical Poisson problem
 * Explain why general $A(x)$ is useful, e.g. anisotropic heat conduction problems
-```
+``` -->
 
 We are now prepared to investigate the well-posedness of a number of boundary value
 problems where we supplement the partial differential operator 
@@ -464,8 +697,8 @@ These boundary conditions are called *homogeneous* if $g_D$ (respectively $g_N$,
 is zero, otherwise we deal with *inhomogeneous* boundary data.
 We start by looking at the Poisson problem supplemented with Neumann boundary conditions
 
-```{admonition} TODO
-:class: :danger :dropdown
-Later, mention possible impact on test and trial spaces.
+```{exercise} Well-posedness of 2nd order elliptic PDEs
+1. Derive a weak formulation for the PDE $\mathcal{A} u = f$ with
+   for each of the three types of boundary conditions discussed above.
+2. Show that the weak formulation is well-posed.
 ```
-
