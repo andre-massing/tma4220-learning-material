@@ -562,17 +562,20 @@ $H^1_{\#}(\Omega)$. Where did you use that $\Omega$ is connected?
 ```
 
 
-```{exercise} Inhomogeneous Neumann problems
-Discuss Neumann problems when $g_N \neq 0$:
+````{exercise} Inhomogeneous Neumann problems
+Discuss Neumann problems when $g_N \neq 0$: (test)
+
 $$
-\left\{
+% \left\{
 \begin{alignedat}{2}
 - \Delta u  &= f & &\quad \text{in } \Omega \\
          \partial_n u &= g_N & &\quad \text{on } \Gamma
 \end{alignedat}
-\right.
+% \right.
 $$
-```
+
+````
+
 
 
 
