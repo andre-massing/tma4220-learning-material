@@ -247,7 +247,7 @@ Thus the {prf:ref}`Lax-Milgram theorem<thm-lax-milgram>` applies with
 $C_a = 1$ and $\alpha = (1+C_P^2)^{-1}$, and the resulting stability estimate
 reads $\|u\|_{1,\Omega} \leqslant (1+C_P^2)\, \|f\|_{L^2(\Omega)}$.
 
-
+(ssec:poisson-inhomog-dirichlet-cont-weak)=
 ### Inhomogeneous Dirichlet problem for $-\Delta$ operator
 Next, we consider 
 
