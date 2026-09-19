@@ -21,6 +21,11 @@ What is left untouched:
 * the YAML frontmatter,
 * code fences (```` ```python ````, ```` ```{code-cell} ````, ...) and inline
   code spans, so that a ``\\PP`` inside a code cell survives,
+* LaTeX macro definitions in the text itself (``\\newcommand``,
+  ``\\renewcommand``, ``\\providecommand``, ``\\DeclareMathOperator``,
+  ``\\def``), name and body alike, so that a local
+  ``$\\newcommand{\\dx}{\\,\\mathrm{d}x}$`` is not turned into the nonsense
+  ``$\\newcommand{\\,\\mathrm{d}x}{\\,\\mathrm{d}x}$``,
 * the macro definitions in ``myst.yml``.
 
 Everything else is expanded, including the body of directives such as
@@ -37,6 +42,7 @@ from __future__ import annotations
 
 import argparse
 import difflib
+import os
 import re
 import sys
 from collections import Counter
@@ -111,7 +117,10 @@ CODE_SPAN_RE = re.compile(r"(?<!`)(`+)(?!`)(.+?)(?<!`)\1(?!`)")
 
 
 def protected_spans(text: str) -> list[tuple[int, int]]:
-    """Character ranges that must not be touched: frontmatter, code, code spans.
+    """Character ranges that must not be touched.
+
+    These are the frontmatter, code fences and code spans, and the LaTeX macro
+    definitions of ``_definition_spans`` below.
 
     Fences are tracked with a stack, so a directive fence (``{prf:theorem}``,
     ``{math}``, ...) may contain code fences and only the latter are protected.
@@ -121,6 +130,8 @@ def protected_spans(text: str) -> list[tuple[int, int]]:
     frontmatter = FRONTMATTER_RE.match(text)
     if frontmatter:
         spans.append((0, frontmatter.end()))
+
+    spans.extend(_definition_spans(text))
 
     stack: list[tuple[str, int, bool, int]] = []  # char, length, is_code, content start
     offset = 0
@@ -199,6 +210,34 @@ def _read_argument(text: str, pos: int) -> tuple[str, int]:
         assert match is not None
         return match.group(), match.end()
     return text[pos], pos + 1
+
+
+#: ``\newcommand`` and friends: what follows defines a macro, it does not use one.
+DEFINITION_RE = re.compile(
+    r"\\(?:newcommand|renewcommand|providecommand|DeclareMathOperator|def)\*?(?![A-Za-z])"
+)
+OPTIONAL_ARG_RE = re.compile(r"\s*\[[^\]]*\]")
+
+
+def _definition_spans(text: str) -> list[tuple[int, int]]:
+    """Ranges holding a macro definition, from the command to the end of its body.
+
+    A file may define a macro itself, as in ``$\\newcommand{\\dx}{\\,\\mathrm{d}x}$``.
+    Expanding the name there would destroy the definition, so the whole
+    definition is protected -- including the body, which is already plain LaTeX.
+    """
+    spans: list[tuple[int, int]] = []
+    for match in DEFINITION_RE.finditer(text):
+        cursor = match.end()
+        try:
+            _, cursor = _read_argument(text, cursor)  # the macro name
+            while optional := OPTIONAL_ARG_RE.match(text, cursor):
+                cursor = optional.end()  # [n] arguments, [default] value
+            _, cursor = _read_argument(text, cursor)  # the body
+        except MacroError:
+            continue  # malformed definition: leave it to the expander
+        spans.append((match.start(), cursor))
+    return spans
 
 
 def _substitute(macro: Macro, args: list[str]) -> str:
@@ -320,7 +359,9 @@ def main(argv: list[str] | None = None) -> int:
         changed_files += 1
         total.update(counts)
         summary = ", ".join(f"\\{name}x{n}" for name, n in counts.most_common())
-        print(f"{path.relative_to(Path.cwd()) if path.is_absolute() else path}: {summary}")
+        # relpath, not Path.relative_to: a file outside the current directory is
+        # reported as ../... rather than raising.
+        print(f"{os.path.relpath(path)}: {summary}")
         if args.diff:
             print(
                 "".join(
