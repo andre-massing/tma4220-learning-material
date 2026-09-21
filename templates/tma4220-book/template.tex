@@ -11,6 +11,12 @@
 \usepackage{framed}
 \usepackage{hyperref}
 \usepackage{amssymb}
+% mathtools extends amsmath, e.g. with \coloneqq and \eqqcolon, which KaTeX
+% (the web version) supports out of the box.
+\usepackage{mathtools}
+% {prf:algorithm} blocks become `algorithm` floats (plugins/prf-algorithm-latex.mjs),
+% numbered per chapter: "Algorithm 2.1".
+\usepackage[chapter]{algorithm}
 \bibliographystyle{abbrvnat}
 
 % Make list items more compact

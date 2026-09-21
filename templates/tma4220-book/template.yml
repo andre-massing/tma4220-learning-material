@@ -49,4 +49,7 @@ packages:
   - xcolor
   - changepage
   - amssymb
+  - mathtools
   - tcolorbox
+  - algorithm
+  - float

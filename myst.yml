@@ -22,7 +22,9 @@ project:
   
   plugins:
     - https://github.com/jupyter-book/myst-plugins/releases/download/exercise-and-solution-pdf/exercise-admonition-pdf.mjs
- 
+    # {prf:algorithm} -> `algorithm` float in LaTeX/PDF exports
+    - plugins/prf-algorithm-latex.mjs
+
   # Keep the LaTeX template out of content discovery.
   exclude:
     - templates/**
@@ -36,10 +38,11 @@ project:
         - file: chapter_01/functional_analysis.md
         - file: chapter_01/lax_milgram.md
         - file: chapter_01/weak_form_pdes.md
-    # - title: Chapter 02
-    #   children:
-    #     - file: chapter_02/galerkin_methods.md
-    #     - file: chapter_02/finite_elements_1d.md
+    - title: Chapter 02
+      children:
+        - file: chapter_02/galerkin_methods.md
+        - file: chapter_02/finite_elements_1d.md
+        - file: chapter_02/finite_elements_1d_implementation_neumann.md
     - file: references.md
   exports:
     - format: pdf
@@ -60,10 +63,12 @@ project:
           level: 1
         - file: chapter_01/weak_form_pdes.md
           level: 1
-        # - file: chapter_02/galerkin_methods.md
-        #   level: 0
-        # - file: chapter_02/finite_elements_1d.md
-        #   level: 0
+        - file: chapter_02/galerkin_methods.md
+          level: 0
+        - file: chapter_02/finite_elements_1d.md
+          level: 1
+        - file: chapter_02/finite_elements_1d_implementation_neumann.md
+          level: 1
     - format: tex
       template: ./templates/tma4220-book
       output: _build/exports/tex/tma4220-learning-material.tex
