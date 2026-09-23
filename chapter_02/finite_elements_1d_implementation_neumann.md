@@ -99,7 +99,7 @@ $$
 a(\phi_j, \phi_i) = \sum_{l=0}^{N} a^{T}(\phi_j, \phi_i) = \sum_{l=0}^{N} \int_{T} ( \phi_j' \phi_i' + \phi_j \phi_i)
 $$
 
-Now, the integral $a^{T}(\phi_j, \phi_i)= \int_{T} (\phi_j' \phi_i' + \phi_j \phi_i)$ can only lead to a non-zero contribution if both $\phi_i$ and $\phi_j$ are non-zero on $T$.
+Now, the integral $a^{T}(\phi_j, \phi_i)= \int_{T} (\phi_j' \phi_i' + \phi_j \phi_i)$ **can only lead to a non-zero contribution if both $\phi_i$ and $\phi_j$ are non-zero on $T$**.
 Further, we know that $\phi_i$ is non-zero on $T$ only if its restriction to $T$
 corresponds to a Lagrange cardinal basis function $\ell_\alpha^{(T)}$
 spanning the space of polynomials of order $k$
