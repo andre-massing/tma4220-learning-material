@@ -180,12 +180,13 @@ $$
 $$ (eq:dim-pk)
 ```
 
-````{exercise} Dimension of the polynomial space
+```{exercise} Dimension of the polynomial space
 :label: exer-dim-pk
 
 Prove {prf:ref}`lem:dim-pk`, that is, count the multi-indices
 $\alpha \in \mathbb{N}^n$ with $|\alpha| \leqslant k$, one for each monomial
 $x^\alpha$ spanning $\mathbb{P}_k(\mathbb{R}^n)$.
+```
 
 ```{admonition} Hint
 :class: hint dropdown
@@ -226,7 +227,6 @@ $$
 where the last identity follows from repeated application of Pascal's rule
 $\binom{m}{j} = \binom{m-1}{j-1} + \binom{m-1}{j}$.
 ```
-````
 
 Next, we derive a decomposition lemma for multivariate polynomials that vanish on a
 hyperplane. Recall that an **affine function** $\lambda : \mathbb{R}^n \to \mathbb{R}$ is
@@ -421,10 +421,11 @@ matching $\dim \mathbb{P}_2(\mathbb{R}^2) = 6$.
 
 Again the counts agree: $\dim \mathbb{P}_2(\mathbb{R}^2) = \binom{4}{2} = 6 = \# \Sigma$.
 
-````{exercise} Unisolvence of the $\mathbb{P}_2$ element
+```{exercise} Unisolvence of the $\mathbb{P}_2$ element
 :label: exer-p2-unisolvence
 
 Show that the triple of {prf:ref}`def:p2-triangle` is a finite element.
+```
 
 ```{admonition} Hint
 :class: hint dropdown
@@ -436,7 +437,6 @@ identically. Apply {prf:ref}`lem:hyperplane-decomposition` once for each edge to
 the factors $\lambda_1, \lambda_2, \lambda_3$ one at a time, and compare the resulting
 degree with $2$.
 ```
-````
 
 ### The $\mathbb{P}_3$ element on a triangle
 
@@ -471,10 +471,11 @@ Here $\dim \mathbb{P}_3(\mathbb{R}^2) = \binom{5}{3} = 10 = 3 + 6 + 1 = \# \Sigm
 that a single point per edge would not suffice: the interior degree of freedom and the
 second point on each edge are exactly what makes the counts match.
 
-````{exercise} Unisolvence of the $\mathbb{P}_3$ element
+```{exercise} Unisolvence of the $\mathbb{P}_3$ element
 :label: exer-p3-unisolvence
 
 Show that the triple of {prf:ref}`def:p3-triangle` is a finite element.
+```
 
 ```{admonition} Hint
 :class: hint dropdown
@@ -485,7 +486,6 @@ barycentric coordinates with {prf:ref}`lem:hyperplane-decomposition` leaves
 $p = c \, \lambda_1 \lambda_2 \lambda_3$ with a constant $c$, since the degrees already
 match. What does the remaining degree of freedom at the barycenter give you?
 ```
-````
 
 ### The cubic Hermite element on a triangle
 
