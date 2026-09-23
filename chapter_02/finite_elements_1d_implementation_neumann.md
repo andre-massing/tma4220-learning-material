@@ -334,3 +334,160 @@ When choosing a rule, recall that the integrand $\widehat{f} \widehat{\ell}_\alp
 basis function of degree $k$, so a rule which is exact for degree $p + k$ integrates the
 element contribution exactly whenever $\widehat{f}$ is a polynomial of degree $p$.
 ```
+
+### Example: Realization with linear elements
+
+We now carry out the assembly explicitly for linear elements, $k = 1$, on a uniform mesh
+with $h_{T_l} = h$ for all $l = 0, \ldots, M$. The reference basis functions on $\widehat{T} = [0,1]$ and their derivatives are
+
+\begin{equation}
+\widehat{\ell}_0(\widehat{x}) = 1 - \widehat{x}, \quad
+\widehat{\ell}_1(\widehat{x}) = \widehat{x},
+\qquad
+(\widehat{\ell}_0)' = -1, \quad (\widehat{\ell}_1)' = 1 ,
+\end{equation}
+
+and the local-to-global map is simply $\iota(\alpha, l) = l + \alpha$. Since each element
+carries $k+1 = 2$ basis functions, all local matrices are of size $2 \times 2$, and the
+global system has $N + 2 = M + 2$ unknowns, one per mesh vertex.
+
+#### The reference stiffness matrix
+
+The derivatives are constant, so the first integral in @eq:local-stiffness-matrix-ref is
+evaluated without effort:
+
+$$
+\widehat{A}_{\alpha\beta}
+= \int_0^1 (\widehat{\ell}_\beta)'(\widehat{\ell}_\alpha)' \,\mathrm{d}\widehat{x}
+\quad \Longrightarrow \quad
+\widehat{A} =
+\begin{pmatrix}
+1 & -1 \\
+-1 & 1
+\end{pmatrix} .
+$$ (eq:ref-stiffness-p1)
+
+Each element $T_l$ contributes $\frac{1}{h}\widehat{A}$ to the rows and columns $l$ and $l+1$.
+Every interior vertex $x_i$ is shared by the two elements $T_{i-1}$ and $T_i$ and therefore
+receives the diagonal entry twice, whereas the two boundary vertices belong to one element only.
+Collecting the contributions of all elements, the stiffness part of $\mathcal{A}$ is the
+tridiagonal matrix
+
+$$
+\frac{1}{h}
+\begin{pmatrix}
+ 1 & -1 &        &    &    \\
+-1 &  2 & -1     &    &    \\
+   & \ddots & \ddots & \ddots &  \\
+   &    & -1     &  2 & -1 \\
+   &    &        & -1 &  1
+\end{pmatrix}
+\in \mathbb{R}^{(N+2) \times (N+2)} .
+$$ (eq:global-stiffness-p1)
+
+#### The reference mass matrix
+
+The second integral in @eq:local-stiffness-matrix-ref gives, with
+$\int_0^1 (1-\widehat{x})^2 = \int_0^1 \widehat{x}^2 = \frac{1}{3}$ and
+$\int_0^1 \widehat{x}(1-\widehat{x}) = \frac{1}{6}$,
+
+$$
+\widehat{M}_{\alpha\beta}
+= \int_0^1 \widehat{\ell}_\beta \widehat{\ell}_\alpha \,\mathrm{d}\widehat{x}
+\quad \Longrightarrow \quad
+\widehat{M} =
+\begin{pmatrix}
+\frac{1}{3} & \frac{1}{6} \\[2pt]
+\frac{1}{6} & \frac{1}{3}
+\end{pmatrix}
+= \frac{1}{6}
+\begin{pmatrix}
+2 & 1 \\
+1 & 2
+\end{pmatrix} .
+$$ (eq:ref-mass-p1)
+
+Assembled in the same way, the mass part $h \widehat{M}$ yields
+
+$$
+\frac{h}{6}
+\begin{pmatrix}
+ 2 & 1 &        &    &    \\
+ 1 & 4 & 1      &    &    \\
+   & \ddots & \ddots & \ddots &  \\
+   &    & 1      &  4 & 1 \\
+   &    &        & 1 &  2
+\end{pmatrix} ,
+$$
+
+so that the local matrix on each element is
+$A^{(T_l)} = \frac{1}{h}\widehat{A} + h \widehat{M}$ and the full stiffness matrix
+$\mathcal{A}$ is the sum of the two tridiagonal matrices above.
+
+#### The load vector with the trapezoidal rule
+
+The trapezoidal rule from @tab:quadrature-rules-ref uses the endpoints of $\widehat{T}$, where
+the reference basis functions satisfy $\widehat{\ell}_\alpha(\widehat{\zeta}_q) = \delta_{\alpha q}$.
+Only one term survives in each local contribution:
+
+$$
+b^{(T_l)}_0 = \frac{h}{2} f(x_l),
+\qquad
+b^{(T_l)}_1 = \frac{h}{2} f(x_{l+1}) .
+$$
+
+Adding the two contributions at every interior vertex and the Neumann data at the two boundary
+vertices, the load vector becomes
+
+$$
+\mathbf{b}
+= h
+\begin{pmatrix}
+\frac{1}{2} f(x_0) \\
+f(x_1) \\
+\vdots \\
+f(x_{N}) \\
+\frac{1}{2} f(x_{N+1})
+\end{pmatrix}
++
+\begin{pmatrix}
+g_N(a) \\ 0 \\ \vdots \\ 0 \\ g_N(b)
+\end{pmatrix} .
+$$
+
+This is the load vector one would also obtain from a finite difference discretization.
+Note that the integrand $f \ell_\alpha^{(T)}$ is of degree $p + 1$ for a polynomial $f$ of
+degree $p$, so this choice integrates the element contributions exactly only for constant $f$.
+
+#### The load vector with Simpson's rule
+
+Simpson's rule adds the midpoint $x_{l+1/2} = \frac{1}{2}(x_l + x_{l+1})$, where both reference
+basis functions take the value $\frac{1}{2}$. With the weights
+$\frac{1}{6}, \frac{2}{3}, \frac{1}{6}$ we obtain
+
+$$
+b^{(T_l)}_0 = \frac{h}{3}\Big( \frac{1}{2} f(x_l) + f(x_{l+1/2}) \Big),
+\qquad
+b^{(T_l)}_1 = \frac{h}{3}\Big( f(x_{l+1/2}) + \frac{1}{2} f(x_{l+1}) \Big) ,
+$$
+
+and therefore
+
+$$
+\mathbf{b}
+= \frac{h}{3}
+\begin{pmatrix}
+\frac{1}{2} f(x_0) + f(x_{1/2}) \\
+f(x_{1/2}) + f(x_1) + f(x_{3/2}) \\
+\vdots \\
+f(x_{N-1/2}) + f(x_{N}) + f(x_{N+1/2}) \\
+f(x_{N+1/2}) + \frac{1}{2} f(x_{N+1})
+\end{pmatrix}
++
+\begin{pmatrix}
+g_N(a) \\ 0 \\ \vdots \\ 0 \\ g_N(b)
+\end{pmatrix} .
+$$
+
+Now the midpoint values of $f$ enter as well, and since Simpson's rule is exact for degree $3$,
+the element contributions are computed exactly for every $f$ of degree $p \leqslant 2$.
