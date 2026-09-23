@@ -180,12 +180,53 @@ $$
 $$ (eq:dim-pk)
 ```
 
-```{admonition} TODO
-:class: warning
+````{exercise} Dimension of the polynomial space
+:label: exer-dim-pk
 
-Proof of {prf:ref}`lem:dim-pk`. The handwritten notes announce a proof but the page is
-left blank.
+Prove {prf:ref}`lem:dim-pk`, that is, count the multi-indices
+$\alpha \in \mathbb{N}^n$ with $|\alpha| \leqslant k$, one for each monomial
+$x^\alpha$ spanning $\mathbb{P}_k(\mathbb{R}^n)$.
+
+```{admonition} Hint
+:class: hint dropdown
+
+Sort the monomials by their total degree. Writing $\mathbb{H}_l(\mathbb{R}^n)$ for the
+space of **homogeneous** polynomials of degree exactly $l$, spanned by the monomials
+$x^\alpha$ with $|\alpha| = l$, every polynomial splits uniquely into its homogeneous
+parts, so that
+
+$$
+\mathbb{P}_k(\mathbb{R}^n) = \bigoplus_{l=0}^{k} \mathbb{H}_l(\mathbb{R}^n),
+\qquad \text{and hence} \qquad
+\dim \mathbb{P}_k(\mathbb{R}^n) = \sum_{l=0}^{k} \dim \mathbb{H}_l(\mathbb{R}^n) .
+$$
+
+It therefore suffices to count the multi-indices with $|\alpha| = l$, that is, the ways
+of distributing $l$ units among $n$ variables. Show that
+
+$$
+\dim \mathbb{H}_l(\mathbb{R}^n) = \binom{n + l - 1}{l} ,
+$$
+
+for instance by induction on $n$, or by the following combinatorial argument: a
+multi-index $\alpha$ with $|\alpha| = l$ is the same as an arrangement of $l$ stars and
+$n-1$ bars in a row, the bars splitting the stars into the $n$ groups
+$\alpha_1, \ldots, \alpha_n$. Such an arrangement consists of $l + n - 1$ symbols and is
+fixed as soon as one decides which $l$ of them are the stars, which leaves
+$\binom{n+l-1}{l}$ possibilities.
+
+Summing over $l$ then gives
+
+$$
+\dim \mathbb{P}_k(\mathbb{R}^n)
+= \sum_{l=0}^{k} \binom{n+l-1}{l}
+= \binom{n+k}{k} ,
+$$
+
+where the last identity follows from repeated application of Pascal's rule
+$\binom{m}{j} = \binom{m-1}{j-1} + \binom{m-1}{j}$.
 ```
+````
 
 Next, we derive a decomposition lemma for multivariate polynomials that vanish on a
 hyperplane $L = \{ x \in \mathbb{R}^n \mid \lambda(x) = 0 \}$, where
@@ -228,8 +269,6 @@ p(x)
 +
 \sum_{\alpha_n = 1}^{k} \; \sum_{|\widetilde{\alpha}| \leqslant k - \alpha_n}
   c_{\widetilde{\alpha}, \alpha_n} \, \widetilde{x}^{\widetilde{\alpha}} x_n^{\alpha_n} ,
-\qquad
-\alpha = (\alpha_1, \ldots, \alpha_{n-1}, \alpha_n) \in \mathbb{N}^n 
 \end{aligned}
 $$
 
