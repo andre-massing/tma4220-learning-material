@@ -43,6 +43,10 @@ project:
         - file: chapter_02/galerkin_methods.md
         - file: chapter_02/finite_elements_1d.md
         - file: chapter_02/finite_elements_1d_implementation_neumann.md
+        - file: chapter_02/finite_elements_1d_error_est.md
+    - title: Chapter 03
+      children:
+        - file: chapter_03/finite_elements_general.md
     - file: references.md
   exports:
     - format: pdf
@@ -69,6 +73,10 @@ project:
           level: 1
         - file: chapter_02/finite_elements_1d_implementation_neumann.md
           level: 1
+        - file: chapter_02/finite_elements_1d_error_est.md
+          level: 1
+        - file: chapter_03/finite_elements_general.md
+          level: 0
     - format: tex
       template: ./templates/tma4220-book
       output: _build/exports/tex/tma4220-learning-material.tex
