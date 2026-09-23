@@ -209,24 +209,37 @@ $$
 L = \{ x = (\widetilde{x}, x_n) \in \mathbb{R}^n \mid x_n = 0 \} ,
 $$
 
-in other words $\lambda(x) = x_n$. Write
+in other words $\lambda(x) = x_n$. Rewrite a given multindex
+$\alpha = (\alpha_1, \ldots, \alpha_{n-1}, \alpha_n) \in \mathbb{N}^n$
+as $\alpha = (\widetilde{\alpha}, \alpha_n)$ 
+then we can write any polynomial $p \in \mathbb{P}_k(\mathbb{R}^n)$ as
 
 $$
+\begin{aligned}
 p(x)
-= \sum_{|\alpha| \leqslant k} c_\alpha x^\alpha
-= \sum_{\alpha_n = 0}^{k} \; \sum_{|\widetilde{\alpha}| \leqslant k - \alpha_n}
+&= \sum_{|\alpha| \leqslant k} c_\alpha x^\alpha
+\\
+&= \sum_{\alpha_n = 0}^{k} \; \sum_{|\widetilde{\alpha}| \leqslant k - \alpha_n}
+  c_{\widetilde{\alpha}, \alpha_n} \, \widetilde{x}^{\widetilde{\alpha}} x_n^{\alpha_n}
+  \\
+&= 
+\sum_{|\widetilde{\alpha}| \leqslant k}
+  c_{\widetilde{\alpha}, 0} \, \widetilde{x}^{\widetilde{\alpha}}
++
+\sum_{\alpha_n = 1}^{k} \; \sum_{|\widetilde{\alpha}| \leqslant k - \alpha_n}
   c_{\widetilde{\alpha}, \alpha_n} \, \widetilde{x}^{\widetilde{\alpha}} x_n^{\alpha_n} ,
 \qquad
-\alpha = (\alpha_1, \ldots, \alpha_{n-1}, \alpha_n) \in \mathbb{N}^n .
+\alpha = (\alpha_1, \ldots, \alpha_{n-1}, \alpha_n) \in \mathbb{N}^n 
+\end{aligned}
 $$
 
-Evaluating on the hyperplane gives
+Evaluating on the hyperplane then gives
 
 $$
 0 = p(\widetilde{x}, 0)
 = \underbrace{\sum_{|\widetilde{\alpha}| \leqslant k}
   c_{\widetilde{\alpha}, 0} \, \widetilde{x}^{\widetilde{\alpha}}}_{=: p_L(\widetilde{x})}
-+ \underbrace{\sum_{\alpha_n \geqslant 1} \; \sum_{|\widetilde{\alpha}| \leqslant k - \alpha_n}
++ \underbrace{\sum_{\alpha_n = 1}^k \; \sum_{|\widetilde{\alpha}| \leqslant k - \alpha_n}
   c_{\widetilde{\alpha}, \alpha_n} \, \widetilde{x}^{\widetilde{\alpha}} \, 0^{\alpha_n}}_{= 0} .
 $$
 
