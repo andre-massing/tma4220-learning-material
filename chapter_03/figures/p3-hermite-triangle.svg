@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-20 0 440 320" font-family="Georgia, 'Times New Roman', serif" font-size="18">
+  <!-- The element T with vertices a1, a2, a3.  At each vertex the function value
+       and both first derivatives are prescribed; the barycenter carries the
+       tenth degree of freedom, the function value. -->
+  <polygon points="60,250 340,250 200,40"
+           fill="#9ca3af" fill-opacity="0.12"
+           stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Vertex degrees of freedom: the value (filled dot) and the gradient
+       (open ring around the dot, standing for the two partial derivatives). -->
+  <g>
+    <circle cx="60" cy="250" r="14" fill="none" stroke="#d946ef" stroke-width="2.5"/>
+    <circle cx="340" cy="250" r="14" fill="none" stroke="#d946ef" stroke-width="2.5"/>
+    <circle cx="200" cy="40" r="14" fill="none" stroke="#d946ef" stroke-width="2.5"/>
+  </g>
+  <g fill="#0ea5e9">
+    <circle cx="60" cy="250" r="7"/>
+    <circle cx="340" cy="250" r="7"/>
+    <circle cx="200" cy="40" r="7"/>
+  </g>
+
+  <!-- Interior degree of freedom at the barycenter. -->
+  <circle cx="200" cy="180" r="7" fill="#f59e0b"/>
+
+  <g fill="currentColor" font-style="italic">
+    <text x="28" y="284">a<tspan font-size="12" dy="4">1</tspan></text>
+    <text x="352" y="284">a<tspan font-size="12" dy="4">2</tspan></text>
+    <text x="192" y="22">a<tspan font-size="12" dy="4">3</tspan></text>
+    <text x="210" y="176">a<tspan font-size="12" dy="4">123</tspan></text>
+  </g>
+
+  <!-- legend -->
+  <g font-size="15" fill="currentColor">
+    <circle cx="-8" cy="300" r="6" fill="#0ea5e9"/>
+    <text x="4" y="305" font-style="normal">vertex value</text>
+    <circle cx="140" cy="300" r="10" fill="none" stroke="#d946ef" stroke-width="2.5"/>
+    <text x="155" y="305" font-style="normal">gradient (2 dofs)</text>
+    <circle cx="308" cy="300" r="6" fill="#f59e0b"/>
+    <text x="320" y="305" font-style="normal">barycenter</text>
+  </g>
+</svg>

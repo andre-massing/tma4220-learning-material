@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" font-family="Georgia, 'Times New Roman', serif" font-size="18">
+  <!-- The element T: a non-degenerate triangle with vertices a1, a2, a3. -->
+  <polygon points="60,250 340,250 200,40"
+           fill="#9ca3af" fill-opacity="0.12"
+           stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <!-- Degrees of freedom: point evaluation at each vertex. -->
+  <g fill="#0ea5e9">
+    <circle cx="60" cy="250" r="7"/>
+    <circle cx="340" cy="250" r="7"/>
+    <circle cx="200" cy="40" r="7"/>
+  </g>
+
+  <g fill="currentColor" font-style="italic">
+    <text x="36" y="274">a<tspan font-size="12" dy="4">1</tspan></text>
+    <text x="348" y="274">a<tspan font-size="12" dy="4">2</tspan></text>
+    <text x="192" y="28">a<tspan font-size="12" dy="4">3</tspan></text>
+  </g>
+
+  <text x="200" y="292" text-anchor="middle" fill="currentColor" font-size="16">
+    3 degrees of freedom
+  </text>
+</svg>
