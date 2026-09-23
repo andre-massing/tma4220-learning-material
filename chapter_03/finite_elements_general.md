@@ -229,16 +229,30 @@ $\binom{m}{j} = \binom{m-1}{j-1} + \binom{m-1}{j}$.
 ````
 
 Next, we derive a decomposition lemma for multivariate polynomials that vanish on a
-hyperplane $L = \{ x \in \mathbb{R}^n \mid \lambda(x) = 0 \}$, where
-$\lambda \in (\mathbb{R}^n)'$ is a linear functional. Often, we will denote the
+hyperplane. Recall that an **affine function** $\lambda : \mathbb{R}^n \to \mathbb{R}$ is
+a linear function plus a constant,
+
+$$
+\lambda(x) = w \cdot x + c ,
+\qquad w \in \mathbb{R}^n \setminus \{0\}, \quad c \in \mathbb{R} ,
+$$ (eq:affine-function)
+
+so that $\lambda$ is linear precisely when $c = 0$. Its zero set
+
+$$
+L = \{ x \in \mathbb{R}^n \mid \lambda(x) = 0 \}
+$$
+
+is a hyperplane, and conversely every hyperplane is the zero set of such a $\lambda$; it
+passes through the origin if and only if $\lambda$ is linear. Often, we will denote the
 hyperplane simply by $\lambda$. The following lemma will play an important role when
 deriving unisolvence for certain finite elements discussed afterwards.
 
 ```{prf:lemma} Decomposition of polynomials vanishing on a hyperplane
 :label: lem:hyperplane-decomposition
 
-Let $p \in \mathbb{P}_k(\mathbb{R}^n)$ vanish on a hyperplane
-$L = \{ \lambda = 0 \}$. Then we can write $p = \lambda q$ where
+Let $\lambda$ be an affine function as in {eq}`eq:affine-function` and let
+$p \in \mathbb{P}_k(\mathbb{R}^n)$ vanish on the hyperplane $L = \{ \lambda = 0 \}$. Then we can write $p = \lambda q$ where
 $q \in \mathbb{P}_{k-1}(\mathbb{R}^n)$.
 ```
 
@@ -250,7 +264,8 @@ $$
 L = \{ x = (\widetilde{x}, x_n) \in \mathbb{R}^n \mid x_n = 0 \} ,
 $$
 
-in other words $\lambda(x) = x_n$. Rewrite a given multindex
+in other words $\lambda(x) = x_n$; rescaling $\lambda$ only rescales $q$, so this
+is no restriction. Rewrite a given multi-index
 $\alpha = (\alpha_1, \ldots, \alpha_{n-1}, \alpha_n) \in \mathbb{N}^n$
 as $\alpha = (\widetilde{\alpha}, \alpha_n)$ 
 then we can write any polynomial $p \in \mathbb{P}_k(\mathbb{R}^n)$ as
@@ -297,4 +312,302 @@ $$
 
 and $q \in \mathbb{P}_{k-1}(\mathbb{R}^n)$, since every remaining monomial has degree
 $|\widetilde{\alpha}| + \alpha_n - 1 \leqslant k - 1$.
+```
+
+## Examples of finite element on triangles
+
+Throughout this section, $T \subset \mathbb{R}^2$ is a non-degenerate triangle with
+vertices $a_1, a_2, a_3$, and $\lambda_1, \lambda_2, \lambda_3$ denote its **barycentric
+coordinates**: $\lambda_i$ is the affine function, in the sense of
+{eq}`eq:affine-function`, with $\lambda_i(a_j) = \delta_{ij}$, so
+that $\lambda_i$ vanishes precisely on the line $L_i$ through the two vertices other
+than $a_i$.
+
+### The $\mathbb{P}_1$ element on a triangle
+
+```{prf:definition} The linear Lagrange triangle
+:label: def:p1-triangle
+
+The **$\mathbb{P}_1$ element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
+$\mathcal{P} = \mathbb{P}_1(T)$ and
+
+$$
+\Sigma = \{ \sigma_1, \sigma_2, \sigma_3 \},
+\qquad \sigma_i(p) = p(a_i), \quad i = 1, 2, 3 .
+$$
+```
+
+```{figure} figures/p1-triangle.svg
+:label: fig-p1-triangle
+:alt: A triangle with its three vertices marked as the degrees of freedom of the P1 element.
+:width: 45%
+
+The $\mathbb{P}_1$ element: one degree of freedom per vertex, matching
+$\dim \mathbb{P}_1(\mathbb{R}^2) = 3$.
+```
+
+By {prf:ref}`lem:dim-pk`, $\dim \mathbb{P}_1(\mathbb{R}^2) = \binom{3}{1} = 3$, which
+equals the number of degrees of freedom. It remains to verify unisolvence.
+
+```{prf:lemma} Unisolvence of the $\mathbb{P}_1$ element
+:label: lem:p1-unisolvence
+
+The triple of {prf:ref}`def:p1-triangle` is a finite element in the sense of
+{prf:ref}`def:ciarlet-finite-element`, that is, $\Sigma$ is a basis of $\mathcal{P}'$.
+```
+
+```{prf:proof}
+Since $\dim \mathbb{P}_1(T) = 3 = \# \Sigma$, {prf:ref}`lem:unisolvence` reduces the claim
+to statement b): every $p \in \mathbb{P}_1(T)$ with $p(a_1) = p(a_2) = p(a_3) = 0$
+vanishes identically.
+
+So let $p$ be such a polynomial and consider the line $L_3$ through $a_1$ and $a_2$, the
+zero set of $\lambda_3$. Parametrising $L_3$ affinely turns $p|_{L_3}$ into a univariate
+polynomial of degree at most $1$ which vanishes at the two distinct points $a_1$ and
+$a_2$. A non-trivial univariate polynomial of degree at most $1$ has at most one root,
+hence $p$ vanishes identically on $L_3$.
+
+Since $\lambda_3$ is an affine function vanishing exactly on $L_3$,
+{prf:ref}`lem:hyperplane-decomposition` applies and we may write
+
+$$
+p = \lambda_3 \, q, \qquad q \in \mathbb{P}_0(\mathbb{R}^2),
+$$
+
+so $q$ is a constant. Evaluating at the remaining vertex gives
+
+$$
+0 = p(a_3) = \lambda_3(a_3) \, q = q ,
+$$
+
+because $\lambda_3(a_3) = 1 \neq 0$: the triangle is non-degenerate, so $a_3 \notin L_3$.
+Hence $q = 0$ and $p \equiv 0$.
+```
+
+```{prf:remark} The nodal basis of the $\mathbb{P}_1$ element
+:label: rem:p1-nodal-basis
+
+The barycentric coordinates are exactly the shape functions of this element: they satisfy
+$\lambda_i \in \mathbb{P}_1(T)$ and $\sigma_j(\lambda_i) = \lambda_i(a_j) = \delta_{ij}$,
+which is the defining property {eq}`eq:nodal-basis-property` of the nodal basis. In the
+language of {prf:ref}`lem:nodal-basis`, no Vandermonde system has to be solved here — the
+nodal basis is available in closed form.
+```
+
+### The $\mathbb{P}_2$ element on a triangle
+
+```{prf:definition} The quadratic Lagrange triangle
+:label: def:p2-triangle
+
+Let $a_{ij} = \frac{1}{2}(a_i + a_j)$ denote the midpoint of the edge joining $a_i$ and
+$a_j$. The **$\mathbb{P}_2$ element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
+$\mathcal{P} = \mathbb{P}_2(T)$ and
+
+$$
+\Sigma = \{ p \mapsto p(a_i) \}_{i=1}^{3}
+\; \cup \;
+\{ p \mapsto p(a_{ij}) \}_{1 \leqslant i < j \leqslant 3} .
+$$
+```
+
+```{figure} figures/p2-triangle.svg
+:label: fig-p2-triangle
+:alt: A triangle with its three vertices and three edge midpoints marked as the degrees of freedom of the P2 element.
+:width: 45%
+
+The $\mathbb{P}_2$ element: one degree of freedom per vertex and per edge midpoint,
+matching $\dim \mathbb{P}_2(\mathbb{R}^2) = 6$.
+```
+
+Again the counts agree: $\dim \mathbb{P}_2(\mathbb{R}^2) = \binom{4}{2} = 6 = \# \Sigma$.
+
+````{exercise} Unisolvence of the $\mathbb{P}_2$ element
+:label: exer-p2-unisolvence
+
+Show that the triple of {prf:ref}`def:p2-triangle` is a finite element.
+
+```{admonition} Hint
+:class: hint dropdown
+
+Follow the proof of {prf:ref}`lem:p1-unisolvence`. Each edge of $T$ now carries three
+nodes, two vertices and one midpoint, so the restriction of $p \in \mathbb{P}_2(T)$ to
+the line $L_i$ is a univariate quadratic with three distinct roots and vanishes
+identically. Apply {prf:ref}`lem:hyperplane-decomposition` once for each edge to peel off
+the factors $\lambda_1, \lambda_2, \lambda_3$ one at a time, and compare the resulting
+degree with $2$.
+```
+````
+
+### The $\mathbb{P}_3$ element on a triangle
+
+```{prf:definition} The cubic Lagrange triangle
+:label: def:p3-triangle
+
+Let $a_{iij} = \frac{1}{3}(2 a_i + a_j)$ for $i \neq j$ denote the two points dividing the
+edge from $a_i$ to $a_j$ into three equal parts, and let
+$a_{123} = \frac{1}{3}(a_1 + a_2 + a_3)$ be the barycenter of $T$. The **$\mathbb{P}_3$
+element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
+$\mathcal{P} = \mathbb{P}_3(T)$ and
+
+$$
+\Sigma = \{ p \mapsto p(a_i) \}_{i=1}^{3}
+\; \cup \;
+\{ p \mapsto p(a_{iij}) \}_{i \neq j}
+\; \cup \;
+\{ p \mapsto p(a_{123}) \} .
+$$
+```
+
+```{figure} figures/p3-triangle.svg
+:label: fig-p3-triangle
+:alt: A triangle with three vertices, two points on each edge and the barycenter marked as the degrees of freedom of the P3 element.
+:width: 45%
+
+The $\mathbb{P}_3$ element: one degree of freedom per vertex, two per edge and one in the
+interior, matching $\dim \mathbb{P}_3(\mathbb{R}^2) = 10$.
+```
+
+Here $\dim \mathbb{P}_3(\mathbb{R}^2) = \binom{5}{3} = 10 = 3 + 6 + 1 = \# \Sigma$. Note
+that a single point per edge would not suffice: the interior degree of freedom and the
+second point on each edge are exactly what makes the counts match.
+
+````{exercise} Unisolvence of the $\mathbb{P}_3$ element
+:label: exer-p3-unisolvence
+
+Show that the triple of {prf:ref}`def:p3-triangle` is a finite element.
+
+```{admonition} Hint
+:class: hint dropdown
+
+Each edge now carries four nodes, so the restriction of $p \in \mathbb{P}_3(T)$ to each
+line $L_i$ is a univariate cubic with four distinct roots. Peeling off all three
+barycentric coordinates with {prf:ref}`lem:hyperplane-decomposition` leaves
+$p = c \, \lambda_1 \lambda_2 \lambda_3$ with a constant $c$, since the degrees already
+match. What does the remaining degree of freedom at the barycenter give you?
+```
+````
+
+### The cubic Hermite element on a triangle
+
+In all elements so far, the degrees of freedom were point evaluations, and such elements
+are called **Lagrange elements**. {prf:ref}`def:ciarlet-finite-element` allows any linear
+functionals on $\mathcal{P}$, however, and prescribing derivatives is the natural next
+choice. Elements whose degrees of freedom involve derivatives are called **Hermite
+elements**.
+
+```{prf:definition} The cubic Hermite triangle
+:label: def:p3-hermite-triangle
+
+Let $a_{123} = \frac{1}{3}(a_1 + a_2 + a_3)$ be the barycenter of $T$. The **cubic
+Hermite element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
+$\mathcal{P} = \mathbb{P}_3(T)$ and
+
+$$
+\Sigma =
+\{ p \mapsto p(a_i) \}_{i=1}^{3}
+\; \cup \;
+\{ p \mapsto \partial_1 p(a_i), \; p \mapsto \partial_2 p(a_i) \}_{i=1}^{3}
+\; \cup \;
+\{ p \mapsto p(a_{123}) \} ,
+$$
+
+where $\partial_1, \partial_2$ denote the partial derivatives with respect to the
+coordinates of $\mathbb{R}^2$.
+```
+
+```{figure} figures/p3-hermite-triangle.svg
+:label: fig-p3-hermite-triangle
+:alt: A triangle whose three vertices carry a function value and a gradient, drawn as a dot inside a ring, together with the barycenter carrying a function value.
+:width: 48%
+
+The cubic Hermite element: at each vertex the value and the two first derivatives, and
+the value at the barycenter. The ring around a vertex stands for the two gradient
+degrees of freedom.
+```
+
+The counts agree again: $3 + 6 + 1 = 10 = \dim \mathbb{P}_3(\mathbb{R}^2)$. The element
+uses the same polynomial space as the cubic Lagrange triangle of
+{prf:ref}`def:p3-triangle`, but distributes its degrees of freedom differently.
+
+```{prf:lemma} Unisolvence of the cubic Hermite element
+:label: lem:hermite-unisolvence
+
+The triple of {prf:ref}`def:p3-hermite-triangle` is a finite element in the sense of
+{prf:ref}`def:ciarlet-finite-element`.
+```
+
+```{prf:proof}
+Since $\# \Sigma = 10 = \dim \mathbb{P}_3(T)$, {prf:ref}`lem:unisolvence` again reduces
+the claim to statement b). So let $p \in \mathbb{P}_3(T)$ satisfy
+
+$$
+p(a_i) = 0, \quad \nabla p(a_i) = 0 \quad (i = 1, 2, 3),
+\qquad p(a_{123}) = 0 ,
+$$
+
+and let us show that $p$ vanishes identically.
+
+**Step 1: $p$ vanishes on each edge line.** Consider the edge joining $a_1$ and $a_2$,
+which lies on the line $L_3 = \{ \lambda_3 = 0 \}$, and parametrise that line by
+$\gamma(t) = a_1 + t (a_2 - a_1)$. Then $\varphi := p \circ \gamma$ is a univariate
+polynomial of degree at most $3$ with
+
+$$
+\varphi(0) = p(a_1) = 0, \qquad \varphi(1) = p(a_2) = 0 ,
+$$
+
+and, by the chain rule,
+
+$$
+\varphi'(0) = \nabla p(a_1) \cdot (a_2 - a_1) = 0 ,
+\qquad
+\varphi'(1) = \nabla p(a_2) \cdot (a_2 - a_1) = 0 .
+$$
+
+Thus $\varphi$ has roots of multiplicity at least two at $t = 0$ and at $t = 1$, that is,
+at least four roots counted with multiplicity. A non-trivial univariate polynomial of
+degree at most $3$ has at most three, so $\varphi \equiv 0$ and $p$ vanishes on all of
+$L_3$. The same argument applied to the other two edges shows that $p$ vanishes on
+$L_1$, $L_2$ and $L_3$.
+
+**Step 2: peeling off the barycentric coordinates.** By
+{prf:ref}`lem:hyperplane-decomposition`, applied to the affine function $\lambda_3$,
+
+$$
+p = \lambda_3 \, q_1, \qquad q_1 \in \mathbb{P}_2(\mathbb{R}^2) .
+$$
+
+Now $p$ also vanishes on $L_1$, while $\lambda_3$ vanishes at exactly one point of $L_1$,
+namely the vertex $a_2 = L_1 \cap L_3$. Hence $q_1$ vanishes on $L_1$ with the possible
+exception of that single point, and therefore on all of $L_1$ by continuity. Applying the
+lemma twice more gives
+
+$$
+q_1 = \lambda_1 \, q_2, \quad q_2 \in \mathbb{P}_1(\mathbb{R}^2),
+\qquad
+q_2 = \lambda_2 \, c, \quad c \in \mathbb{P}_0(\mathbb{R}^2) ,
+$$
+
+so that $p = c \, \lambda_1 \lambda_2 \lambda_3$ with a constant $c$.
+
+**Step 3: the interior degree of freedom.** Since
+$\lambda_i(a_{123}) = \frac{1}{3}$ for $i = 1, 2, 3$,
+
+$$
+0 = p(a_{123}) = c \, \Big( \frac{1}{3} \Big)^3 = \frac{c}{27} ,
+$$
+
+hence $c = 0$ and $p \equiv 0$.
+```
+
+```{prf:remark} Why the derivative degrees of freedom need care
+:label: rem:hermite-affine
+
+The gradient degrees of freedom do not transform as simply as point values. If
+$\Phi_T(\widehat{x}) = B \widehat{x} + b$ maps a reference triangle onto $T$ and
+$\widehat{p} = p \circ \Phi_T$, then
+$\nabla \widehat{p}(\widehat{x}) = B^{\top} \nabla p(\Phi_T(\widehat{x}))$, so the
+Jacobian enters whenever degrees of freedom are transferred between the reference element
+and a physical element. For the Lagrange elements above, whose degrees of freedom are
+point values, the transfer is immediate.
 ```
