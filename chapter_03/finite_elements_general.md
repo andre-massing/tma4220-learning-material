@@ -8,11 +8,27 @@ dimension and of the particular polynomial space used. This abstraction is what
 allows the same code, and the same theory, to serve the plethora of finite element
 families in use today.
 
-```{admonition} TODO
-:class: warning
+In general, the construction of a global finite element space on a domain $\Omega$ proceeds in three steps:
 
-Motivation from the 1D examples. The handwritten notes reserve a section here but
-leave it empty.
+1. Provide a subdivision of the domain $\Omega$ into a finite number of non-overlapping subdomains, called **elements**. The collection of elements is called a **mesh** or **triangulation**.
+
+2. On each element, define a finite-dimensional space of functions, called the **local finite element space**. 
+
+3. Define a global finite element space by patching together the local spaces, in a way that ensures that the resulting functions are globally continuous (or satisfy other desired global compatibility conditions).
+
+```{figure} figures/fem-construction-steps.svg
+:label: fig-fem-construction-steps
+:alt: Four panels: an L-shaped domain subdivided into triangles with one element highlighted, that element enlarged with its three degrees of freedom, the mesh with all nodes marked and the support of one basis function shaded, and a three-dimensional plot of that basis function as a pyramid over the mesh.
+:width: 90%
+
+The three steps, and what they produce. Left: the domain $\Omega$ is subdivided into elements $T$, here
+triangles, one of which is highlighted. Middle: on that element a local space with its
+degrees of freedom is chosen, here $\mathbb{P}_1(T)$ with the values at the three
+vertices. Third: the local spaces are patched together into a global space $V_h$, whose
+degrees of freedom are the values at all mesh nodes; the shaded elements form the support
+of the global basis function belonging to the ringed node. Right: that basis function
+itself, the piecewise linear "hat" which equals $1$ at the ringed node, vanishes at every
+other node, and is supported on the shaded patch.
 ```
 
 ## Construction of local finite element spaces
@@ -191,7 +207,13 @@ $x^\alpha$ spanning $\mathbb{P}_k(\mathbb{R}^n)$.
 ```{admonition} Hint
 :class: hint dropdown
 
-Sort the monomials by their total degree. Writing $\mathbb{H}_l(\mathbb{R}^n)$ for the
+Sort the monomials by their total degree. Writing 
+
+$$
+\mathbb{H}_l(\mathbb{R}^n) = \Big\{ p : \mathbb{R}^n \to \mathbb{R} \;\Big|\;
+p(x) = \sum_{|\alpha| = l} c_\alpha x^\alpha, \ c_\alpha \in \mathbb{R} \Big\}
+$$
+ for the
 space of **homogeneous** polynomials of degree exactly $l$, spanned by the monomials
 $x^\alpha$ with $|\alpha| = l$, every polynomial splits uniquely into its homogeneous
 parts, so that
@@ -234,10 +256,11 @@ a linear function plus a constant,
 
 $$
 \lambda(x) = w \cdot x + c ,
-\qquad w \in \mathbb{R}^n \setminus \{0\}, \quad c \in \mathbb{R} ,
+\qquad w \in \mathbb{R}^n, \quad c \in \mathbb{R} ,
 $$ (eq:affine-function)
 
-so that $\lambda$ is linear precisely when $c = 0$. Its zero set
+so that $\lambda$ is linear precisely when $c = 0$.
+For $w \neq 0$, the **zero set** of $\lambda$
 
 $$
 L = \{ x \in \mathbb{R}^n \mid \lambda(x) = 0 \}
@@ -316,6 +339,8 @@ $|\widetilde{\alpha}| + \alpha_n - 1 \leqslant k - 1$.
 
 ## Examples of finite element on triangles
 
+### Lagrange elements on triangles
+
 Throughout this section, $T \subset \mathbb{R}^2$ is a non-degenerate triangle with
 vertices $a_1, a_2, a_3$, and $\lambda_1, \lambda_2, \lambda_3$ denote its **barycentric
 coordinates**: $\lambda_i$ is the affine function, in the sense of
@@ -323,12 +348,10 @@ coordinates**: $\lambda_i$ is the affine function, in the sense of
 that $\lambda_i$ vanishes precisely on the line $L_i$ through the two vertices other
 than $a_i$.
 
-### The $\mathbb{P}_1$ element on a triangle
-
-```{prf:definition} The linear Lagrange triangle
+```{prf:definition} The $\mathbb{P}_1$ Lagrange element on a triangle
 :label: def:p1-triangle
 
-The **$\mathbb{P}_1$ element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
+The **$\mathbb{P}_1$ Lagrange element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
 $\mathcal{P} = \mathbb{P}_1(T)$ and
 
 $$
@@ -394,13 +417,11 @@ language of {prf:ref}`lem:nodal-basis`, no Vandermonde system has to be solved h
 nodal basis is available in closed form.
 ```
 
-### The $\mathbb{P}_2$ element on a triangle
-
-```{prf:definition} The quadratic Lagrange triangle
+```{prf:definition} The $\mathbb{P}_2$ Lagrange finite element on a triangle
 :label: def:p2-triangle
 
 Let $a_{ij} = \frac{1}{2}(a_i + a_j)$ denote the midpoint of the edge joining $a_i$ and
-$a_j$. The **$\mathbb{P}_2$ element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
+$a_j$. The **$\mathbb{P}_2$ Lagrange element** on $T$ is the triple $(T, \mathcal{P}, \Sigma)$ with
 $\mathcal{P} = \mathbb{P}_2(T)$ and
 
 $$
@@ -433,14 +454,13 @@ Show that the triple of {prf:ref}`def:p2-triangle` is a finite element.
 Follow the proof of {prf:ref}`lem:p1-unisolvence`. Each edge of $T$ now carries three
 nodes, two vertices and one midpoint, so the restriction of $p \in \mathbb{P}_2(T)$ to
 the line $L_i$ is a univariate quadratic with three distinct roots and vanishes
-identically. Apply {prf:ref}`lem:hyperplane-decomposition` once for each edge to peel off
-the factors $\lambda_1, \lambda_2, \lambda_3$ one at a time, and compare the resulting
-degree with $2$.
+identically. Apply {prf:ref}`lem:hyperplane-decomposition` twice on two distinct
+edges $L_i$ and $L_j$ to show that $p = c \lambda_i \lambda_j
+$ with $c$ being a constant and finally deduce that $c = 0$.
 ```
 
-### The $\mathbb{P}_3$ element on a triangle
 
-```{prf:definition} The cubic Lagrange triangle
+```{prf:definition} The $\mathbb{P}_3$ Lagrange finite element on a triangle
 :label: def:p3-triangle
 
 Let $a_{iij} = \frac{1}{3}(2 a_i + a_j)$ for $i \neq j$ denote the two points dividing the
