@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 660 200" font-family="Georgia, 'Times New Roman', serif" font-size="14">
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5"
+            markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="currentColor"/>
+    </marker>
+
+    <!-- An L-shaped domain, triangulated: the cells of a 3 by 2 grid of squares
+         without the upper right one, each split along its rising diagonal. -->
+    <g id="mesh">
+      <g stroke="currentColor" stroke-width="1.1" fill="none">
+        <path d="M10,40 H90 M10,80 H130 M10,120 H130"/>
+        <path d="M10,40 V120 M50,40 V120 M90,40 V120 M130,80 V120"/>
+        <path d="M10,40 L50,80 M50,40 L90,80
+                 M10,80 L50,120 M50,80 L90,120 M90,80 L130,120"/>
+      </g>
+      <path d="M10,40 H90 V80 H130 V120 H10 Z"
+            fill="none" stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+    </g>
+
+    <!-- The eleven mesh vertices, i.e. the nodes of the global space. -->
+    <g id="nodes" fill="#0ea5e9">
+      <circle cx="10" cy="40" r="4.5"/>
+      <circle cx="50" cy="40" r="4.5"/>
+      <circle cx="90" cy="40" r="4.5"/>
+      <circle cx="10" cy="80" r="4.5"/>
+      <circle cx="50" cy="80" r="4.5"/>
+      <circle cx="90" cy="80" r="4.5"/>
+      <circle cx="130" cy="80" r="4.5"/>
+      <circle cx="10" cy="120" r="4.5"/>
+      <circle cx="50" cy="120" r="4.5"/>
+      <circle cx="90" cy="120" r="4.5"/>
+      <circle cx="130" cy="120" r="4.5"/>
+    </g>
+  </defs>
+
+  <!-- step 1: the domain and its mesh -->
+  <g>
+    <polygon points="50,40 90,80 50,80" fill="#d946ef" fill-opacity="0.35" stroke="none"/>
+    <use href="#mesh"/>
+    <text x="112" y="60" text-anchor="middle" fill="currentColor" font-style="italic">&#937;</text>
+    <text x="70" y="171" text-anchor="middle" fill="currentColor" font-size="13">1. Mesh of &#937;</text>
+    <text x="70" y="188" text-anchor="middle" fill="currentColor" font-size="13">into elements T</text>
+  </g>
+
+  <line x1="142" y1="80" x2="168" y2="80" stroke="currentColor" stroke-width="1.6"
+        marker-end="url(#arrow)"/>
+
+  <!-- step 2: the local space on one element -->
+  <g>
+    <polygon points="180,45 265,120 180,120" fill="#d946ef" fill-opacity="0.35"
+             stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/>
+    <g fill="#0ea5e9">
+      <circle cx="180" cy="45" r="6"/>
+      <circle cx="265" cy="120" r="6"/>
+      <circle cx="180" cy="120" r="6"/>
+    </g>
+    <text x="205" y="100" fill="currentColor" font-style="italic">T</text>
+    <text x="222" y="171" text-anchor="middle" fill="currentColor" font-size="13">2. Local space on T</text>
+    <text x="222" y="188" text-anchor="middle" fill="currentColor" font-size="13">with its degrees of freedom</text>
+  </g>
+
+  <line x1="278" y1="80" x2="304" y2="80" stroke="currentColor" stroke-width="1.6"
+        marker-end="url(#arrow)"/>
+
+  <!-- step 3: patching the local spaces together -->
+  <g>
+    <!-- support of the global basis function belonging to the ringed node -->
+    <g fill="#f59e0b" fill-opacity="0.35" stroke="none">
+      <polygon points="310,40 350,40 350,80"/>
+      <polygon points="310,40 350,80 310,80"/>
+      <polygon points="350,40 390,80 350,80"/>
+      <polygon points="310,80 350,80 350,120"/>
+      <polygon points="350,80 390,80 390,120"/>
+      <polygon points="350,80 390,120 350,120"/>
+    </g>
+    <use href="#mesh" x="300"/>
+    <use href="#nodes" x="300"/>
+    <circle cx="350" cy="80" r="9" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+    <text x="370" y="171" text-anchor="middle" fill="currentColor" font-size="13">3. Global space</text>
+    <text x="370" y="188" text-anchor="middle" fill="currentColor" font-size="13">patched together</text>
+  </g>
+
+  <line x1="442" y1="80" x2="468" y2="80" stroke="currentColor" stroke-width="1.6"
+        marker-end="url(#arrow)"/>
+
+  <!-- step 4: the global basis function belonging to the ringed node -->
+  <g>
+    <!-- the graph of the basis function over those elements -->
+    <polygon points="555.0,52.0 587.4,70.6 555.0,14.8" fill="#f59e0b" fill-opacity="0.3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="555.0,52.0 555.0,14.8 522.6,70.6" fill="#f59e0b" fill-opacity="0.3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="587.4,70.6 619.7,89.2 587.4,107.8" fill="#9ca3af" fill-opacity="0.1" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="587.4,70.6 587.4,107.8 555.0,14.8" fill="#f59e0b" fill-opacity="0.3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="522.6,70.6 555.0,14.8 522.6,107.8" fill="#f59e0b" fill-opacity="0.3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="522.6,70.6 522.6,107.8 490.3,89.2" fill="#9ca3af" fill-opacity="0.1" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="555.0,14.8 587.4,107.8 555.0,126.4" fill="#f59e0b" fill-opacity="0.3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="555.0,14.8 555.0,126.4 522.6,107.8" fill="#f59e0b" fill-opacity="0.3" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="587.4,107.8 619.7,126.4 587.4,145.0" fill="#9ca3af" fill-opacity="0.1" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <polygon points="587.4,107.8 587.4,145.0 555.0,126.4" fill="#9ca3af" fill-opacity="0.1" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
+    <!-- the flat mesh at z = 0, seen through the graph -->
+    <line x1="555.0" y1="52.0" x2="555.0" y2="89.2" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="522.6" y1="70.6" x2="555.0" y2="89.2" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="522.6" y1="70.6" x2="522.6" y2="107.8" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="587.4" y1="70.6" x2="555.0" y2="89.2" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="587.4" y1="70.6" x2="587.4" y2="107.8" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="555.0" y1="89.2" x2="522.6" y2="107.8" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="555.0" y1="89.2" x2="587.4" y2="107.8" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="555.0" y1="89.2" x2="555.0" y2="126.4" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="587.4" y1="107.8" x2="555.0" y2="126.4" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="587.4" y1="107.8" x2="587.4" y2="145.0" stroke="currentColor" stroke-width="1.0" stroke-opacity="0.5"/>
+    <line x1="555.0" y1="52.0" x2="522.6" y2="70.6" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="555.0" y1="52.0" x2="587.4" y2="70.6" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="522.6" y1="70.6" x2="490.3" y2="89.2" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="490.3" y1="89.2" x2="522.6" y2="107.8" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="587.4" y1="70.6" x2="619.7" y2="89.2" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="522.6" y1="107.8" x2="555.0" y2="126.4" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="619.7" y1="89.2" x2="587.4" y2="107.8" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="587.4" y1="107.8" x2="619.7" y2="126.4" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="555.0" y1="126.4" x2="587.4" y2="145.0" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="619.7" y1="126.4" x2="587.4" y2="145.0" stroke="currentColor" stroke-width="2.0" stroke-opacity="0.8"/>
+    <line x1="555.0" y1="89.2" x2="555.0" y2="14.8" stroke="#f59e0b" stroke-width="1.6" stroke-dasharray="4 4"/>
+    <circle cx="555.0" cy="89.2" r="4" fill="#0ea5e9" fill-opacity="0.6"/>
+    <circle cx="555.0" cy="14.8" r="5.5" fill="#0ea5e9"/>
+    <circle cx="555.0" cy="14.8" r="10" fill="none" stroke="#f59e0b" stroke-width="2.5"/>
+    <text x="555" y="171" text-anchor="middle" fill="currentColor" font-size="13">4. Its basis function</text>
+    <text x="555" y="188" text-anchor="middle" fill="currentColor" font-size="13">over the mesh</text>
+  </g>
+</svg>
