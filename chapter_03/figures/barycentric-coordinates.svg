@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" font-family="Georgia, 'Times New Roman', serif" font-size="18">
+  <!-- A triangle with vertices a0, a1, a2 and an interior point x.  Joining x to
+       the vertices splits T into three sub-simplices; the barycentric coordinate
+       lambda_i(x) is the volume of the one opposite a_i, divided by that of T. -->
+  <polygon points="190,170 340,250 200,40" fill="#0ea5e9" fill-opacity="0.22" stroke="none"/>
+  <polygon points="60,250 190,170 200,40" fill="#d946ef" fill-opacity="0.22" stroke="none"/>
+  <polygon points="60,250 340,250 190,170" fill="#f59e0b" fill-opacity="0.28" stroke="none"/>
+
+  <g stroke="currentColor" stroke-width="1.2" stroke-opacity="0.65" fill="none">
+    <path d="M190,170 L60,250 M190,170 L340,250 M190,170 L200,40"/>
+  </g>
+
+  <polygon points="60,250 340,250 200,40" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+
+  <g fill="#0ea5e9">
+    <circle cx="60" cy="250" r="7"/>
+    <circle cx="340" cy="250" r="7"/>
+    <circle cx="200" cy="40" r="7"/>
+  </g>
+  <circle cx="190" cy="170" r="6" fill="currentColor"/>
+
+  <g fill="currentColor" font-style="italic">
+    <text x="36" y="274">a<tspan font-size="12" dy="4">0</tspan></text>
+    <text x="348" y="274">a<tspan font-size="12" dy="4">1</tspan></text>
+    <text x="192" y="28">a<tspan font-size="12" dy="4">2</tspan></text>
+    <text x="200" y="163">x</text>
+  </g>
+
+  <g fill="currentColor" font-size="17">
+    <text x="254" y="160" text-anchor="middle">&#955;<tspan font-size="12" dy="4">0</tspan></text>
+    <text x="136" y="160" text-anchor="middle">&#955;<tspan font-size="12" dy="4">1</tspan></text>
+    <text x="197" y="232" text-anchor="middle">&#955;<tspan font-size="12" dy="4">2</tspan></text>
+  </g>
+
+  <text x="200" y="292" text-anchor="middle" fill="currentColor" font-size="14">
+    each shaded area, divided by the area of T
+  </text>
+</svg>

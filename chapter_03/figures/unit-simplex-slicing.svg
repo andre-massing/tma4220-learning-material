@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 470 340" font-family="Georgia, 'Times New Roman', serif" font-size="18">
+  <!-- The unit simplex in R^3 in oblique projection: origin O = (170,250),
+       e1 = (-95,55), e2 = (200,0), e3 = (0,-190).  The horizontal slice at
+       height x3 = s = 0.4 is the scaled triangle (1 - s) T_2, with vertices
+       (0.6,0,0.4), (0,0.6,0.4), (0,0,0.4). -->
+
+  <!-- front face x1 + x2 + x3 = 1 -->
+  <polygon points="75,305 370,250 170,60" fill="#0ea5e9" fill-opacity="0.12" stroke="none"/>
+
+  <!-- the slice at height s -->
+  <polygon points="113,207 290,174 170,174" fill="#d946ef" fill-opacity="0.35" stroke="none"/>
+
+  <!-- coordinate axes outside the simplex -->
+  <g stroke="currentColor" stroke-width="1.2" fill="none">
+    <path d="M75,305 L51,319 M370,250 L420,250 M170,60 L170,24"/>
+  </g>
+  <g fill="currentColor">
+    <polygon points="45,322.5 53,313 57,321"/>
+    <polygon points="428,250 418,245 418,255"/>
+    <polygon points="170,16 165,26 175,26"/>
+  </g>
+
+  <!-- hidden edges, on the coordinate planes -->
+  <g stroke="currentColor" stroke-width="1.5" stroke-dasharray="6 5" fill="none">
+    <path d="M170,250 L75,305 M170,250 L370,250 M170,250 L170,60"/>
+  </g>
+  <g stroke="#d946ef" stroke-width="1.8" stroke-dasharray="6 5" fill="none">
+    <path d="M170,174 L113,207 M170,174 L290,174"/>
+  </g>
+
+  <!-- visible edges -->
+  <polygon points="75,305 370,250 170,60" fill="none"
+           stroke="currentColor" stroke-width="2.5" stroke-linejoin="round"/>
+  <line x1="113" y1="207" x2="290" y2="174" stroke="#d946ef" stroke-width="2.5"/>
+
+  <!-- vertices -->
+  <g fill="#0ea5e9">
+    <circle cx="170" cy="250" r="6"/>
+    <circle cx="75" cy="305" r="6"/>
+    <circle cx="370" cy="250" r="6"/>
+    <circle cx="170" cy="60" r="6"/>
+  </g>
+  <circle cx="170" cy="174" r="4.5" fill="#d946ef"/>
+
+  <!-- labels -->
+  <g fill="currentColor" font-style="italic">
+    <text x="26" y="318">x<tspan font-size="12" dy="4">1</tspan></text>
+    <text x="434" y="256">x<tspan font-size="12" dy="4">2</tspan></text>
+    <text x="180" y="24">x<tspan font-size="12" dy="4">3</tspan></text>
+    <text x="150" y="179">s</text>
+  </g>
+  <g fill="currentColor">
+    <text x="78" y="332">1</text>
+    <text x="364" y="274">1</text>
+    <text x="150" y="65">1</text>
+    <text x="177" y="272">0</text>
+  </g>
+
+  <!-- slice annotation -->
+  <line x1="196" y1="186" x2="318" y2="128" stroke="#d946ef" stroke-width="1"/>
+  <g fill="currentColor">
+    <text x="322" y="126">(1 &#8722; <tspan font-style="italic">s</tspan>)</text>
+    <text x="379" y="126" font-style="italic">T<tspan font-size="12" font-style="normal" dy="4">2</tspan></text>
+    <text x="383" y="114" font-size="16">&#710;</text>
+  </g>
+  <text x="322" y="148" fill="currentColor" font-size="14">slice at height <tspan font-style="italic">x</tspan><tspan font-size="10" dy="3">3</tspan><tspan dy="-3"> = </tspan><tspan font-style="italic">s</tspan></text>
+</svg>
