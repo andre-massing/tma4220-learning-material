@@ -8,7 +8,7 @@ can be employed to analyze the well-posedness
 of a certain class of PDEs when given in a so-called
 "weak" formulation.
 
-Throughout this chapter, $\Omega \subset \mathbb{R}^n$ is a bounded
+Throughout this chapter, $\Omega \subset \mathbb{R}^d$ is a bounded
 $C^1$-polyhedron (or, more generally, a bounded Lipschitz domain) with boundary
 $\Gamma = \partial \Omega$. This guarantees that the Gauß theorem, the
 {prf:ref}`trace theorem<thm:trace-spaces>` and the
@@ -620,13 +620,13 @@ $$
 \mathcal{A} u := - \nabla \cdot ( A \nabla u) = f
 $$
 
-where $A = (a_{ij}(x))_{i,j=1}^n$ is a pointwise defined matrix.
+where $A = (a_{ij}(x))_{i,j=1}^d$ is a pointwise defined matrix.
 Note that
 
 $$
 \mathcal{A} u = - \nabla \cdot ( A(x) \nabla u(x))
 =
--\sum_{i,j=1}^n \partial_{i} (a_{ij}(x) \partial_{j} u(x))
+-\sum_{i,j=1}^d \partial_{i} (a_{ij}(x) \partial_{j} u(x))
 $$ (eq:def-A-operator)
 
 We say that $\mathcal{A}$ is a **second order operator in divergence form**.
@@ -642,19 +642,19 @@ to satisfy the following definition.
 
 The partial differential operator $\mathcal{A}$ given
 by {eq}`eq:def-A-operator` with coefficients
-$A = (a_{ij})_{i,j=1}^n \in (L^{\infty}(\Omega))^{n\times n}$
+$A = (a_{ij})_{i,j=1}^d \in (L^{\infty}(\Omega))^{d\times d}$
 is called **(uniformly) elliptic** if there exists a constant $\alpha > 0$ such that
 * $ \lambda \cdot  A(x) \lambda \geqslant \alpha |\lambda|^2$
 
-for all $\lambda \in \mathbb{R}^n$ and almost every $x \in \Omega$.
+for all $\lambda \in \mathbb{R}^d$ and almost every $x \in \Omega$.
 ```
 
 ```{prf:remark}
-Note that $A \in (L^{\infty}(\Omega))^{n\times n}$ also implies that
+Note that $A \in (L^{\infty}(\Omega))^{d\times d}$ also implies that
 there exists a $\beta \geqslant 0 $ such that also
 * $|A(x) \lambda| \leqslant \beta  |\lambda|$
 
-holds for all $\lambda \in \mathbb{R}^n$ and almost every $x \in \Omega$, and by
+holds for all $\lambda \in \mathbb{R}^d$ and almost every $x \in \Omega$, and by
 ellipticity, we can
 conclude that in fact $\beta \geqslant \alpha > 0$.
 ```

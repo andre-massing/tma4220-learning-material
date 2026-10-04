@@ -7,7 +7,7 @@ analysis of the well-posedness of this formulation play a central role
 in the design and analysis of finite element methods.
 
 The point of departure for this theory is the insight that a ("regular enough")
-function $u$ on an open set $\Omega \subseteq \mathbb{R}^n$ can be identified by considering
+function $u$ on an open set $\Omega \subseteq \mathbb{R}^d$ can be identified by considering
 all its weighted integrals $\int_{\Omega} u v$ if the **weight or test function**
 $v$ comes from a rich enough space:
 
@@ -62,7 +62,7 @@ $$
 
 ````
 
-`````{exercise} Construction of bump functions in $\mathbb{R}^n$
+`````{exercise} Construction of bump functions in $\mathbb{R}^d$
 :label: exer-bump-functions
 In this exercise, we construct the bump functions used in the proof of the
 fundamental lemma.
@@ -79,8 +79,8 @@ fundamental lemma.
 
    Show that $f \in C^{\infty}(\mathbb{R})$.
 
-2. Define $\varphi : \mathbb{R}^n \to \mathbb{R}$ by $\varphi(x) := f(1 - \|x\|^2)$.
-   Show that $\varphi \in C^{\infty}_c(\mathbb{R}^n)$ with
+2. Define $\varphi : \mathbb{R}^d \to \mathbb{R}$ by $\varphi(x) := f(1 - \|x\|^2)$.
+   Show that $\varphi \in C^{\infty}_c(\mathbb{R}^d)$ with
    $\varphi(x) > 0$ for $\|x\| < 1$ and
    $\operatorname{supp} \varphi = \overline{B_1(0)}$.
 
@@ -179,9 +179,9 @@ we require $\Omega$ to be at least a $C^1$-polyhedron:
 ````{prf:definition} $C^1$-polyhedron
 :label: def-c1-polyhedron
 
-* Let $\Omega \subseteq \mathbb{R}^n$ be open. A point $\overline{x} \in \partial\Omega$
+* Let $\Omega \subseteq \mathbb{R}^d$ be open. A point $\overline{x} \in \partial\Omega$
   is called a **regular boundary point** of $\Omega$ if there is a neighborhood
-  $\mathcal{N}(\overline{x}) \subseteq \mathbb{R}^n$ of $\overline{x}$ and a $C^1$ function
+  $\mathcal{N}(\overline{x}) \subseteq \mathbb{R}^d$ of $\overline{x}$ and a $C^1$ function
   $q : \mathcal{N}(\overline{x}) \to \mathbb{R}$ s.t.
   1. $\nabla q(x) \neq 0 \quad \forall x \in \mathcal{N}(\overline{x})$,
   2. $\Omega \cap \mathcal{N}(\overline{x}) = \{ x \in \mathcal{N}(\overline{x}) \;|\; q(x) < 0 \}$.
@@ -196,8 +196,8 @@ we require $\Omega$ to be at least a $C^1$-polyhedron:
   1. $M \subseteq \bigcup_{k=1}^{\infty} B^{\varepsilon}_k$,
   2. $\sum_{k=1}^{\infty} r_k^d < \varepsilon$.
 
-* An open domain $\Omega \subseteq \mathbb{R}^n$ is called a **$C^1$-polyhedron** if
-  $\partial_s \Omega$ is an $(n-1)$-dimensional null set.
+* An open domain $\Omega \subseteq \mathbb{R}^d$ is called a **$C^1$-polyhedron** if
+  $\partial_s \Omega$ is an $(d-1)$-dimensional null set.
 ````
 
 For a regular boundary point $\overline{x} \in \partial_r \Omega$ with a
@@ -219,7 +219,7 @@ normal vector.
 
 ````{prf:lemma} The outer unit normal is well defined
 :label: lem-outer-normal
-Let $\Omega \subseteq \mathbb{R}^n$ be open and let
+Let $\Omega \subseteq \mathbb{R}^d$ be open and let
 $\overline{x} \in \partial_r \Omega$ be a regular boundary point. Then the
 vector $\mathbf{n}(\overline{x})$ defined in {eq}`eq:outer-normal` satisfies
 $|\mathbf{n}(\overline{x})| = 1$, and it does not depend on the choice of the
@@ -239,7 +239,7 @@ Near $\overline{x}$, both defining functions vanish exactly on the same piece
 of $\partial\Omega$, so their zero level sets coincide there. Recall that the
 gradient of a $C^1$ function with non-vanishing gradient is orthogonal to its
 own zero level set. Hence $\nabla q_1(\overline{x})$ and
-$\nabla q_2(\overline{x})$ are both orthogonal to the same $(n-1)$-dimensional
+$\nabla q_2(\overline{x})$ are both orthogonal to the same $(d-1)$-dimensional
 tangent space, and are therefore parallel. It remains to exclude opposite
 signs, which follows since $q_1$ and $q_2$ are negative on the same side of
 the boundary, namely on $\Omega$.
@@ -250,7 +250,7 @@ $\partial_r \Omega$, integration over the boundary of a $C^1$-polyhedron is
 always understood as integration over the regular part of the boundary, that
 is, $\int_{\partial\Omega} := \int_{\partial_r \Omega}$. This is no
 restriction: by {prf:ref}`def-c1-polyhedron`, the singular boundary
-$\partial_s \Omega$ is an $(n-1)$-dimensional null set and therefore does not
+$\partial_s \Omega$ is an $(d-1)$-dimensional null set and therefore does not
 contribute to such integrals.
 
 ```{figure} figures/c1-polyhedron-sketch.svg
@@ -265,14 +265,14 @@ $\Omega \cap \mathcal{N}(\overline{x}) = \{ x \in \mathcal{N}(\overline{x}) \;|\
 and the highlighted piece of $\partial\Omega$ is the zero level set of $q$.
 The corners of $\partial\Omega$ are singular boundary points and form the
 singular boundary $\partial_s\Omega$ — a finite set of points, and thus an
-$(n-1)$-dimensional null set for $n = 2$.
+$(d-1)$-dimensional null set for $d = 2$.
 ```
 
 ````{prf:theorem} Gauß theorem
 :label: thm-gauss
-Let $\Omega \subseteq \mathbb{R}^n$ be a bounded $C^1$-polyhedron and
-$\mathbf{F} : \Omega \to \mathbb{R}^n$ be a vector field s.t.
-1. $\mathbf{F} \in C^1(\Omega, \mathbb{R}^n) \cap C(\overline{\Omega}, \mathbb{R}^n)$,
+Let $\Omega \subseteq \mathbb{R}^d$ be a bounded $C^1$-polyhedron and
+$\mathbf{F} : \Omega \to \mathbb{R}^d$ be a vector field s.t.
+1. $\mathbf{F} \in C^1(\Omega, \mathbb{R}^d) \cap C(\overline{\Omega}, \mathbb{R}^d)$,
 2. $\nabla \cdot \mathbf{F}$ is integrable over $\Omega$,
 3. $\mathbf{F} \cdot \mathbf{n}$ is integrable over $\partial\Omega$.
 
@@ -290,7 +290,7 @@ The Gauß theorem has some immediate and important consequences.
 :label: cor-greens-formulas
 Let $\Omega$ be a bounded $C^1$-polyhedron. Then we have
 
-1. for $u \in C^1(\overline{\Omega})$, $\mathbf{F} \in C^1(\overline{\Omega}, \mathbb{R}^n)$:
+1. for $u \in C^1(\overline{\Omega})$, $\mathbf{F} \in C^1(\overline{\Omega}, \mathbb{R}^d)$:
 
    $$
    \int_{\Omega} \nabla u \cdot \mathbf{F}

@@ -84,9 +84,9 @@ $$
 In particular, $v \in H^2(\Omega)$ implies $v \in C^1(\overline{\Omega})$, so
 that the point values $v(x_l)$ used in the definition of
 $\mathcal{I}_h v$ are well defined.
-Remember that this embedding holds only in **one** dimension: in $\mathbb{R}^n$,
+Remember that this embedding holds only in **one** dimension: in $\mathbb{R}^d$,
 an embedding into $C^k(\overline{\Omega})$ requires $H^{s}(\Omega)$ with
-$s > k + n/2$.
+$s > k + d/2$.
 ```
 
 ## The interpolation error estimate

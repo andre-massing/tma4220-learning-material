@@ -27,7 +27,7 @@ curriculum on *Measure and Integration theory*, see Chapters 9-10 in
 To this end, 
 
 ````{prf:definition} Lebesgue spaces
-Let $\Omega \subset \mathbb{R}^n$ be an open domain. 
+Let $\Omega \subset \mathbb{R}^d$ be an open domain. 
 
 Then
 the Lebesgue spaces $L^p(\Omega)$ are defined by
@@ -177,7 +177,7 @@ following definition is well-defined for every $v \in L^p(\Omega)$.
 
 ````{prf:definition} Mean value and Lebesgue spaces with vanishing mean
 :label: def:mean-zero-lp
-Let $\Omega \subset \mathbb{R}^n$ be an open domain of finite measure,
+Let $\Omega \subset \mathbb{R}^d$ be an open domain of finite measure,
 $|\Omega| = \int_{\Omega} 1 < \infty$.
 For $v \in L^1(\Omega)$, we call
 
@@ -273,7 +273,7 @@ $$
 $$ (eq:weak-deriv-first)
 
 and iterating this formula, we observe that for any multiindex
-$\alpha \in \mathbb{N}_0^n$, where $\mathbb{N}_0 := \mathbb{N} \cup \{0\}$, with
+$\alpha \in \mathbb{N}_0^d$, where $\mathbb{N}_0 := \mathbb{N} \cup \{0\}$, with
 $|\alpha| \leqslant k$,
 
 $$
@@ -281,13 +281,13 @@ $$
 (-1)^{|\alpha|} \int_{\Omega} u \partial^{\alpha} \phi,
 $$ (eq:weak-deriv-alpha)
 
-where $|\alpha| = \alpha_1 + \cdots + \alpha_n$.
+where $|\alpha| = \alpha_1 + \cdots + \alpha_d$.
 Note that the integral expression on the right-hand side of {eq}`eq:weak-deriv-alpha` makes perfect
 sense even for $u\in L^1_{\mathrm{loc}}$ and not only $u\in C^k(\Omega)$.
 This leads to a possibility to generalize or weaken the classical definition of derivatives. 
 
 :::{prf:definition} Weak derivative
-Let $\alpha \in \mathbb{N}_0^n$ be a multiindex and $u, u_{\alpha} \in L^1_{\mathrm{loc}}(\Omega)$.
+Let $\alpha \in \mathbb{N}_0^d$ be a multiindex and $u, u_{\alpha} \in L^1_{\mathrm{loc}}(\Omega)$.
 We say that $u_{\alpha}$ is *$\alpha$-th weak derivative* of $u$ if
 
 $$
@@ -418,19 +418,19 @@ of sequences $\{\phi_n\}_{n=1}^\infty \subset C_c^{\infty}(\Omega)$.
 For first order Sobolev spaces, we abbreviate the norm of the gradient by
 
 $$
-\| \nabla u \|_{L^p(\Omega)}^p := \sum_{i=1}^n \| \partial_{x_i} u \|_{L^p(\Omega)}^p,
+\| \nabla u \|_{L^p(\Omega)}^p := \sum_{i=1}^d \| \partial_{x_i} u \|_{L^p(\Omega)}^p,
 $$ (eq:gradient-norm)
 
 so that $\| u \|_{W^{1,p}(\Omega)}^p = \| u \|_{L^p(\Omega)}^p + \| \nabla u \|_{L^p(\Omega)}^p$.
 For $p = 2$, this agrees with $\bigl( \int_{\Omega} |\nabla u|^2 \bigr)^{1/2}$,
-where $|\cdot|$ denotes the Euclidean norm on $\mathbb{R}^n$.
+where $|\cdot|$ denotes the Euclidean norm on $\mathbb{R}^d$.
 
 Later we will need the following important result known as Poincaré inequalities.
 
 ````{prf:theorem} Poincaré inequality for $H^1_0(\Omega)$
 :label: thm:poincare
-Let $\Omega$ be an open and bounded subset of $\mathbb{R}^n$ and let
-$1 \leqslant p < \infty$. Then there is a constant $C_P = C_P(p,n,\Omega)$ such that
+Let $\Omega$ be an open and bounded subset of $\mathbb{R}^d$ and let
+$1 \leqslant p < \infty$. Then there is a constant $C_P = C_P(p,d,\Omega)$ such that
 
 $$
 \|u \|_{L^p(\Omega)} \leqslant C_P \|\nabla u \|_{L^p(\Omega)}.
@@ -485,9 +485,9 @@ as the *Poincaré--Wirtinger inequality*.
 
 ````{prf:theorem} Poincaré--Wirtinger inequality
 :label: thm:poincare-wirtinger
-Let $\Omega$ be an open, bounded and **connected** subset of $\mathbb{R}^n$
+Let $\Omega$ be an open, bounded and **connected** subset of $\mathbb{R}^d$
 with Lipschitz boundary and let $1 \leqslant p < \infty$. Then there is a
-constant $C_{PW} = C_{PW}(p,n,\Omega)$ such that
+constant $C_{PW} = C_{PW}(p,d,\Omega)$ such that
 
 $$
 \| v - \overline{v} \|_{L^p(\Omega)} \leqslant C_{PW} \| \nabla v \|_{L^p(\Omega)}
@@ -570,7 +570,7 @@ For the remaining part of this Chapter, we assume that $\Omega$ is a bounded dom
 a "well-behaved" boundary, that is, it is either a $C^1$-polyhedron, a Lipschitz domain, or --- if this doesn't tell  you much ---
 simply a $C^{\infty}$ domain.
 Integrals over $\Gamma = \partial \Omega$ are always understood with respect
-to the $(n-1)$-dimensional surface measure on $\Gamma$, and $L^2(\Gamma)$
+to the $(d-1)$-dimensional surface measure on $\Gamma$, and $L^2(\Gamma)$
 denotes the corresponding Lebesgue space.
 
 ````{prf:theorem} Traces of $H^1(\Omega)$ spaces
