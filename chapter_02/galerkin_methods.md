@@ -37,7 +37,7 @@ $$
 \mcA u = f 
 $$ (strong-form)
 
-in *strong form*: for given function $f:\Omega \subset \RR^n \to \RR$ and partial differential operator $\mcA$,
+in *strong form*: for given function $f:\Omega \subset \RR^d \to \RR$ and partial differential operator $\mcA$,
 we assume that the function $u: \Omega \to  \RR$ satisfies
 the relation {eq}`strong-form` *pointwise* so that $\mcA u(x) = f(x)\: \forall x \in \Omega$.
 
