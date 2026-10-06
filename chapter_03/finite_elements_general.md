@@ -32,6 +32,59 @@ other node, and is supported on the shaded patch.
 ```
 
 ## Construction of local finite element spaces
+First, we introduce a powerful generalization of the finite elements
+according to Ciarlet, which extracts the main components we  have
+already encounter in the case of Lagrange element in one dimension.
+Recall that in 1D, we constructed finite element basis functions 
+by glueing together the Lagrange interpolation basis/cardinal functions
+for polynomials of order $k$ on each subinterval $T$ of a given interval
+$\Omega = (a,b)$. More precisely, starting
+from a mesh element For $T = (x_l, x_{l+1})$, we introduced $k+1$
+interpolation nodes $x_l = \xi_0 < \xi_1 < \ldots < \xi_k = x_{l+1}$,
+together with their associated basis functions/cardinal functions 
+$\lambda_i(x) \in \mathbb{P}_k(T)$ satisfying $\lambda_i(\xi_j) = \delta_{ij}$. Thanks to the last property, we can write any polynomial $p \in \mathbb{P}_k(T)$ as 
+
+$$
+p(x) = \sum_{i=0}^k p(\xi_i) \lambda_i(x)
+$$
+
+and correspondingly, the interpolation polynomial $I_T f \in \mathbb{P}_k(T)$ for $f \in
+C(\overline{T})$ can be calculated via
+
+$$
+I_T f (x) = \sum_{i=0}^k f(\xi_i) \lambda_i(x)
+$$
+
+Note that the evaluations and $p(\xi)$ and $f(\xi_i)$ can be abstractly 
+written as linear functionals acting on $p$ and $f$. More precisely,
+we define the linear functionals $\{\sigma_i\}_{i=0}^k$ associated
+with the nodes $\{\xi_i\}_{i=0}^k$ by
+
+$$
+\mathbb{P}_{k}(T) \ni p \mapsto \sigma(p) := p(\xi_i)
+$$
+
+and similar for $f \in C(\overline{T})$.
+Then $p$ and $I_T f$ can be written as
+
+$$
+p(x) = \sum_{i=0}^k \sigma_i(p) \lambda_i(x),
+\quad
+I_T f (x) = \sum_{i=0}^k \sigma_i(f) \lambda_i(x)
+$$
+
+This illustrates already all the important ideas of general finite
+element construction: We will need a **mesh element** $T$, and
+**finite dimensional function space** $\mathcal{P}$ of dimension
+$n_{sh}$, and a set of linear functionals $\{\sigma\}_{j=1}^{n_{sh}}$
+(**the degree of freedoms**) which determines functions $p \in
+\mathcal{P}$ in a sense that will be made more precise further down
+below.  From this the set of linear functionals, we will construct a
+set of basis functions (the **nodal basis** or **shape functions**
+$\{\lambda_{i}\}_{i=1}^{n_{sh}}$ for $\mathcal{P}$, which satisfy
+$\sigma_{j}(\lambda_i) = \delta_{ij}$.
+With this picture in mind, it is time to get started with the precise mathematical definitions.
+
 
 ```{prf:definition} Ciarlet's construction
 :label: def:ciarlet-finite-element
@@ -187,6 +240,58 @@ $$
 or in matrix form $I = C V$, where $C = (c_{ij})_{ij}$ and $V = (\sigma_j(\varphi_k))_{kj}$.
 Since the invertibility of $V$ is guaranteed by {prf:ref}`lem:unisolvence`, we find that
 $C = V^{-1}$ and {eq}`eq:shape-functions-from-vandermonde` follows. 
+```
+
+We conclude this section by introducing the concept of interpolation for a general finite element, which generalizes the computation
+of the Lagrange interpolation of a continuous function, we discussed
+earlier,
+
+$$
+I_Tf(x) = \sum_{i=1}^k f(\xi_i) \lambda_i(x)
+\sum_{i=1}^k \sigma_i(f) \lambda_i(x)
+$$
+
+In general, we wish to interpolate (in a broad sense) function
+$f$ from some Banach function space $V(T)$ which contains $P$ and
+which is contained in $L^1(T, \mathbb{R}^)$.
+Depending on $V(T)$ the evaluation $\sigma_i(f)$ might not be well-defined
+for $f\in V(T)$, e.g. think of point evaluation of Sobolev functions, which
+is not well-defined if the regularity of $f$ is too low,
+
+Consequently, to make the evaluation $\sigma_i(f)$ well-defined,
+we for a given set $\sigma = \{\sigma_j\}_{j=1}^{n_{sh}} \subset \mathcal{P}'$ associated
+with a finite element triple $(T,\mathcal{P}, \Sigma)$, there
+is a corresponding sets of extended bounded functionals 
+
+$\widetilde{\sigma} = \{\widetilde{\sigma}_j\}_{j=1}^{n_{sh}} 
+\subset \mathcal{V(T)}'$. 
+More precisely, we require for the linear functionals that
+
+$$
+\begin{aligned}
+|\widetilde{\sigma}_i(f)| \leqslant C_i \| f \|_{V(T)}  \forall f \in V(T) 
+\\
+\widetilde{\sigma}_i(p) = 
+{\sigma}_i(p)  \forall p \in \mathbbf{P},
+\end{aligned}
+$$
+
+for some constants $C_i$. With such an extension in mind,
+we usually skip the $\widetide{\cdot} and just write ${\sigma}_i(f)$
+instead.
+The **local interpolation operator**
+can now be defined as before by setting
+
+$$
+I_Tf(x) =  \sum_{i=1}^k \sigma_i(f) \lambda_i(x)
+$$ (eq:def-local-inter-op)
+
+which gives a well-defined and bounded operator
+$I_T : V(T) \to \mathcal{P}$.
+
+```{exercise} 
+Prove the last statement.
+
 ```
 
 ## Polynomial spaces in several variables
@@ -832,6 +937,77 @@ since
 $0 = p(a_i)$ for $i = 0, \ldots, d$ implies that $p \equiv 0$.
 ```
 
+Since $\lambda_i$ are the affine functions characterized by the property $\lambda_i(a_j) = \delta_{ij}$, 
+we can derive a few alternative formulas for the barycentric coordinates.
+
+```{prf:proposition} Alternative formulas for the barycentric coordinates
+:label: prop:barycentric-alternative-formulas
+For a regular $d$-simplex $T = \operatorname{conv}\{a_0, \ldots, a_d\}$, the barycentric coordinates $\lambda_i$ for $i = 0, \ldots, d$ can be expressed as
+
+$$
+\begin{aligned}
+\lambda_i(x) &= 1 - \dfrac{|F_i|_{d-1}}{d |T|_{d} } (x-a_i)\cdot n_i  \\
+             &= 1 - \dfrac{(x - a_i)\cdot n_i}{(a_l - a_i) \cdot n_i} \quad \text{for any } l \neq i.
+\end{aligned}
+$$
+
+```
+
+```{prf:proof}
+Both formulas follow from the fact that $\lambda_i$ is an affine function, and thus we need only to verify that satifies
+$\lambda_i(a_j) = \delta_{ij}$.
+For the second formula, we can verify as follow. Obviously, $\lambda_i(a_i) = 1$.
+For $j \neq i$, we have that 
+
+$$
+(a_j - a_i)\cdot n_i = \underbrace{(a_j - a_l)\cdot n_i}_{= 0} + 
+(a_l - a_i)\cdot n_i =
+(a_l - a_i)\cdot n_i 
+$$
+where the first term is zero since $a_l, a_j \in F_i$ and thus (a_l - a_j) is parallel to $F_i$ while $n_i$ is orthogonal to the face $F_i$.
+and
+$(a_l - a_i)\cdot n_i \neq 0$ for any $l \neq i$ since the $a_i$ is not included in the hyperplane containing the face $F_i$.
+
+Thus
+
+$$
+\lambda_i(a_j) = 1 - \dfrac{(a_j - a_i)\cdot n_i}{(a_l - a_i) \cdot n_i} = 1 - \dfrac{(a_l - a_i)\cdot n_i}{(a_l - a_i) \cdot n_i} = 0
+$$
+
+The proof of the first formula is left as {prf:ref}`exer-barycentric-normal-formula`.
+```
+
+```{exercise} The normal-vector formula for the barycentric coordinates
+:label: exer-barycentric-normal-formula
+
+Prove the first formula of {prf:ref}`prop:barycentric-alternative-formulas`,
+
+$$
+\lambda_i(x) = 1 - \frac{|F_i|_{d-1}}{d \, |T|_d} \, (x - a_i) \cdot n_i ,
+$$
+
+where $n_i$ denotes the outward unit normal of $T$ on the face $F_i$ opposite $a_i$.
+```
+
+```{admonition} Hint
+:class: hint dropdown
+
+Let $h_i$ be the distance from the vertex $a_i$ to the hyperplane containing $F_i$.
+
+1. Show that $(a_l - a_i) \cdot n_i = h_i$ for every $l \neq i$.
+2. Show that $|T|_d = \frac{1}{d} |F_i|_{d-1} \, h_i$. Slice $T$ by the hyperplanes
+   parallel to $F_i$, as in the proof of {prf:ref}`lem:unit-simplex-volume`. At distance
+   $t \in [0, h_i]$ from $a_i$, the slice is a copy of $F_i$ scaled by $t / h_i$.
+3. Conclude that the first formula coincides with the second one.
+```
+
+
+
+
+
+
+
+
 Another important property of the barycentric coordinates is that they are 
 invariant under affine transformations and that they allows to 
 define bijective affine mappings between two given non-degenerate simplices
@@ -839,6 +1015,8 @@ $\widehat{T}$ and $T$. More precisely, we have the following lemma:
 
 
 ```{prf:lemma} Affine invariance of barycentric coordinates
+:label: lem:barycentric-affine-invariance
+
 Given a regular $d$-simplex
 $\widehat{T} = \operatorname{conv}\{\widehat{a}_0, \ldots, \widehat{a}_d\}$
 and an regular affine mapping $F : \mathbb{R}^d \to \mathbb{R}^d$, 
@@ -1100,12 +1278,12 @@ $$
 \\
 &= \Big\{ a_\alpha \in T \mid  
 \boldsymbol{\lambda}(a_\alpha) = 
-\dfrac{1}{k} (\underbrace{|\alpha|-k}_{=:\alpha_0}, \underbrace{\alpha_1, \ldots, \alpha_d}_{\alpha}),
+\dfrac{1}{k} (\underbrace{k-|\alpha|}_{=:\alpha_0}, \underbrace{\alpha_1, \ldots, \alpha_d}_{\alpha}),
 \alpha \in \mathcal{A}_{k,d} \Big\}
 \\
 &= 
 \Big\{ a_\alpha 
- =  \sum_{i=1}^{d} \frac{\alpha_i}{k} \, a_i
+ =  \sum_{i=0}^{d} \frac{\alpha_i}{k} \, a_i
 \;:\; (\alpha_0, \alpha) \in \mathbb{N}_0^{1+d}, \; |(\alpha_0, \alpha)| = k \Big\},
 \end{aligned}
 $$ (eq:principal-lattice)
@@ -1130,6 +1308,76 @@ by {prf:ref}`lem:dim-pk`. For $d = 2$ the definition reproduces the three elemen
 previous section: the vertices for $k = 1$, the vertices and edge midpoints for $k = 2$,
 and the vertices, two points per edge and the barycenter for $k = 3$.
 
+Before we turn to the proof of unisolvence, let us record how Lagrange elements on
+different simplices are related. The relation is an instance of the following notion.
+
+```{prf:definition} Affine equivalent finite elements
+:label: def:affine-equivalence
+
+Two finite elements $(\widehat{T}, \widehat{\mathcal{P}}, \widehat{\Sigma})$ and
+$(T, \mathcal{P}, \Sigma)$ with
+$\widehat{\Sigma} = \{\widehat{\sigma}_1, \ldots, \widehat{\sigma}_{n_{\mathrm{sh}}}\}$ and
+$\Sigma = \{\sigma_1, \ldots, \sigma_{n_{\mathrm{sh}}}\}$ are called **affine equivalent**
+if there is an invertible affine mapping $F(\widehat{x}) = B \widehat{x} + b$, with
+$B \in \mathbb{R}^{d \times d}$ invertible and $b \in \mathbb{R}^d$, such that
+
+i) $T = F(\widehat{T})$;
+
+ii) $\mathcal{P} = \{ \widehat{p} \circ F^{-1} : \widehat{p} \in \widehat{\mathcal{P}} \}$,
+    that is, $p \in \mathcal{P}$ if and only if $p \circ F \in \widehat{\mathcal{P}}$;
+
+iii) $\sigma_i(p) = \widehat{\sigma}_i(p \circ F)$ for all $p \in \mathcal{P}$ and
+     $i = 1, \ldots, n_{\mathrm{sh}}$, after a suitable numbering of the degrees of
+     freedom.
+```
+
+```{prf:lemma} Affine equivalence of the Lagrange elements
+:label: lem:pk-affine-equivalence
+
+Let $\widehat{T} = \operatorname{conv}\{\widehat{a}_0, \ldots, \widehat{a}_d\}$ be a regular
+$d$-simplex, $F(\widehat{x}) = B \widehat{x} + b$ an invertible affine mapping, and
+$T = F(\widehat{T})$ with vertices $a_i = F(\widehat{a}_i)$. Then $F$ maps the principal
+lattice of $\widehat{T}$ onto that of $T$, with $F(\widehat{a}_\alpha) = a_\alpha$ for
+all $\alpha \in \mathcal{A}_{k,d}$, and the $\mathbb{P}_k$ Lagrange elements on
+$\widehat{T}$ and $T$ are affine equivalent through $F$.
+```
+
+```{prf:proof}
+*Shape functions.* If $p$ is a polynomial of degree at most $k$, so is $p \circ F$: each
+monomial $x^\beta$ becomes a product of $|\beta|$ affine functions of $\widehat{x}$. The
+same holds for $F^{-1}$, which is affine as well. Hence $p \in \mathbb{P}_k(T)$ if and
+only if $p \circ F \in \mathbb{P}_k(\widehat{T})$, which is ii) of
+{prf:ref}`def:affine-equivalence`.
+
+*Degrees of freedom.* By {prf:ref}`lem:barycentric-affine-invariance`, the barycentric
+coordinates of $F(\widehat{a}_\alpha)$ with respect to $T$ coincide with those of
+$\widehat{a}_\alpha$ with respect to $\widehat{T}$, namely $\frac{1}{k}(\alpha_0, \alpha)$.
+By the uniqueness of barycentric coordinates, $F(\widehat{a}_\alpha) = a_\alpha$. Numbering
+the degrees of freedom on both elements by $\alpha$, we obtain
+
+$$
+\sigma_\alpha(p) = p(a_\alpha) = (p \circ F)(\widehat{a}_\alpha)
+= \widehat{\sigma}_\alpha(p \circ F)
+\quad \text{for all } p \in \mathbb{P}_k(T) ,
+$$
+
+which is iii). Property i) holds by assumption.
+```
+
+
+```{figure} figures/principal-lattice-p4.svg
+:label: fig-principal-lattice-p4
+:alt: The unit triangle with vertices a0 at the origin, a1 at (1,0) and a2 at (0,1), subdivided by thin lines into 16 small triangles. Fifteen dots sit at the lattice points, each labelled by its multi-index; three vertex dots, nine edge dots and three interior dots are coloured differently.
+:width: 55%
+
+The principal lattice $\mathcal{L}_4(\widehat{T})$ on the unit triangle, with each point
+$a_\alpha = (\alpha_1/4, \alpha_2/4)$ labelled by $(\alpha_1, \alpha_2)$. The thin lines are the
+level sets $\lambda_i = j/4$, $j = 1, 2, 3$, of the barycentric coordinates, and the
+lattice points are their intersections. There are $3$ vertices, $3 (k-1) = 9$ points
+inside the edges and $\binom{k-1}{2} = 3$ interior points, in total
+$\binom{k+2}{2} = 15 = \dim \mathbb{P}_4(\mathbb{R}^2)$.
+```
+
 ```{prf:theorem} Unisolvence of the $\mathbb{P}_k$ Lagrange element
 :label: thm:pk-simplex-unisolvence
 
@@ -1143,71 +1391,83 @@ We follow here the presentation of @ErnGuermond2021 [Proof of Proposition 7.12]
 According the previous observation,
 $\# \mathcal{A}_{k,d} = \dim \mathbb{P}_k(\mathbb{R}^d)$, so it remains to show that the degrees of freedom are unisolvent.
 This can by induction over the dimension $d$ and the polynomial degree $k$.
-The statement that the unisolvence holds for the $\mathcal{P}_k$ Lagrange element on a $d$-simplex is equivalent 
-will be simply abbreviated a $[\mathcal{P}_{k,d}]$.
+The statement that the unisolvence holds for the $\mathcal{P}_k$
+Lagrange element on one (and thus by affine-invariance on any
+non-degenerate) $d$-simplex will be simply abbreviated a
+$[\mathcal{P}_{k,d}]$.
 
-Induction base: $[\mathcal{P}_{k,1}]$ holds in 1 dimension for $k \geqslant 1$, see our discussion of the 1D case in 
+Induction start: $[\mathcal{P}_{k,1}]$ holds in 1 dimension for $k \geqslant 1$, see our discussion of the 1D case in 
 [](#ssec:lagrange-interpolation).
 
 Induction step: Assume that $[\mathcal{P}_{k,d-1}]$ holds for all $k \geqslant 1$ and $d \geqslant 2$,
- we want to show that $[\mathcal{P}_{k,d}]$ holds for all $k \geqslant 1$.
-```
+ we want to show that $[\mathcal{P}_{k,d}]$ holds for all $k \geqslant 1$. Consider facet $F_0$ of $T$ opposite to vertex $a_0$. 
+Now $a_{\alpha} \in \mathcal{L}_k(T) \cap F_0
+\Leftrightarrow \lambda_0(a_\alpha) = 0 \Leftrightarrow \alpha_0 = k - |\alpha| = 0$, so the nodes that are located
+on $F_0$ are precisely whose barycentric coordinates are made up from multi-indices
+$\alpha = (\alpha_1, \ldots, \alpha_d)$ with $|\alpha| = k$.
 
-```{prf:proof}
-By {eq}`eq:lattice-count` the number of degrees of freedom equals
-$\dim \mathbb{P}_k(T)$, so {prf:ref}`lem:unisolvence` reduces the claim to statement b):
-if $p \in \mathbb{P}_k(T)$ vanishes on $\mathcal{L}_k(T)$, then $p \equiv 0$. We prove this
-by induction on $d + k$.
+Let $L_0 = \{ x \in \mathbb{R}^d \mid \lambda(x) = 0 \}$ be the
+hyperplane that contains $F_0$.
+Then there is a bijective affine mapping 
+$F: \mathbb{R}^{d-1} \to L_0$
+that maps the reference $d-1$ dimensional 
+$\widehat{T} = \operatorname{conv}\{e_0, e_1, \ldots, e_{d-1}\}$ bijectively to $F = \operatorname{conv}\{a_1, \ldots, a_{d}\}$
+with $F(e_i) = a_{i+1}$ for $i = 0, \ldots, d-1$.
+For $\alpha \in \mathcal{A_{k,d}}$ with $|\alpha| = k$, we can 
+rewrite $\alpha = (k - |\beta|, \beta_1, \ldots, \beta_{d-1})$ 
+with $(\beta_1, \ldots, \beta_{d-1}) =: \beta \in \mathcal{A}_{k,d-1}$.
 
-**Base case $k = 1$, any $d$.** Here $\mathcal{L}_1(T) = \{a_0, \ldots, a_d\}$, and part
-ii) of {prf:ref}`lem:barycentric-properties` gives
-$p = \sum_i p(a_i) \lambda_i = 0$.
+For $\beta \in \mathcal{A}_{k,d-1}$, we see that the points 
+$b_{\beta} = F^{-1}(a_\alpha) \in \widehat{T}$ with $\alpha = (k - |\beta|, \beta_1, \ldots, \beta_{d-1})$
+have barycentric coordinates
+$\boldsymbol{\lambda}(b_\beta) = \frac{1}{k} (k - |\beta|, \beta_1,
+\ldots, \beta_{d-1})$ as the barycentric coordinates are invariant under
+affine transformations.
+So $\{b_\beta\}_{\beta \in \mathcal{A}_{k,d-1}}$ is exactly the principal lattice of order $k$ of the $d-1$ dimensional reference simplex $\widehat{T}$.
 
-**Base case $d = 1$, any $k$.** Then $T = [a_0, a_1]$ and $\mathcal{L}_k(T)$ consists of
-$k+1$ distinct points on a line. A univariate polynomial of degree at most $k$ with $k+1$
-distinct roots vanishes identically.
+Now $p_0 = p \circ F \in \mathbb{P}_k(\widehat{T})$ vanishes on the
+principal lattice of order $k$ of $\widehat{T}$, so by the induction
+hypothesis $[\mathcal{P}_{k,d-1}]$, we have that $p_0 \equiv 0$ and
+thus $p|_{F_0} \equiv 0$. Thanks to lemma
+{prf:ref}`lem:hyperplane-decomposition`, we can write $p = \lambda_0
+q$ with $q \in \mathbb{P}_{k-1}(T)$. To conclude the proof, we need to
+show that $q \equiv 0$, which we will do by induction on $k$.
+For $k = 1$, we have that $q \in \mathbb{P}_0(T)$ is constant, and since $\lambda_0(a_0) = 1$ and $p(a_0) = 0$, 
+we deduce that that $q \equiv 0$.
 
-**Induction step.** Let $d \geqslant 2$, $k \geqslant 2$, and assume the statement for all
-pairs $(d', k')$ with $d' + k' < d + k$. Let $p \in \mathbb{P}_k(T)$ vanish on
-$\mathcal{L}_k(T)$.
-
-*The face opposite $a_0$.* The lattice points with $\alpha_0 = 0$ are exactly the points of
-the principal lattice $\mathcal{L}_k(F_0)$ of the $(d-1)$-simplex
-$F_0 = \operatorname{conv}\{a_1, \ldots, a_d\}$, whose barycentric coordinates are the
-restrictions of $\lambda_1, \ldots, \lambda_d$. Parametrising the hyperplane
-$H_0 = \{ \lambda_0 = 0 \}$ affinely by $\mathbb{R}^{d-1}$ turns $p|_{H_0}$ into a
-polynomial of degree at most $k$ in $d-1$ variables which vanishes on the principal lattice
-of order $k$ of a regular $(d-1)$-simplex. Since $(d-1) + k < d + k$, the induction
-hypothesis yields $p|_{H_0} \equiv 0$.
-
-*Peeling off $\lambda_0$.* The function $\lambda_0$ is affine with zero set $H_0$, so
-{prf:ref}`lem:hyperplane-decomposition` gives
+Assume not that $k \geqslant 2$ and that $[\mathcal{P}_{k-1,d}]$ holds.
+We consider the remaining lattice points
+$a_\alpha \in \mathcal{L}_k(T) \setminus F_0$ which are exactly those with
+barycentric coordinates $\boldsymbol{\lambda}(a_\alpha) = \frac{1}{k} (\alpha_0, \ldots, \alpha_d)$ made up from multi-indices 
+$(\alpha_0, \alpha) = (k - |\alpha|, \alpha)$ with 
+$\alpha_0 \geqslant 1$ or equivalentlly $|\alpha| \leqslant k - 1$.
+Our goal is to identify these points with the principal lattice of order $k-1$ of some regular $d$-simplex.
+To see this, we rewrite the convex combination of $a_\alpha$ as follows,
 
 $$
-p = \lambda_0 \, q, \qquad q \in \mathbb{P}_{k-1}(\mathbb{R}^d) .
+\begin{aligned}
+a_\alpha 
+= \sum_{i=0}^{d} \frac{\alpha_i}{k} a_i
+&= a_0 + \sum_{i=1}^{d} \frac{\alpha_i}{k} (a_i - a_0)
+\\
+&= a_0 + \sum_{i=1}^{d} \frac{\alpha_i}{k-1} \dfrac{(k-1)}{k} (a_i - a_0)
+\\
+&= a_0 + \sum_{i=1}^{d} \frac{\alpha_i}{k-1} (\widetilde{a}_i - a_0)
+\end{aligned}
 $$
 
-*The remaining lattice points.* Any $\alpha$ with $\alpha_0 \geqslant 1$ can be written as
-$\alpha = e_0 + \beta$ with $|\beta| = k - 1$, and then
+using
 
 $$
-x_{e_0 + \beta}
-= \frac{1}{k} a_0 + \frac{k-1}{k} \, y_\beta ,
-\qquad
-y_\beta = \sum_{i=0}^{d} \frac{\beta_i}{k-1} \, a_i \in \mathcal{L}_{k-1}(T) .
+\dfrac{(k-1)}{k} (a_i - a_0)  =
+\underbrace{\dfrac{(k-1)}{k} a_i  + \dfrac{1}{k} a_0}_{=:\widetilde{a}_i} - a_0 = \widetilde{a}_i - a_0
 $$
 
-In other words, these points are the image of $\mathcal{L}_{k-1}(T)$ under the affine
-contraction $\Phi(y) = \frac{1}{k} a_0 + \frac{k-1}{k} y$ towards $a_0$. Since $\Phi$ is
-affine and injective, $\widetilde{T} = \Phi(T)$ is again a regular $d$-simplex, with
-vertices $\Phi(a_i)$, and affine maps preserve barycentric coordinates, so
-$\Phi(\mathcal{L}_{k-1}(T)) = \mathcal{L}_{k-1}(\widetilde{T})$.
 
-The barycentric coordinates of $x_\alpha$ are $\alpha_i / k$, so
-$\lambda_0(x_\alpha) = \alpha_0 / k \geqslant 1/k > 0$ at every one of these points. From
-$0 = p(x_\alpha) = \lambda_0(x_\alpha) \, q(x_\alpha)$ we conclude that $q$ vanishes on
-$\mathcal{L}_{k-1}(\widetilde{T})$. As $d + (k-1) < d + k$, the induction hypothesis
-applies to $\widetilde{T}$ and gives $q \equiv 0$, hence $p \equiv 0$.
+With  $\widetilde{T} = \operatorname{conv}\{a_0, \widetilde{a}_1, \ldots, \widetilde{a}_d\}$, 
+we conclude 
+we have that $\widetilde{T}$ is a regular $d$-simplex and the points $a_\alpha$ with $\alpha_0 \geqslant 1$ are exactly the points of the principal lattice of order $k-1$ of $\widetilde{T}.$
+Since $p$ vanishes on these points, we have that $q$ vanishes on the principal lattice of order $k-1$ of $\widetilde{T}$, and by the induction hypothesis $[\mathcal{P}_{k-1,d}]$, we conclude that $q \equiv 0$ and thus $p \equiv 0$.
 ```
 
 ```{prf:remark} The shape functions for $k = 1$
@@ -1217,7 +1477,3 @@ For $k = 1$ part ii) of {prf:ref}`lem:barycentric-properties` already exhibits t
 basis: the shape functions are the barycentric coordinates themselves, in any dimension.
 This generalises {prf:ref}`rem:p1-nodal-basis` from triangles to simplices.
 ```
-
-
-
-Then define the $\mathbb{P}_k$ Lagrange element on a simplex, and prove unisolvence using the same arguments as for triangles. Include figures for 1D, 2D, and 3D simplices with their degrees of freedom marked.
