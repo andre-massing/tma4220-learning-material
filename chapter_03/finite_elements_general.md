@@ -253,7 +253,7 @@ $$
 
 In general, we wish to interpolate (in a broad sense) function
 $f$ from some Banach function space $V(T)$ which contains $P$ and
-which is contained in $L^1(T, \mathbb{R}^)$.
+which is contained in $L^1(T, \mathbb{R}^q)$.
 Depending on $V(T)$ the evaluation $\sigma_i(f)$ might not be well-defined
 for $f\in V(T)$, e.g. think of point evaluation of Sobolev functions, which
 is not well-defined if the regularity of $f$ is too low,
@@ -269,29 +269,31 @@ More precisely, we require for the linear functionals that
 
 $$
 \begin{aligned}
-|\widetilde{\sigma}_i(f)| \leqslant C_i \| f \|_{V(T)}  \forall f \in V(T) 
+|\widetilde{\sigma}_i(f)| &\leqslant C_i \| f \|_{V(T)} && \forall f \in V(T) ,
 \\
-\widetilde{\sigma}_i(p) = 
-{\sigma}_i(p)  \forall p \in \mathbbf{P},
+\widetilde{\sigma}_i(p) &= \sigma_i(p) && \forall p \in \mathcal{P},
 \end{aligned}
 $$
 
 for some constants $C_i$. With such an extension in mind,
-we usually skip the $\widetide{\cdot} and just write ${\sigma}_i(f)$
+we usually skip the $\widetilde{\cdot}$ and just write $\sigma_i(f)$
 instead.
 The **local interpolation operator**
-can now be defined as before by setting
+can now be defined as before, with the nodal basis $\{\theta_i\}_{i=1}^{n_{\mathrm{sh}}}$ of {prf:ref}`lem:nodal-basis`, by setting
 
 $$
-I_Tf(x) =  \sum_{i=1}^k \sigma_i(f) \lambda_i(x)
+I_Tf(x) = \sum_{i=1}^{n_{\mathrm{sh}}} \sigma_i(f) \, \theta_i(x)
 $$ (eq:def-local-inter-op)
 
 which gives a well-defined and bounded operator
 $I_T : V(T) \to \mathcal{P}$.
 
-```{exercise} 
-Prove the last statement.
+```{exercise} Boundedness of the local interpolation operator
+:label: exer-local-interpolation-bounded
 
+Prove that the local interpolation operator $I_T$ defined in
+{eq}`eq:def-local-inter-op` is a well-defined, bounded linear operator
+$I_T : V(T) \to \mathcal{P}$.
 ```
 
 ## Polynomial spaces in several variables
