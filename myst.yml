@@ -21,7 +21,8 @@ project:
     lite: true
   
   plugins:
-    - https://github.com/jupyter-book/myst-plugins/releases/download/exercise-and-solution-pdf/exercise-admonition-pdf.mjs
+    # {exercise} -> numbered `exercise` environment in LaTeX/PDF exports
+    - plugins/exercise-latex.mjs
     # {prf:algorithm} -> `algorithm` float in LaTeX/PDF exports
     - plugins/prf-algorithm-latex.mjs
 

@@ -25,6 +25,10 @@
 
 [- IMPORTS -]
 
+% {exercise} blocks become this environment (plugins/exercise-latex.mjs),
+% numbered per chapter: "Exercise 3.2".
+\newtheorem{exercise}{Exercise}[chapter]
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%  theorem-environment styling  %%%%%%%%%%
 % Colours mirror the HTML book-theme (Tailwind palette) so that the
@@ -63,8 +67,8 @@
 \tcolorboxenvironment{observation}{mystbox, colframe=mystGray,   colback=mystGrayBg}
 \tcolorboxenvironment{proof}      {mystbox, colframe=mystGray,   colback=mystGrayBg}
 
-% Exercises and admonitions both arrive as "framed"; LaTeX cannot tell them
-% apart, so they share the blue used for exercises in the web theme.
+\tcolorboxenvironment{exercise}   {mystbox, colframe=mystBlue,   colback=mystBlueBg}
+% Admonitions such as hints arrive as "framed" and share the exercise blue.
 \tcolorboxenvironment{framed}     {mystbox, colframe=mystBlue,   colback=mystBlueBg}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 

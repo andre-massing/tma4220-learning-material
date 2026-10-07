@@ -89,13 +89,17 @@ $$ (eq:hoelder)
 ````
 
 ```{prf:remark}
+:label: rem:lp-inclusion
 For an open domain with finite measure $|\Omega| = \int_{\Omega} 1 < \infty$, 
 Hölder's inequality implies that 
 $L^p(\Omega) \subset L^q(\Omega)$ for $1 \leqslant q \leqslant p \leqslant \infty$.
 ```
 
-```{exercise}
-Proof this.
+```{exercise} Inclusion of $L^p$ spaces
+:label: exer-lp-inclusion
+
+Prove the inclusion $L^p(\Omega) \subset L^q(\Omega)$ stated in
+{prf:ref}`rem:lp-inclusion`, using {prf:ref}`lem:hoelder`.
 ```
 
 
