@@ -559,6 +559,50 @@ $$
 
 ````
 
+Instead of restricting to functions with vanishing mean value, we can also
+keep the mean value as an additional term on the right-hand side, which gives
+an estimate valid on all of $H^1(\Omega)$.
+
+````{prf:lemma} Poincaré inequality with mean value
+:label: lem:poincare-mean-value
+Let $\Omega$ be an open, bounded and connected subset of $\mathbb{R}^d$ with
+Lipschitz boundary. Then there is a constant $C = C(d,\Omega)$ such that
+
+$$
+\| u \|_{L^2(\Omega)}^2
+\leqslant C \Bigl(
+\| \nabla u \|_{L^2(\Omega)}^2 + \Bigl| \int_{\Omega} u \Bigr|^2
+\Bigr)
+$$ (eq:poincare-mean-value)
+
+for any $u \in H^1(\Omega)$.
+````
+
+````{prf:proof}
+Splitting $u = (u - \overline{u}) + \overline{u}$ as in
+{prf:ref}`lem:mean-zero-decomposition` and using $(a+b)^2 \leqslant 2a^2 + 2b^2$,
+we obtain
+
+$$
+\| u \|_{L^2(\Omega)}^2
+\leqslant 2 \| u - \overline{u} \|_{L^2(\Omega)}^2
++ 2 \| \overline{u} \|_{L^2(\Omega)}^2.
+$$
+
+The first term is bounded by $2 C_{PW}^2 \| \nabla u \|_{L^2(\Omega)}^2$
+thanks to the {prf:ref}`Poincaré--Wirtinger inequality<thm:poincare-wirtinger>`.
+For the second term, $\overline{u}$ is a constant, so
+
+$$
+\| \overline{u} \|_{L^2(\Omega)}^2
+= |\Omega| \, \overline{u}^2
+= \frac{1}{|\Omega|} \Bigl| \int_{\Omega} u \Bigr|^2.
+$$
+
+Together, this proves {eq}`eq:poincare-mean-value` with
+$C = 2 \max \bigl( C_{PW}^2, |\Omega|^{-1} \bigr)$.
+````
+
 <!-- ### Approximation results -->
 
 <!-- ### Poincaré inequalties  -->
