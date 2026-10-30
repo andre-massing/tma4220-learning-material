@@ -49,6 +49,7 @@ project:
       children:
         - file: chapter_03/finite_elements_general.md
         - file: chapter_03/finite_element_interpolation.md
+        - file: chapter_03/finite_element_error_estimates.md
     - file: references.md
   exports:
     - format: pdf
@@ -80,6 +81,8 @@ project:
         - file: chapter_03/finite_elements_general.md
           level: 0
         - file: chapter_03/finite_element_interpolation.md
+          level: 1
+        - file: chapter_03/finite_element_error_estimates.md
           level: 1
     - format: tex
       template: ./templates/tma4220-book
