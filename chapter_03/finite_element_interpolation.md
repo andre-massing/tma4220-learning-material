@@ -6,6 +6,7 @@ This framework is built on several key ideas which we introduce in a series of l
 where we adapt the presentation from [@ErnGuermond2021, Chapter 11], [@GrossmannRoosStynes2007, Chapter 4.4]
 
 :::{prf:lemma} Bramble-Hilbert
+:label: lem:bramble-hilbert
 Given a bounded and connected $C^1$ polyhedron $B \subset \mathbb{R}^d$, and
 let $q$ be a bounded subfunctional of $H^{k+1}(B)$, i.e.,
 
@@ -182,6 +183,7 @@ can generalize the previous exercise to the following lemma, which is a key ingr
 
 
 :::{prf:lemma} Transformation formula for Sobolev seminorms
+:label: lem:transformation-sobolev-seminorms
 Let $F_T: \hat{T} \to T$ with $F_T(\hat{x}) = B_T\hat{x} + b_T$ be an affine mapping from a simplex element $\hat{T}$ to another simplex element $T$.
 Assume that $v \in H^k(T)$. Set $\hat{v} := v \circ F_T \in H^k(\hat{T})$. 
 Then $v \in H^k(T)$ if and only if $\hat{v} \in H^k(\hat{T})$,
@@ -338,6 +340,7 @@ $\rho_T$ is the diameter of the inscribed circle or sphere.
 ```
 
 :::{prf:lemma} Norm of the affine mapping
+:label: lem:affine-map-norm
 Let $F_T(\widehat{x}) = B_T \widehat{x} + b_T$ be an affine mapping from a non-degenerate simplex $\hat{T}$ to another simplex $T$.
 Then
 
@@ -416,3 +419,157 @@ cases the inscribed circle is small compared with $h_T$, so $\sigma_T$ is large.
 shape-regular family of meshes must avoid both, as $\sigma_T$ grows without bound when the
 small angle tends to $0^\circ$ or the large angle to $180^\circ$.
 ```
+
+We are now ready to combine the
+{prf:ref}`Bramble-Hilbert lemma<lem:bramble-hilbert>`, the
+{prf:ref}`transformation formula<lem:transformation-sobolev-seminorms>` and the
+{prf:ref}`estimates for the affine mapping<lem:affine-map-norm>` into the main result
+of this section.
+
+:::{prf:theorem} Error estimate for finite element interpolation
+:label: thm:fe-interpolation-error
+Let $\{\mathcal{T}_h\}_{h>0}$ be a shape-regular family of simplicial meshes of
+$\Omega \subset \mathbb{R}^d$ with shape-regularity constant $\sigma$, and set
+$h := \max_{T \in \mathcal{T}_h} h_T$. For $k \geqslant 0$, assume that
+
+* for every element $T \in \mathcal{T}_h$, there  is a finite element space $(T, \mathcal{P}, \Sigma)$
+that is {prf:ref}`affine equivalent<def:affine-equivalence>`  to a fixed reference element
+$(\widehat{T}, \widehat{\mathcal{P}}, \widehat{\Sigma})$ 
+* $\mathbb{P}_k(\widehat{T}) \subset \widehat{\mathcal{P}}$; 
+* the reference interpolation operator
+$\widehat{I} := I_{\widehat{T}} : H^{k+1}(\widehat{T}) \to \widehat{\mathcal{P}}$ is
+well-defined and bounded, i.e.
+$\|\widehat{I} \widehat{v}\|_{k+1,\widehat{T}} \leqslant \widehat{C}_I \|\widehat{v}\|_{k+1,\widehat{T}}$.
+
+Then for every $m \in \{0, 1, \ldots, k+1\}$ there is a constant $C$, depending only on
+$d$, $k$, $m$, $\sigma$ and the reference element, such that for all
+$T \in \mathcal{T}_h$
+
+$$
+|v - I_T v|_{m,T} \leqslant 
+C h_T^{k+1-m} |v|_{k+1,T}
+\quad \forall v \in H^{k+1}(T).
+$$ (eq:local-interpolation-error)
+
+Consequently, the global interpolation operator $I_h$, defined elementwise by
+$(I_h v)|_T := I_T (v|_T)$, satisfies
+
+$$
+|v - I_h v|_{m,\Omega}
+\leqslant C 
+\Big(
+\sum_{T \in \mathcal{T}_h} h_T^{2(k+1-m)} |v|_{k+1,T}^2
+\Big)^{1/2}
+\leqslant
+C h^{k+1-m} |v|_{k+1,\Omega}
+\quad \forall v \in H^{k+1}(\Omega).
+$$ (eq:global-interpolation-error)
+
+:::
+
+:::{prf:proof}
+**Step 1: Interpolation commutes with the affine mapping.**
+Let $\{\theta_i\}$ be the nodal basis of $(T, \mathcal{P}, \Sigma)$ and set
+$\widehat{\theta}_i := \theta_i \circ F_T \in \widehat{\mathcal{P}}$. By affine
+equivalence, $\widehat{\sigma}_j(\widehat{\theta}_i) = \sigma_j(\theta_i) = \delta_{ij}$,
+so $\{\widehat{\theta}_i\}$ is the nodal basis of the reference element. Writing
+$\widehat{v} := v \circ F_T$, we therefore obtain
+
+$$
+(I_T v) \circ F_T
+= \sum_{i} \sigma_i(v) \, \theta_i \circ F_T
+= \sum_{i} \widehat{\sigma}_i(\widehat{v}) \, \widehat{\theta}_i
+= \widehat{I} \widehat{v}.
+$$ (eq:interpolation-commutes-affine)
+
+Since the reference interpolation operator $\widehat{I}$ an bounded operator $H^{k+1}(\widehat{T})$
+so is $I_T$ since $I_T v = (\widehat{I}_{\widehat{T}} \widehat{v}) 
+\circ F_T^{-1}$.
+
+**Step 2: Estimate on the reference element.**
+Define $q(\widehat{w}) := |\widehat{w} - \widehat{I} \widehat{w}|_{m,\widehat{T}}$ for
+$\widehat{w} \in H^{k+1}(\widehat{T})$. Since $\widehat{I}$ is linear, the triangle
+inequality gives $q(\widehat{v} + \widehat{w}) \leqslant q(\widehat{v}) + q(\widehat{w})$,
+and since $m \leqslant k+1$,
+
+$$
+q(\widehat{w})
+\leqslant \|\widehat{w}\|_{k+1,\widehat{T}} + \|\widehat{I} \widehat{w}\|_{k+1,\widehat{T}}
+\leqslant (1 + \widehat{C}_I) \|\widehat{w}\|_{k+1,\widehat{T}}.
+$$
+
+Moreover, the interpolation operator reproduces its shape functions,
+$\widehat{I} \widehat{p} = \sum_i \widehat{\sigma}_i(\widehat{p}) \widehat{\theta}_i = \widehat{p}$
+for $\widehat{p} \in \widehat{\mathcal{P}}$, so $q$ vanishes on
+$\mathbb{P}_k(\widehat{T}) \subset \widehat{\mathcal{P}}$. The
+{prf:ref}`Bramble-Hilbert lemma<lem:bramble-hilbert>` thus yields a constant
+$\widehat{C}$, depending only on the reference element, $k$ and $m$, with
+
+$$
+|\widehat{v} - \widehat{I} \widehat{v}|_{m,\widehat{T}}
+\leqslant \widehat{C} |\widehat{v}|_{k+1,\widehat{T}}
+\quad \forall \widehat{v} \in H^{k+1}(\widehat{T}).
+$$ (eq:reference-interpolation-error)
+
+**Step 3: Transformation to $T$.**
+By {eq}`eq:interpolation-commutes-affine`, $(v - I_T v) \circ F_T = \widehat{v} - \widehat{I} \widehat{v}$.
+Applying the second inequality of {eq}`eq:transformation-formula-sobolev-seminorms` with
+$l = m$ to $v - I_T v$, then {eq}`eq:reference-interpolation-error`, and finally the
+first inequality of {eq}`eq:transformation-formula-sobolev-seminorms` with $l = k+1$, we
+obtain
+
+$$
+\begin{aligned}
+|v - I_T v|_{m,T}
+&\leqslant C \|B_T^{-1}\|_2^{m} |\det B_T|^{1/2}
+|\widehat{v} - \widehat{I} \widehat{v}|_{m,\widehat{T}}
+\\
+&\leqslant C \widehat{C} \|B_T^{-1}\|_2^{m} |\det B_T|^{1/2}
+|\widehat{v}|_{k+1,\widehat{T}}
+\\
+&\leqslant C \|B_T^{-1}\|_2^{m} \|B_T\|_2^{k+1} |v|_{k+1,T}.
+\end{aligned}
+$$
+
+Note that the factors $|\det B_T|^{\pm 1/2}$ cancel.
+
+**Step 4: Shape regularity.**
+By {prf:ref}`lem:affine-map-norm`,
+
+$$
+\|B_T^{-1}\|_2^{m} \|B_T\|_2^{k+1}
+\leqslant \Bigl( \frac{h_{\widehat{T}}}{\rho_T} \Bigr)^{m}
+\Bigl( \frac{h_T}{\rho_{\widehat{T}}} \Bigr)^{k+1}
+= \frac{h_{\widehat{T}}^{m}}{\rho_{\widehat{T}}^{k+1}}
+\Bigl( \frac{h_T}{\rho_T} \Bigr)^{m} h_T^{k+1-m}
+\leqslant \frac{h_{\widehat{T}}^{m}}{\rho_{\widehat{T}}^{k+1}} \sigma^{m} h_T^{k+1-m},
+$$
+
+which together with Step 3 proves {eq}`eq:local-interpolation-error`.
+
+**Step 5: Global estimate.**
+Squaring {eq}`eq:local-interpolation-error`, summing over all elements and using
+$h_T \leqslant h$ gives
+
+$$
+\sum_{T \in \mathcal{T}_h} |v - I_h v|_{m,T}^2
+\leqslant C^2 \sum_{T \in \mathcal{T}_h} h_T^{2(k+1-m)} |v|_{k+1,T}^2
+\leqslant C^2 h^{2(k+1-m)} |v|_{k+1,\Omega}^2,
+$$
+
+and taking the square root yields {eq}`eq:global-interpolation-error`.
+:::
+
+:::{prf:remark}
+If the global finite element space is $H^1$-conforming, as for the continuous
+$\mathbb{P}_k$ Lagrange elements with $k \geqslant 1$, then $v - I_h v \in H^1(\Omega)$
+and for $m \in \{0, 1\}$ the left-hand side of {eq}`eq:global-interpolation-error`
+equals $|v - I_h v|_{m,\Omega}$. In particular,
+
+$$
+\|v - I_h v\|_{0,\Omega} \leqslant C h^{k+1} |v|_{k+1,\Omega},
+\qquad
+|v - I_h v|_{1,\Omega} \leqslant C h^{k} |v|_{k+1,\Omega}.
+$$
+
+:::
