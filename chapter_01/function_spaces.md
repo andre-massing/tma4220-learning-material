@@ -419,6 +419,19 @@ $W_0^{k,p}(\Omega)$ can be understood as the closed subspace
 consisting of those functions $\phi$ in $W^{k,p}(\Omega)$ which are limits
 of sequences $\{\phi_n\}_{n=1}^\infty \subset C_c^{\infty}(\Omega)$.
 ```
+
+For $p = 2$, we usually drop the index $p$ and write
+$\| u \|_{k,\Omega} := \| u \|_{k,2,\Omega} = \| u \|_{H^k(\Omega)}$, so that in
+particular $\| u \|_{0,\Omega} = \| u \|_{L^2(\Omega)}$. Since the $L^2$-norm appears
+so frequently, we lighten the notation further and write
+
+$$
+\| v \|_{\Omega} := \| v \|_{0,\Omega} = \| v \|_{L^2(\Omega)},
+$$ (eq:l2-norm-shorthand)
+
+and analogously $\| v \|_{T} := \| v \|_{0,T} = \| v \|_{L^2(T)}$ for the $L^2$-norm on
+a subdomain $T \subset \Omega$, such as an element of a finite element mesh.
+
 For first order Sobolev spaces, we abbreviate the norm of the gradient by
 
 $$

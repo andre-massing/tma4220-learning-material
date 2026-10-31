@@ -194,7 +194,7 @@ $$
 \begin{aligned}
 |\hat{v}|_{l,\hat{T}} &\leqslant C \|B_T\|^l |\det B_T|^{-1/2} |v|_{l,T}, 
 \\
-|v|_{l,T} &\leqslant C \|B_T^{-1}\|^k |\det B_T|^{1/2} |\hat{v}|_{l,\hat{T}}.
+|v|_{l,T} &\leqslant C \|B_T^{-1}\|^l |\det B_T|^{1/2} |\hat{v}|_{l,\hat{T}}.
 \end{aligned}
 $$ (eq:transformation-formula-sobolev-seminorms)
 
@@ -398,14 +398,32 @@ the one of $T$.
 The previous lemma motivates the
 notion of **shape-regularity** of a family of meshes, which is a key assumption in the derivation of error estimates for finite element interpolation.
 
-Let us consider a series of affine meshes $\{\mathcal{T}_h\}_{h>0}$ of a domain $\Omega \subset \mathbb{R}^d$ with $d=1,2,3$.
-Such a family of meshes is said to be **shape-regular** if there exists a constant $\sigma>0$ such that for all $h>0$ and all $T \in \mathcal{T}_h$, we have 
+```{prf:definition} Shape-regular and quasi-uniform meshes
+:label: def:shape-regular-quasi-uniform
 
-$$
-\sigma_T := \frac{h_T}{\rho_T} \leqslant \sigma, \forall T \in \mathcal{T}_h, \forall h>0,
-$$
+Let $\{\mathcal{T}_h\}_{h>0}$ be a family of affine meshes of a domain
+$\Omega \subset \mathbb{R}^d$ with $d = 1, 2, 3$, and set
+$h := \max_{T \in \mathcal{T}_h} h_T$. Here $h_T$ is the diameter of the element $T$ and
+$\rho_T$ is the diameter of the largest ball contained in $T$.
 
-where $h_T$ is the diameter of the element $T$ and $\rho_T$ is the diameter of the largest ball contained in $T$.
+* The family is called **shape-regular** if there exists a constant $\sigma > 0$ such that
+
+  $$
+  \sigma_T := \frac{h_T}{\rho_T} \leqslant \sigma \quad \forall T \in \mathcal{T}_h, \; \forall h > 0.
+  $$
+
+* A shape-regular family is called **quasi-uniform** if, in addition, there exists a
+  constant $c_q > 0$ such that
+
+  $$
+  h_T \geqslant c_q h \quad \forall T \in \mathcal{T}_h, \; \forall h > 0.
+  $$
+
+```
+
+Shape regularity controls the *shape* of each element, while quasi-uniformity requires in
+addition that all elements of a mesh have comparable *size*, $c_q h \leqslant h_T \leqslant h$.
+Locally refined meshes are typically shape-regular, but not quasi-uniform.
 
 ```{figure} figures/shape-regularity.svg
 :label: fig-shape-regularity
