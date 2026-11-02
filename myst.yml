@@ -51,6 +51,7 @@ project:
         - file: chapter_03/finite_element_interpolation.md
         - file: chapter_03/finite_element_error_estimates.md
         - file: chapter_03/finite_element_add_mat.md
+        - file: chapter_03/finite_element_implementation.md
     - file: references.md
   exports:
     - format: pdf
@@ -86,6 +87,8 @@ project:
         - file: chapter_03/finite_element_error_estimates.md
           level: 1
         - file: chapter_03/finite_element_add_mat.md
+          level: 1
+        - file: chapter_03/finite_element_implementation.md
           level: 1
     - format: tex
       template: ./templates/tma4220-book
