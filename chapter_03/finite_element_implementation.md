@@ -166,6 +166,8 @@ $$
 As in 1D, we compute these quantities element by element and exploit that each basis
 function $\phi_i$ is non-zero only on the triangles that share the vertex $a_i$.
 
++++
+
 ### Assembly of the mass matrix
 
 Decomposing the integral into a sum over the elements gives
@@ -186,12 +188,12 @@ $$
 $$
 
 Here $\alpha \in \{0, 1, 2\}$ is a **local index** on the element $T_k$, while $i$ is a
-**global index**. The **local-to-global map** $i = \iota(\alpha, k)$, which in 1D had to be
+**global index**. The **local-to-global map** $i = \iota(k, \alpha)$, which in 1D had to be
 constructed separately, is for $\mathbb{P}_1$-elements simply read off from the connectivity
 matrix:
 
 $$
-\iota(\alpha, k) = C_{k\alpha}, \qquad \alpha = 0, 1, 2, \quad k = 0, \ldots, N_t - 1.
+\iota(k, \alpha) = C_{k\alpha}, \qquad \alpha = 0, 1, 2, \quad k = 0, \ldots, N_t - 1.
 $$
 
 All non-zero contributions of $T_k$ to $M$ are thus collected in the
@@ -272,6 +274,8 @@ $M_{ij} = \int_\Omega \phi_j \phi_i \,\mathrm{d}x$ for $i, j = 0, \ldots, N_p - 
       2. $M_{ij} \gets M_{ij} + M^{(k)}_{\alpha\beta}$
 4. **return** $M$
 :::
+
++++
 
 ### Assembly of the load vector
 
