@@ -1,0 +1,105 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 250" font-family="Georgia, 'Times New Roman', serif" font-size="17">
+  <!-- CSC: the entries of A stored column by column; indptr marks where each column starts. -->
+  <defs>
+    <marker id="arrow-0ea5e9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#0ea5e9"/></marker>
+    <marker id="arrow-d946ef" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#d946ef"/></marker>
+    <marker id="arrow-f59e0b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#f59e0b"/></marker>
+    <marker id="arrow-10b981" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#10b981"/></marker>
+    <marker id="arrow-9ca3af" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#9ca3af"/></marker>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="currentColor"/></marker>
+  </defs>
+  <text x="26" y="82.0" text-anchor="middle" font-size="13" fill="#9ca3af">0</text>
+  <text x="57.0" y="50" text-anchor="middle" font-size="13" fill="#9ca3af">0</text>
+  <rect x="42" y="62" width="30" height="30" rx="4" fill="#0ea5e9" fill-opacity="0.22" stroke="#0ea5e9" stroke-width="1.2"/>
+  <text x="57.0" y="83.0" text-anchor="middle" fill="currentColor">1</text>
+  <text x="91.0" y="83.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <rect x="110" y="62" width="30" height="30" rx="4" fill="#f59e0b" fill-opacity="0.22" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="125.0" y="83.0" text-anchor="middle" fill="currentColor">2</text>
+  <text x="159.0" y="83.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <text x="26" y="116.0" text-anchor="middle" font-size="13" fill="#9ca3af">1</text>
+  <text x="91.0" y="50" text-anchor="middle" font-size="13" fill="#9ca3af">1</text>
+  <text x="57.0" y="117.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <rect x="76" y="96" width="30" height="30" rx="4" fill="#d946ef" fill-opacity="0.22" stroke="#d946ef" stroke-width="1.2"/>
+  <text x="91.0" y="117.0" text-anchor="middle" fill="currentColor">3</text>
+  <text x="125.0" y="117.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <text x="159.0" y="117.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <text x="26" y="150.0" text-anchor="middle" font-size="13" fill="#9ca3af">2</text>
+  <text x="125.0" y="50" text-anchor="middle" font-size="13" fill="#9ca3af">2</text>
+  <rect x="42" y="130" width="30" height="30" rx="4" fill="#0ea5e9" fill-opacity="0.22" stroke="#0ea5e9" stroke-width="1.2"/>
+  <text x="57.0" y="151.0" text-anchor="middle" fill="currentColor">4</text>
+  <rect x="76" y="130" width="30" height="30" rx="4" fill="#d946ef" fill-opacity="0.22" stroke="#d946ef" stroke-width="1.2"/>
+  <text x="91.0" y="151.0" text-anchor="middle" fill="currentColor">5</text>
+  <rect x="110" y="130" width="30" height="30" rx="4" fill="#f59e0b" fill-opacity="0.22" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="125.0" y="151.0" text-anchor="middle" fill="currentColor">6</text>
+  <text x="159.0" y="151.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <text x="26" y="184.0" text-anchor="middle" font-size="13" fill="#9ca3af">3</text>
+  <text x="159.0" y="50" text-anchor="middle" font-size="13" fill="#9ca3af">3</text>
+  <text x="57.0" y="185.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <text x="91.0" y="185.0" text-anchor="middle" fill="#9ca3af">0</text>
+  <rect x="110" y="164" width="30" height="30" rx="4" fill="#f59e0b" fill-opacity="0.22" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="125.0" y="185.0" text-anchor="middle" fill="currentColor">7</text>
+  <rect x="144" y="164" width="30" height="30" rx="4" fill="#10b981" fill-opacity="0.22" stroke="#10b981" stroke-width="1.2"/>
+  <text x="159.0" y="185.0" text-anchor="middle" fill="currentColor">8</text>
+  <path d="M38,60 h-6 v136 h6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <path d="M178,60 h6 v136 h-6" fill="none" stroke="currentColor" stroke-width="1.8"/>
+  <text x="108.0" y="226" text-anchor="middle" font-style="italic">A</text>
+  <text x="320" y="51" text-anchor="end" font-family="Menlo, monospace" font-size="15">indptr</text>
+  <rect x="330" y="30" width="34" height="30" fill="#0ea5e9" fill-opacity="0.18" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="347.0" y="51.0" text-anchor="middle" fill="currentColor">0</text>
+  <line x1="347.0" y1="60" x2="332" y2="117" stroke="#0ea5e9" stroke-width="1.5" marker-end="url(#arrow-0ea5e9)"/>
+  <rect x="364" y="30" width="34" height="30" fill="#d946ef" fill-opacity="0.18" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="381.0" y="51.0" text-anchor="middle" fill="currentColor">2</text>
+  <line x1="381.0" y1="60" x2="400" y2="117" stroke="#d946ef" stroke-width="1.5" marker-end="url(#arrow-d946ef)"/>
+  <rect x="398" y="30" width="34" height="30" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="415.0" y="51.0" text-anchor="middle" fill="currentColor">4</text>
+  <line x1="415.0" y1="60" x2="468" y2="117" stroke="#f59e0b" stroke-width="1.5" marker-end="url(#arrow-f59e0b)"/>
+  <rect x="432" y="30" width="34" height="30" fill="#10b981" fill-opacity="0.18" stroke="#10b981" stroke-width="1.5"/>
+  <text x="449.0" y="51.0" text-anchor="middle" fill="currentColor">7</text>
+  <line x1="449.0" y1="60" x2="570" y2="117" stroke="#10b981" stroke-width="1.5" marker-end="url(#arrow-10b981)"/>
+  <rect x="466" y="30" width="34" height="30" fill="none" stroke="currentColor" stroke-width="1.5"/>
+  <text x="483.0" y="51.0" text-anchor="middle" fill="currentColor">8</text>
+  <line x1="483.0" y1="60" x2="600" y2="117" stroke="#9ca3af" stroke-width="1.5" marker-end="url(#arrow-9ca3af)"/>
+  <text x="320" y="141" text-anchor="end" font-family="Menlo, monospace" font-size="15">indices</text>
+  <text x="320" y="181" text-anchor="end" font-family="Menlo, monospace" font-size="15">data</text>
+  <rect x="330" y="120" width="34" height="30" fill="#0ea5e9" fill-opacity="0.18" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="347.0" y="141.0" text-anchor="middle" fill="currentColor">0</text>
+  <rect x="330" y="160" width="34" height="30" fill="#0ea5e9" fill-opacity="0.18" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="347.0" y="181.0" text-anchor="middle" fill="currentColor">1</text>
+  <rect x="364" y="120" width="34" height="30" fill="#0ea5e9" fill-opacity="0.18" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="381.0" y="141.0" text-anchor="middle" fill="currentColor">2</text>
+  <rect x="364" y="160" width="34" height="30" fill="#0ea5e9" fill-opacity="0.18" stroke="#0ea5e9" stroke-width="1.5"/>
+  <text x="381.0" y="181.0" text-anchor="middle" fill="currentColor">4</text>
+  <rect x="398" y="120" width="34" height="30" fill="#d946ef" fill-opacity="0.18" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="415.0" y="141.0" text-anchor="middle" fill="currentColor">1</text>
+  <rect x="398" y="160" width="34" height="30" fill="#d946ef" fill-opacity="0.18" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="415.0" y="181.0" text-anchor="middle" fill="currentColor">3</text>
+  <rect x="432" y="120" width="34" height="30" fill="#d946ef" fill-opacity="0.18" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="449.0" y="141.0" text-anchor="middle" fill="currentColor">2</text>
+  <rect x="432" y="160" width="34" height="30" fill="#d946ef" fill-opacity="0.18" stroke="#d946ef" stroke-width="1.5"/>
+  <text x="449.0" y="181.0" text-anchor="middle" fill="currentColor">5</text>
+  <rect x="466" y="120" width="34" height="30" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="483.0" y="141.0" text-anchor="middle" fill="currentColor">0</text>
+  <rect x="466" y="160" width="34" height="30" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="483.0" y="181.0" text-anchor="middle" fill="currentColor">2</text>
+  <rect x="500" y="120" width="34" height="30" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="517.0" y="141.0" text-anchor="middle" fill="currentColor">2</text>
+  <rect x="500" y="160" width="34" height="30" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="517.0" y="181.0" text-anchor="middle" fill="currentColor">6</text>
+  <rect x="534" y="120" width="34" height="30" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="551.0" y="141.0" text-anchor="middle" fill="currentColor">3</text>
+  <rect x="534" y="160" width="34" height="30" fill="#f59e0b" fill-opacity="0.18" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="551.0" y="181.0" text-anchor="middle" fill="currentColor">7</text>
+  <rect x="568" y="120" width="34" height="30" fill="#10b981" fill-opacity="0.18" stroke="#10b981" stroke-width="1.5"/>
+  <text x="585.0" y="141.0" text-anchor="middle" fill="currentColor">3</text>
+  <rect x="568" y="160" width="34" height="30" fill="#10b981" fill-opacity="0.18" stroke="#10b981" stroke-width="1.5"/>
+  <text x="585.0" y="181.0" text-anchor="middle" fill="currentColor">8</text>
+  <text x="347.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">0</text>
+  <text x="381.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">1</text>
+  <text x="415.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">2</text>
+  <text x="449.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">3</text>
+  <text x="483.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">4</text>
+  <text x="517.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">5</text>
+  <text x="551.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">6</text>
+  <text x="585.0" y="210" text-anchor="middle" font-size="12" fill="#9ca3af">7</text>
+  <text x="320" y="210" text-anchor="end" font-size="12" fill="#9ca3af">position</text>
+</svg>

@@ -48,4 +48,3 @@ if __name__ == "__main__":
     # Plot mesh
     pt.plot_mesh_2d(P, T)
     
-# %%

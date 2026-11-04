@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 from matplotlib.path import Path
 from matplotlib.patches import PathPatch
+import scipy.sparse as sp
 
 def plot_mesh_2d(P, T, 
                  dirichlet_nodes = None, 
@@ -84,4 +85,17 @@ def plot_comparison_2D(X, Y, f1, f2, triangles, title_f1='', title_f2=''):
     ax.set_ylabel('$y$')
     ax.set_zlabel('$z$')
     plt.show()
-
+    
+def plot_sparsity(A, ax=None, title=None, markersize=None, **kwargs):
+    """Plot the sparsity pattern of a dense or sparse matrix A."""
+    A = sp.csr_matrix(A)                      # handles dense arrays and all sparse formats
+    if ax is None:
+        _, ax = plt.subplots(figsize=(5, 5))
+    if markersize is None:                    # smaller markers for larger matrices
+        markersize = max(0.5, min(6.0, 300.0 / max(A.shape)))
+    ax.spy(A, markersize=markersize, **kwargs)
+    n, m = A.shape
+    density = A.nnz / (n * m)
+    ax.set_title(title or "Sparsity pattern")
+    ax.set_xlabel(f"{n} x {m},  nnz = {A.nnz},  density = {100*density:.2f} %")
+    return ax
