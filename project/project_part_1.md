@@ -12,7 +12,7 @@ kernelspec:
   name: python3
 ---
 
-# Implementation of a finite element solver (Part 1): $L^2$-projection
+# Implementation of a finite element solver, part 1: L²-projection
 
 ```{code-cell} ipython3
 # Make plotted figures interactive
