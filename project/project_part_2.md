@@ -49,95 +49,35 @@ from numpy.linalg import matrix_rank
 import sympy as sy
 import meshtools as mt
 import plottools as pt
-import tracemalloc
-
-import meshtools as mt
-import plottools as pt
 ```
 
-## Problem 1 (Green formulas and friends)
+## Problem 1 (Weak formulations for Poisson problem with mixed boundary conditions)
 
 +++
 
-Derive a weak formulation of the Poisson problem above with mixed boundary conditions
-and prove the well-posedness of it using the Lax-Milgram theorem.
+**a)** Derive a weak formulation of the Poisson problem above with mixed boundary conditions.
+
 You may assume that the boundary of your domain is split up into 4 disjoint parts as above,
- $\partial \Omega = \partial \Omega_D \cup \partial \Omega_{N,1} \cup \partial \Omega_{N,2} \cup \partial \Omega_R$ with $\partial \Omega_D$ having positive measure.
-
-**Hint.** You might find it useful to
-
-+++
+ $\partial \Omega = \partial \Omega_D \cup \partial \Omega_{N,1} \cup \partial \Omega_{N,2} \cup \partial \Omega_R$ with $\partial \Omega_D$ having positive measure,
+ where each boundary part is a closed $C^1$ polyhedral surface.
 
 **b)**
-Choosing $u = uv$ in a), we get the partial integration formula
+Prove the well-posedness of the weak formulation using the Lax-Milgram theorem.
+
+**Hint.** You might find it useful to define the following function spaces:
+
 $$
-\int_{\partial \Omega}{uv n_i} \,\mathrm{d}S
-= \int_{\Omega} \partial_{x_i} (uv) \,\mathrm{d}x 
-= \int_{\Omega} (\partial_{x_i} u)v \,\mathrm{d}x+\int_{\Omega} u \partial_{x_i} v \,\mathrm{d}x,\quad i = 1,\ldots,d
-$$
-We have
-$$
-\int_{\Omega} (\partial_{x_i} u) v \,\mathrm{d}x =
-\int_{\partial \Omega}{u n_i} v \,\mathrm{d}S
--\int_{\Omega}  u \partial_{x_i} v \,\mathrm{d}x, \quad i = 1,\ldots,d
+H^1_{g_D,\Gamma_D}(\Omega) = \{ v \in H^1(\Omega) : v = g_D \text{ on } \partial \Omega_D \}
 $$
 
-+++
+You can assume that this function space is well-defined and a Hilbert space for $g_D = 0$, 
+and that the boundary data $g_D$ is such there is a function $u \in H^1(\Omega)$ such that $u = g_D$ on $\partial \Omega_D$
+in the trace sense. Also, there is also a Poincaré inequality for functions in $H^1_{0,\Gamma_D}(\Omega)$, i.e. there exists a constant $C_P > 0$ such that 
 
-**c**)
-Choosing $u=\beta_i$, the compents of a vector field $\beta$ on $\Omega$ in b), we get
 $$
-\int_{\Omega} (\partial_{x_i} \beta_i) v \,\mathrm{d}x =
-\int_{\partial \Omega}{\beta_i n_i} v \,\mathrm{d}S
--\int_{\Omega}  \beta_i \partial_{x_i} v \,\mathrm{d}x, \quad i = 1,\ldots,d
-$$
-Taking the sum over $i = 1,\ldots,d$, we have
-$$
-\int_{\Omega} (\partial_{x_1} \beta_1) v \,\mathrm{d}x =
-\int_{\partial \Omega}{\beta_1 n_1} v \,\mathrm{d}S -\int_{\Omega} \beta_1 \partial_{x_1} v \,\mathrm{d}x \\
-\int_{\Omega} (\partial_{x_2} \beta_2) v \,\mathrm{d}x =
-\int_{\partial \Omega}{\beta_2 n_2} v \,\mathrm{d}S -\int_{\Omega} \beta_2 \partial_{x_2} v \,\mathrm{d}x \\
-\ldots \\
-\ldots \\
-\ldots \\
-\int_{\Omega} (\partial_{x_i} \beta_i) v \,\mathrm{d}x =
-\int_{\partial \Omega}{\beta_i n_i} v \,\mathrm{d}S -\int_{\Omega} \beta_i \partial_{x_i} v \,\mathrm{d}x 
-$$
-the sum is 
-$$
-\int_{\Omega} (\partial_{x_1} \beta_1 +\partial_{x_2} \beta_2+\ldots+\partial_{x_i}
-\beta_i) v \,\mathrm{d}x \\
-= \int_{\partial \Omega}({\beta_1 n_1+\beta_2 n_2+\ldots+\beta_i n_i}) v \,\mathrm{d}S -\int_{\Omega} (\beta_1 \partial_{x_1} v+ \beta_2 \partial_{x_2} v+\ldots+\beta_i \partial_{x_i} v)\,\mathrm{d}x
-$$
-For $\beta=\beta_1 x_1+\beta_2 x_2+\ldots+\beta_i x_i$, there are
-$$
-\nabla \cdot \beta 
-=(\partial_{x_1},\partial_{x_2},\ldots,\partial_{x_i})\cdot (\beta_1,\beta_2,\ldots,\beta_i)
-=\partial_{x_1} \beta_1 +\partial_{x_2} \beta_2+\ldots+\partial_{x_i}\beta_i \\
-\beta \cdot n
-= (\beta_1,\beta_2,\ldots,\beta_i) \cdot (n_1,n_2,\ldots,n_i)
-= \beta_1 n_1+\beta_2 n_2+\ldots+\beta_i n_i \\
-\beta \cdot \nabla
-= (\beta_1,\beta_2,\ldots,\beta_i) \cdot (\partial_{x_1}v,\partial_{x_2}v,\ldots,\partial_{x_i}v)
-= (\beta_1 \partial_{x_1} v+ \beta_2 \partial_{x_2} v+\ldots+\beta_i \partial_{x_i} v)
-$$
-Therefore, we have
-$$
-\int_{\Omega} (\nabla \cdot \beta) v \,\mathrm{d}x =
-\int_{\partial \Omega}\beta \cdot n v \,\mathrm{d}S
--\int_{\Omega} \beta \cdot \nabla v \,\mathrm{d}x
-$$
-
-+++
-
-**d**)
-Choosing $\beta=-A \nabla u$ in c), we get
-$$
--\int_{\Omega} \nabla \cdot ( A \nabla u) v \,\mathrm{d}x =
--\int_{\partial \Omega}{  A \nabla u \cdot n} v \,\mathrm{d}S
-+\int_{\Omega}  A \nabla u \cdot \nabla v \,\mathrm{d}x,
-$$
-where $A(x) \in \mathbb{R}^{d\times d}$ is a pointwise defined matrix.
+\| v \|_{L^2(\Omega)} \leq C_P \|
+    \nabla v \|_{L^2(\Omega)} \quad \forall v \in H^1_{0,\Gamma_D}(\Omega).
+$$.
 
 +++
 
@@ -145,23 +85,83 @@ where $A(x) \in \mathbb{R}^{d\times d}$ is a pointwise defined matrix.
 
 +++
 
+The goal of this problem set is to build your first own finite element solver which will probably be a decisive step in your career :)
+
+At the end of this problem we will be able to numerically solve
+a simplified version of the Poisson problem from Problem 1, namely
+\begin{alignat}{3}
+-\Delta u &= f && \quad \text{in } \Omega 
+\\
+u &= g_D  && \quad \text{on } \partial \Omega_D
+\\
+\nabla u \cdot n &= g_N && \quad \text{on } \partial \Omega_N
+\\
+\end{alignat}
+
+Here, $n$ denotes the outward pointing normal vector on $\partial \Omega$.
+
+The implementation will proceed in three steps:
+
+1. Assembly of the stiffness matrix without taking boundary conditions into account.
+2. Incorporation of the Dirichlet boundary conditions into the linear system. 
+3. Incorporation of Neumann boundary conditions.
+
++++
+
 ## Step 1: Assembly of the stiffness matrix (volume contributions)
 
 +++
 
-**a)** Start by implementing a first version of the  ```assemble_stiffness_matrix(P, T, a)``` which assemble the volume contributions corresponding to $\int_K a \nabla u \nabla v dx$.
+**a)** Start by implementing a first version of the  ```assemble_stiffness_matrix(P, C)``` which assemble the volume contributions corresponding to $\int_K \nabla u \cdot \nabla v \, dx$.
+Here, $P$ and $C$ are the point and connectivity matrices, respectively.
+
+For simplicity, **we recommend you to use the `dok` matrix format**  discussed in Part 1. Later, as an optional task, you can reimplement it using in the `coo` format, e.g. with the help of an LLM.
+
+Supplement the following code outline.
+
++++
+
+### Code Outline
+
+First, define a little helper functions which computes
+for given triangle $K$ the area $|K|$ and the cofficient vectors $b = (b_0, b_1, b_2)$
+and $c = (c_0, c_1, c_2)$. Recall that gradients of the local shape/nodal functions
+$\lambda_i$ are given by $\nabla \lambda_i = (b_i, c_i)^T$ for
+$i = 0,1,2$.
+
+Before you read through the helper functions convince yourself that the coefficient vectors $b$ and $c$ can be computed as follows:
+\begin{align*}
+b = (y^{(0)},y^{(1)}, y^{(2)}) \times (1,1,1)
+\\
+c = (1,1,1)\times (x^{(0)},x^{(1)}, x^{(2)}) 
+\end{align*}
 
 ```{code-cell} ipython3
-# 2-a1 Define a function which computes the area of K and the cofficient vector b and c
+def compute_hat_gradients(tri):
+    # Compute area (as before)
+    # ...
+    
+    # Compute b and c 
+    # You can use np.cross to compute cross products of 3d vectors
+    ones = np.ones(3)
+    # b = ...
+    # c = ...
+
+    # return (area, b, c)
+```
+
+**Solution.**
+
+```{code-cell} ipython3
 def compute_hat_gradients(tri):
     
-    # Compute area
+    # Compute area (as before)
     N0, N1, N2 = tri
-    # area=abs(0.5*np.cross(N1-N0, N2-N0))
     e1, e2 = N1 - N0, N2 - N0
     area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
     
     # Compute b and c 
+    # You can use np.cross to compute cross products of 3d vectors
     ones = np.ones(3)
     b = np.cross(tri[:,1], ones)/(2*area)
     c = np.cross(ones, tri[:,0])/(2*area)
@@ -169,38 +169,35 @@ def compute_hat_gradients(tri):
     return (area, b, c)
 ```
 
-Follow closely the implementation of the mass matrix assembly with only minor modifications.
+Now you are ready to define ```assemble_stiffness_matrix(P, C)```. Follow closely the implementation of the mass matrix assembly with only minor modifications.
+
++++
+
+**Solution**
 
 ```{code-cell} ipython3
-# 2-a2
-def assemble_stiffness_matrix(P, T, a):
+def assemble_stiffness_matrix(P, C):
     # Create matrix as before As in the mass matrix assembly:
     # Deduce number of unkowns from dimensions of P
     n_p = P.shape[0]
     # Deduce number of elements from dimensions of T and sparse matrix A
-    n_t = T.shape[0]
+    n_t = C.shape[0]
     # Create sparse matrix A
     A = sp.dok_matrix((n_p, n_p))
 
-    for  K in range(n_t):
+    for  T in range(n_t):
         # Get local to global map
-        l2g = T[K]
+        l2g = C[T]
         # Get triangle coordinates and compute area
         tri = P[l2g]
-        # Unpack nodes into N1,N2,N3
-        N0,N1,N2 = tri 
-        
-        # Compute abar = a((N0 + N1 + N2)/3) 
-        abar = a((N0+N1+N2)/3)
-        #print ("abar=",abar)
         
         # Compute the area and the coefficient for the hat gradients
         area, b, c = compute_hat_gradients(tri)
 
         # Numpy Arrays does not behave exactly like n x 1 matrices
-        # To compute the outer product b*b.T or  b*b' in Matlab notation
+        # To compute the outer product b*b.T in Matlab notation
         # we need the np.outer function
-        A_K = abar*(np.outer(b, b) + np.outer(c, c))*area
+        A_K = (np.outer(b, b) + np.outer(c, c))*area
         
         # Add local element matrix to global matrix as before
         A[np.ix_(l2g, l2g)] += A_K
@@ -208,72 +205,67 @@ def assemble_stiffness_matrix(P, T, a):
     return A
 ```
 
-**b**)
+**b**) As a first test run, let us use your new ```assemble_stiffness_matrix``` and the ```assemble_load_vector``` function previously implemented in Part 1.
+Assemble the stiffness matrix $A$ and load vector $b$ for 
+
+$$f(x,y) = 1$$
+
+on a simple unit square mesh with resolution $h = 1/N$ and $N = 20$.
+Solve the resulting linear system $ AU = b$. 
+
+* Do you get a meaniningful solution? 
+* Which kind a boundary problem did you just try to solve? 
+* Is this boundary value problem well-posed?
+* What is the rank of the matrix?
+
+**Hint**: Look into the first part for recalling how sparse linear systems are solved, don't forget to convert the assembled matrix A into a more efficient format before solving.)
+
++++
+
+### Code Snippets
 
 ```{code-cell} ipython3
-# 2-b1 #part1 3-e
-def assemble_load_vector_modified(P, T, f, qr="midpoint_2d"):
-    # Deduce number of unkowns from dimensions/shape of P
-    n_p = P.shape[0]
-    # Deduce number of elements from dimensions of T
-    n_t = T.shape[0]
-    
-    # Create sparse matrix M
-    b = np.zeros(n_p)
-    
-    for  K in range(n_t):
-        # Get local to global map from T
-        l2g = T[K]   
-        # Get triangle nodes from P
-        tri = P[l2g]
-        # Unpack nodes into N1,N2,N3
-        N0,N1,N2 = tri 
-        # Compute area of K. 
-        # area=abs(0.5*np.cross(N1-N0,N2-N0))
-        e1, e2 = N1 - N0, N2 - N0
-        area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
-        
-        # Use area and b_ref to compute b_K
-        if qr == "midpoint_2d":
-            mp =  0.5*np.array([N0+N1, N1+N2, N2+N0])
-            b_K = area/3*0.5*np.array([f(mp[i-1,0], mp[i-1,1]) + f(mp[i,0], mp[i,1]) for i in range(0,3)])
-        else:
-            b_K = area/3*np.array([f(tri[i,0], tri[i,1]) for i in range(0,3)])
-        b[np.ix_(l2g)] += b_K
-    return b
-```
-
-```{code-cell} ipython3
-# 2-b2
-
-# Create unitsquare mesh
-N = 20
-P, T = mt.unitsquare_mesh(N)
-
-x = P[:,0]
-y = P[:,1]
 # Numpy way to define constant functions such that an
 # array of constants is returned if x,y were arrays.
 def f(x,y):
-    return 1*np.ones_like(x)  # f(x,y)=1
-def a(x=None):
-    return 1                  # a(x)=1
-def u(x,y):
-    return 1*np.ones_like(x) 
-qr = "midpoint_2d"
+    return 1*np.ones_like(x)
+```
 
-A = assemble_stiffness_matrix(P, T, a)
-b = assemble_load_vector_modified(P, T, f, qr)
-#print (b)
-A_csr = A.tocsr() 
-#print (A_csr)
-U = spsolve(A_csr, b)
-#print (U)
+You can use the following snippet to compute the rank of the matrix A:
+
+```python
+# Use scipy to compute the rank of the matrix
+A_dense = np.matrix(A.todense())
+rank = matrix_rank(A_dense)
+``` 
+
++++
+
+**Solution.**
+
+```{code-cell} ipython3
+# %load -s assemble_load_vector projecttools.py
+from projecttools import assemble_load_vector, qr_rule_factory
+
+xq, wq = qr_rule_factory("centroid")
+print(xq, wq)
+
+def f(x,y):
+    return np.ones_like(x)
+
+N = 20
+P, C = mt.unitsquare_mesh(N)
+
+A = assemble_stiffness_matrix(P, C).tocsr()
+b = assemble_load_vector(f, P, C, xq, wq)
+U = spsolve(A, b)
+
 print("N =",N)
-pt.plot_comparison_2D(x, y, u(x,y), U, triangles=T,
-                      title_f1='U_ex', title_f2='U')
-A_mat = np.matrix(A_csr.todense())
-rank = matrix_rank(A_mat)
+X = P[:,0]
+Y = P[:,1]
+pt.plot2D(X, Y, U, triangles=C)
+A_dense = np.matrix(A.todense())
+rank = matrix_rank(A_dense)
 print ("rank =",rank)
 print("Number of unknowns:", len(U))
 ```
@@ -282,33 +274,56 @@ print("Number of unknowns:", len(U))
 
 +++
 
-**c**) Next, we start with implementing the incorporation of Dirchlet boundary conditions.
+**c**) Next, we start with implementing the incorporation of Dirichlet boundary conditions.
+
+As a first step, implement a tiny function which checks
+whether a given point $x = (x_0, x_1)$ is on the boundary of the unitsquare or not.
+The function should return ```True``` if the point is on the boundary, otherwise return ```False```.
+
+```python
+def on_dirichlet_boundary(x):
+    eps = 1e-12 # Accounts for finite precision
+    return  (x[0] < eps) | ...  
+```
+
++++
+
+**Solution.**
 
 ```{code-cell} ipython3
 # Define a function which checks 
 # whether a point x=(x0,x1)is on the boundary of unitsquare
 def on_dirichlet_boundary(x):
     eps = 1e-12 # Accounts for finite precision
-    return  (x[0] < eps or x[1] < eps or x[0] > 1-eps or x[1] > 1-eps  )
+    return  (x[0] < eps) | (x[1] < eps) | (x[0] > 1-eps) | (x[1] > 1-eps)
 ```
+
+With such a function a place, one can extract the boundary point using the following code snippet which returns a list of all node indices $i$ of those nodes $N_i$ for which a given function ```inside_domain(N_i)``` evaluates to ```True```.
 
 ```{code-cell} ipython3
 # Define a function which extract the boundary point 
 # and return a list of all node indices i
-def extract_nodes(P, on_dirichlet_boundary):
-    return [ i for i in range(P.shape[0]) if on_dirichlet_boundary(P[i]) ]
+# def extract_nodes(P, on_boundary):
+    # return [ i for i in range(P.shape[0]) if on_boundary(P[i]) ]
+
+def extract_nodes(P, on_boundary):
+    return np.flatnonzero(on_boundary(P.T))
 ```
 
 Now define unitsquare meshes with 1, 2 and 3 subdivision in each direction and 
 check whether you extract all Dirichlet boundary nodes correctly by
 using the improved `plot_mesh_2d` function now residing in the `plottools` module. Use the new optional 3 function argument "dirichlet_nodes" in `plot_mesh_2d` to plot the extracted nodes.
 
++++
+
+**Solution.**
+
 ```{code-cell} ipython3
 # Create unitsquare mesh
 for N in range(1,4):
-    P, T = mt.unitsquare_mesh(N)
+    P, C = mt.unitsquare_mesh(N)
     dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
-    pt.plot_mesh_2d(P, T,dirichlet_nodes)
+    pt.plot_mesh_2d(P, C, dirichlet_nodes)
 ```
 
 **d**) Next you need a piece of code to evaluate boundary functions at the nodes you extracted and to incorporate these values into the matrix $A$ and $b$.
@@ -322,8 +337,8 @@ Example of evaluation of $g_D$ at Dirichlet nodes
 P, T = mt.unitsquare_mesh(5)
 
 # Extract mesh coordinates
-x = P[:, 0]
-y = P[:, 1]
+X = P[:, 0]
+Y = P[:, 1]
 
 # Define/use your on_dirichlet_boundary and extract_nodes functions
 # to compute the dirichlet nodes
@@ -331,8 +346,8 @@ dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
 
 # Extract coordinates associated with Dirichlet nodes 
 # using an array slicing operation
-X_dc = x[dirichlet_nodes]
-Y_dc = y[dirichlet_nodes]
+X_dc = X[dirichlet_nodes]
+Y_dc = Y[dirichlet_nodes]
 
 # Evaluate g at boundary nodes and 
 def g_D(x,y):
@@ -340,7 +355,29 @@ def g_D(x,y):
 g_D_values = g_D(X_dc, Y_dc)
 ```
 
-Incorporation of Dirichlet BC.
+For the incorporation of Dirichlet BC, complete the following code snippet:
+
+```{code-cell} ipython3
+def apply_bcs(A, b, dirichlet_nodes, g_D_values):
+    # Incorporate boundary condition in vector b
+    # by slicing out entries of b associated with dirichlet nodes
+    # and setting them to the corresponding value
+    # b[...] = ...
+
+    # Incorporate boundary conditions in matrix A
+    # 1. Set all rows corresponding to Dirichlet nodes to 0
+    #
+    #A...
+    
+    # 2. Set diagonal in Dirichlet nodes to one 
+    # (Opposed to Matlab this code line practically
+    # extracts a part of the diagonal corresponding to passes indices in  
+    # dirichlet_nodes and set them to 1
+    #
+    # A ...
+```
+
+**Solution.**
 
 ```{code-cell} ipython3
 def apply_bcs(A, b, dirichlet_nodes, g_D_values):
@@ -374,36 +411,37 @@ def apply_bcs(A, b, dirichlet_nodes, g_D_values):
 and plotting $u$, $u_h$ and their difference. 
 
 What is the exact solution $u$? And how does the finite element solution $u_h$ look like?
-*Hint*: Best approximation property.
+
+**Hint**: Quasi-best approximation property.
 
 ```{code-cell} ipython3
+def g_D(x,y):
+    return (x+y)              # g_D=x+y
+def f(x,y):
+    return 0*np.ones_like(x)  # f(x,y)=0
+def u(x,y):
+    return x+y 
+
 for N in [1,5,15]:
-    P, T = mt.unitsquare_mesh(N)
-    x = P[:,0]
-    y = P[:,1]
-    def g_D(x,y):
-        return (x+y)              # g_D=x+y
-    def f(x,y):
-        return 0*np.ones_like(x)  # f(x,y)=0
-    def a(x=None):
-        return 1                  # a(x)=1
-    def u(x,y):
-        return x+y 
-    qr = "midpoint_2d"
+    P, C = mt.unitsquare_mesh(N)
+    X = P[:,0]
+    Y = P[:,1]
     
     dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
-    X_dc = x[dirichlet_nodes]
-    Y_dc = y[dirichlet_nodes]
+    X_dc = X[dirichlet_nodes]
+    Y_dc = Y[dirichlet_nodes]
     g_D_values = g_D(X_dc, Y_dc)
 
-    A = assemble_stiffness_matrix(P, T, a)
-    b = assemble_load_vector_modified(P, T, f, qr)
+    A = assemble_stiffness_matrix(P, C)
+    b = assemble_load_vector(f, P, C, xq, wq)
     apply_bcs(A, b, dirichlet_nodes, g_D_values)
     A_csr = A.tocsr() 
     U = spsolve(A_csr, b)
+    
     print("N =",N)
-    pt.plot_comparison_2D(x, y, u(x,y), U, triangles=T,
-                          title_f1='exact', title_f2='U')
+    pt.plot_comparison_2D(X, Y, u(X,Y), U, triangles=C,
+                          title_f1='$u_{\\mathrm{ex}}$', title_f2='$U$')
+    print(np.linalg.norm(u(X,Y)-U))
 ```
 
 **f**) Next, solve the problem
@@ -414,31 +452,34 @@ for N in [1,5,15]:
 on unit square meshes with mesh size $h=1/N$ for $N = 5, 10, 20, 40$
 and plot the FEM solution.
 
-```{code-cell} ipython3
-for N in [5,10,20,40]:
-    P, T = mt.unitsquare_mesh(N)
-    x = P[:,0]
-    y = P[:,1]
-    def g_D(x,y):
-        return 0*np.ones_like(x)  # g_D=0
-    def f(x,y):
-        return 1*np.ones_like(x)  # f(x,y)=1
-    def a(x=None):
-        return 1                  # a(x)=1
-    qr = "midpoint_2d"
++++
 
+**Solution**. 
+
+```{code-cell} ipython3
+def g_D(x,y):
+    return 0*np.ones_like(x)              
+def f(x,y):
+    return 1*np.ones_like(x) 
+
+for N in [5,10,20,40]:
+    P, C = mt.unitsquare_mesh(N)
+    X = P[:,0]
+    Y = P[:,1]
+    
     dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
-    X_dc = x[dirichlet_nodes]
-    Y_dc = y[dirichlet_nodes]
+    X_dc = X[dirichlet_nodes]
+    Y_dc = Y[dirichlet_nodes]
     g_D_values = g_D(X_dc, Y_dc)
 
-    A = assemble_stiffness_matrix(P, T, a)
-    b = assemble_load_vector_modified(P, T, f, qr)
+    A = assemble_stiffness_matrix(P, C)
+    b = assemble_load_vector(f, P, C, xq, wq)
     apply_bcs(A, b, dirichlet_nodes, g_D_values)
     A_csr = A.tocsr() 
     U = spsolve(A_csr, b)
+    
     print("N =",N)
-    pt.plot2D(x, y, U, title='U', triangles=T)
+    pt.plot2D(X, Y, U, title='U', triangles=C)
 ```
 
 **g**) Repeat the experiment, this time for the boundary value problem 
@@ -451,41 +492,39 @@ for N in [5,10,20,40]:
 where $\partial \Omega_N = \{1\} \times [0,1]$ is right edge of the the unit square
 and $\partial \Omega_D = \partial \Omega \setminus \partial \Omega_N$.
 
+How can you use your current implementation to solve this problem?
 How can you interpret the Neuman condition $\nabla u \cdot n = 0$ on $\partial \Omega_N$ geometrically?
 
-```{code-cell} ipython3
-for N in [5,10,20,40]:
-    P, T = mt.unitsquare_mesh(N)
-    x = P[:,0]
-    y = P[:,1]
-    def on_neuman_boundary(x):
-        eps = 1e-12 # Accounts for finite precision
-        return  (x[0] > 1-eps)
-    def on_dirichlet_boundary(x):
-        eps = 1e-12 # Accounts for finite precision
-        return  (x[0] < eps or x[1] < eps or x[1] > 1-eps)
-    def g_D(x,y):
-        return 0*np.ones_like(x)  # g_D=0
-    def g_N(x,y):
-        return 0*np.ones_like(x)  # g_N=0
-    def f(x,y):
-        return 1*np.ones_like(x)  # f(x,y)=1
-    def a(x=None):
-        return 1                  # a(x)=1
-    qr = "midpoint_2d"
++++
 
+**Solution**.
+
+Since we have *homogeneous* Neumann boundary conditions, the only thing
+we need to do is to modify the `on_dirichlet_boundary` function to return `False` for the right edge of the unit square.
+
+```{code-cell} ipython3
+def on_dirichlet_boundary(x):
+    eps = 1e-12 # Accounts for finite precision
+    return  (x[0] < eps) | (x[1] < eps) |  (x[1] > 1-eps)
+
+for N in [5,10,20,40]:
+    P, C = mt.unitsquare_mesh(N)
+    X = P[:,0]
+    Y = P[:,1]
+    
     dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
-    X_dc = x[dirichlet_nodes]
-    Y_dc = y[dirichlet_nodes]
+    X_dc = X[dirichlet_nodes]
+    Y_dc = Y[dirichlet_nodes]
     g_D_values = g_D(X_dc, Y_dc)
 
-    A = assemble_stiffness_matrix(P, T, a)
-    b = assemble_load_vector_modified(P, T, f, qr)
+    A = assemble_stiffness_matrix(P, C)
+    b = assemble_load_vector(f, P, C, xq, wq)
     apply_bcs(A, b, dirichlet_nodes, g_D_values)
     A_csr = A.tocsr() 
     U = spsolve(A_csr, b)
+    
     print("N =",N)
-    pt.plot2D(x, y, U, title='U', triangles=T)
+    pt.plot2D(X, Y, U, title='U', triangles=C)
 ```
 
 ## Step 3: Incorporation of inhomogeneous Neumann boundary conditions
@@ -501,6 +540,25 @@ for some $g_N \neq 0$. Thus to obtain the load vector $b$, you now need to compu
 \int_{\Omega} f \varphi_i
 \,\mathrm{d}x + \int_{\partial \Omega_N} g_N \varphi_i \quad i = 0,\ldots,n_p-1.
 \end{align*}
+
+To do so, you have to do accomplish 2 things:
+
+1. Extract the Neumann boundary edges from the mesh.
+2. Modify the load vector assembly to include the Neumann boundary contributions.
+
++++
+
+**Task 1.**
+
+Similar to extracting the Dirichlet nodes to impose Dirichlet boundary conditions, you need
+now to extract the Neumann boundary edges $\mathcal{E}_{h,N}$ of $\mathcal{K}_h$ which comprises the boundary $\partial 
+\Omega_N$. At the end of the day you want to have $n_e \times 2$  "Edge" connectivity matrix $\mathcal{E}_N$ 
+(similar to the triangle connectivity matrix $C$), where $n_e$ is the number of extracted boundary
+edges. Row $j$ in the "Edge" connectivity matrix $E_N$ then gives the the two  indices of the nodes defining the
+boundary edge $E_j$. Note that the set of extracted boundary edges is only a *subset* of the set of *all* edges in $\mathcal{T}_h$.
+
+Test the following code to extract the Neumann boundary edges on several meshes
+by plotting the meshes via the `plot_mesh_2d` function together with the extracted Neumann boundary points and edges.
 
 ```{code-cell} ipython3
 def extract_edges(P, T, inside_domain):
@@ -523,84 +581,114 @@ def extract_edges(P, T, inside_domain):
     return np.array(edges, dtype=np.int32)
 ```
 
+**Solution.**
+
 ```{code-cell} ipython3
 # Define proper 'inside_domain' function 
 def inhomog_neumann_boundary(x):
     eps = 1e-12 # Accounts for finite precision
     return  (x[0] < eps) 
-```
-
-```{code-cell} ipython3
 # Use 'plot_mesh_2d' function to visually check 'inhomog_neumann_boundary'
-# from matplotlib.path import Path
-# from matplotlib.patches import PathPatch
 
 for N in range(1,4):
-    P, T = mt.unitsquare_mesh(N)
+    P, C = mt.unitsquare_mesh(N)
     inhomog_neumann_nodes = extract_nodes(P, inhomog_neumann_boundary)
-    inhomog_neuman_edges = extract_edges(P, T, inhomog_neumann_boundary)
-    print (inhomog_neuman_edges)
-    pt.plot_mesh_2d(P, T, inhomog_neumann_nodes, inhomog_neuman_edges)
+    inhomog_neumann_edges = extract_edges(P, C, inhomog_neumann_boundary)
+    print (inhomog_neumann_nodes)
+    print (inhomog_neumann_edges)
+    pt.plot_mesh_2d(P, C, inhomog_neumann_nodes, inhomog_neumann_edges)
 ```
 
+**Task 2.** Next, in addition to the previous arguments ```f, P, C, xq, wq```, you need to pass $E_N$ and $g_N$ to your ```assemble_load_vector``` function and add a loop which assembles the contribution
+
+$$
+\int_{E} g_N \varphi_i \,\mathrm{d}S
+$$ 
+
+from the boundary $\partial \Omega_N$ by iterating over $\mathcal{E}_{h,N}$. This is **very** similar to
+what you did to compute the volume contribution $\int_{K} f \varphi_i \,\mathrm{d}x$.
+
+As we did for the volume contribution, you need to use a quadrature rule to compute the edge integral. You can either pass is as an argument to the function or hardcode it. For simplicity, we recommend you to use the 1-d trapezoidal rule which will be sufficient for our tasks.
+
+Convince yourself that the resulting local/edge load vector contribution looks like
+\begin{align*}
+b_E = \dfrac{|E|}{2} 
+\begin{bmatrix}
+g_N(N_0) , g_N(N_1)    
+\end{bmatrix}^T
+\end{align*}
+where $N_0$ and $N_1$ are the two nodes (in local numbering) belonging to edge $E$. 
+
++++
+
+**Solution.**
+
 ```{code-cell} ipython3
-# The load veator with boundary condition.
-def assemble_load_vector_modified_withbc(P, T, f, qr, E_N, g_N):
-    # Deduce number of unkowns from dimensions/shape of P
+# %load -s assemble_load_vector projecttools.py
+def assemble_load_vector_with_neumann(f, P, C, xq, wq, g_N, EC_N):
+    """Assemble the P1 load vector b_i = int f phi_i dx using quadrature.
+
+    f      : function f(x, y), vectorized over NumPy arrays x and y.
+    P      : (N_p, 2) array, coordinates of the mesh vertices (point matrix).
+    C      : (N_t, 3) integer array, vertex indices of each triangle (connectivity matrix).
+    xq, wq : quadrature points (n_q, 2) and weights (n_q,) on the reference
+             triangle, with the weights summing to 1.
+
+    Returns the load vector b as a NumPy array of length N_p.
+    """
+    # Define constant part here: values of the barycentric coordinates
+    # lambda_0 = 1 - x - y, lambda_1 = x, lambda_2 = y at the quadrature points
+    Lambda_ref = np.array([1 - xq[:, 0] - xq[:, 1], xq[:, 0], xq[:, 1]])   # (3, n_q)
+    # Multiply with the weights: L_ref[alpha, q] = w_q * lambda_alpha(xq_q)
+    L_ref = Lambda_ref * wq
+
+    # Deduce number of unknowns from dimensions/shape of P
     n_p = P.shape[0]
-    # Deduce number of elements from dimensions of T
-    n_t = T.shape[0]
-    n_e = E_N.shape[0]
+    # Deduce number of elements from dimensions of C
+    n_t = C.shape[0]
+   # Deduce number of edges from dimensions of E_N
+    n_e = EC_N.shape[0]
     
-    # Create sparse matrix M
+    # Create load vector b
     b = np.zeros(n_p)
-    
-    for  K in range (n_t):
-        # Get local to global map from T
-        l2g = T[K]   
+
+    for T in range(n_t):
+        # Get local to global map from C
+        l2g = C[T]
         # Get triangle nodes from P
         tri = P[l2g]
-        # Unpack nodes into N1,N2,N3
-        N0,N1,N2 = tri 
-        # Compute area of K. 
-        # area=abs(0.5*np.cross(N1-N0,N2-N0))
+        # Unpack nodes into N0,N1,N2
+        N0, N1, N2 = tri
+        # Compute area of T
         e1, e2 = N1 - N0, N2 - N0
         area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
+        # Map the quadrature points to T: row q is sum_beta lambda_beta(xq_q) * N_beta
+        xq_T = Lambda_ref.T @ tri                                              # (n_q, 2)
+        # Evaluate f at the mapped quadrature points
+        f_q = f(xq_T[:, 0], xq_T[:, 1])                                         # (n_q,)
+        # Local load vector b_T[alpha] = |T| sum_q w_q lambda_alpha(xq_q) f(F_T(xq_q))
+        b_T = area * L_ref @ f_q
+
+        # Add the local contributions to the global load vector
+        b[l2g] += b_T
         
-        # Use area and b_ref to compute b_K
-        if qr == "midpoint_2d":
-            mp =  0.5*np.array([N0+N1, N1+N2, N2+N0])
-            b_K = area/3*0.5*np.array([f(mp[i-1,0], mp[i-1,1]) + f(mp[i,0], mp[i,1]) 
-                                       for i in range(0,3)])
-            # Here the value of 0.5 comes from the hat function at the mid-point.
-        else:
-            b_K = area/3*np.array([f(tri[i,0], tri[i,1]) for i in range(0,3)])
-        b[np.ix_(l2g)] += b_K
+    for E in range(n_e):
+        # Get local to global map from EC
+        l2g = EC_N[E] 
+        # Get edge points and compute edge length
+        edge = P[l2g]
+        edge_len = np.linalg.norm(edge[1]-edge[0])
+        # Compute local load vector
+        b_E = 0.5*edge_len*g_N(edge[:,0], edge[:,1])
+        # Add the local contributions to the global load vector
+        b[l2g] += b_E
         
-    for l in range (n_e):
-        l2g = E_N[l]
-        tri = P[l2g]
-        N0,N1 = tri
-        E = np.sqrt((tri[0,0]-tri[1,0])**2+(tri[0,1]-tri[1,1])**2)
-        # the length of E : \E\=((x(0)-x(1))^2+(y(0)-y(1))^2)^(1/2)
-        #b_l = E/2*np.array([g_N(tri[i,0], tri[i,1])for i in range(0,2)])
-        #if qr == "midpoint_2d":
-            #mp =  0.5*(N0+N1)
-            #print("mp")
-            #print(mp)
-            #print("mp stop")
-            #b_l = 0.5*E*np.array([g_N(mp[0], mp[1]), g_N(mp[0], mp[1])])
-            #b_l = 0.5*E*np.array([g_N(mp[0], mp[1])],[ g_N(mp[0], mp[1])])
-                    
-        #else:
-        b_l = E/2*np.array([g_N(tri[i,0], tri[i,1]) for i in range(0,2)])
-        b[np.ix_(l2g)] += b_l
     return b
 ```
 
 **i**) 
 Next, to appreciate your craftsmanship, validate your new functionality using the method
-of manufactured solutions. Start from the exact solution
+of **manufactured** solutions. Start from the exact solution
 $$
 u_{ex}(x,y) = \sin(\pi x) \cos(\pi y)
 $$
@@ -612,11 +700,37 @@ to construct a manufactured solution for the boundary value problem
  \nabla u \cdot n &= g_N &&\quad \text{on } \partial \Omega_N,
 \end{alignat*}
 by computing the proper problem data $f$, $g_D$ and $g_N$. Here,
+$\Omega = (0,1)^2$ is the unit square,
 $\partial \Omega_N = \{0\} \times[0,1]$ is the left edge of the unit
 square and
 $\partial \Omega_D = \partial \Omega \setminus \partial \Omega_N$.
 
 +++
+
+Proceed as follows:
+
+* With the computed problem data $f$, $g_D$ and $g_N$ at hand, solve the given boundary value problem  numerically using your finite element solver on unit square meshes with mesh size $h=1/N$ for $N = 5, 10, 20, 40$;
+* Plot the exact solution $u_{ex}$, the finite element solution $u_h$ and the error function $u_{ex} - u_h$
+for $N = 5, 20, 40$;
+* For each $N$, record the $L^2$ norm and the $H^1$ semi-norm (see code below) of the error function $u_{ex} - u_h$ and display the error norms against the mesh size $h = 1/N$ both in a log-log plot and in a table. 
+For the table plot for each $N$, the mesh size $h$, $L^2$ error, experimental order of convergence (EOC) for $L^2$,  $H^1$ semi-norm error and corresponding EOC.
+
+What convergence rates do you get and why? 
+
+**To get pretty tables**, you can use pandas DataFrames, here is a small example to get you started:
+
+```{code-cell} ipython3
+hs = [1/N for N in range(1,6)]
+l2_errors = [0.234*2**(-k) for k in range(4)]
+
+print(hs)
+print(l2_errors)
+conv_table = pd.DataFrame({
+    "h": hs,
+    "L2_error" : np.concatenate([[np.nan], l2_errors])
+}) 
+display(conv_table)
+```
 
 **Computing the error in the $H^1$ semi-norm.**
 The error $u - u_h$ in the $H^1$ semi-norm is given by
@@ -648,10 +762,14 @@ In the code, the mapped points are `xq_K = Lambda_ref.T @ tri`, and the sum over
 Since $\nabla u - \nabla u_h$ behaves locally like a linear polynomial, its square is essentially quadratic.
 We use the six-point rule of degree 4, which integrates this leading part exactly with a safety margin.
 
-Note that, unlike the energy-norm formula above, this computation does not rely on Galerkin orthogonality,
-so it is also valid for inhomogeneous Dirichlet data.
++++
+
+Make sure that that you make your `compute_L2_error` from part 1 of the project available.
 
 ```{code-cell} ipython3
+# Make sure that that you make your compute_L2_error from
+from projecttools import compute_L2_error
+
 def six_point_rule():
     """Six-point quadrature rule on the reference triangle, exact for polynomials
     of degree 4. Weights sum to 1."""
@@ -661,7 +779,6 @@ def six_point_rule():
                    [a2, a2], [1 - 2*a2, a2], [a2, 1 - 2*a2]])
     wq = np.array([w1, w1, w1, w2, w2, w2])
     return xq, wq
-
 
 def compute_H1_semi_error(grad_u, U, P, T, xq=None, wq=None):
     """Compute the H1 semi-norm error |u - u_h|_{H^1} of a P1 solution using quadrature.
@@ -696,47 +813,13 @@ def compute_H1_semi_error(grad_u, U, P, T, xq=None, wq=None):
         err2 += area * np.sum(wq * ((ux - grad_uh[0])**2 + (uy - grad_uh[1])**2))
 
     return np.sqrt(err2)
-
-def compute_L2_error(f, u, P, C, xq, wq):
-    """Compute the L2 error ||f - u_h|| of the P1 function u_h = sum_i u_i phi_i using quadrature.
-
-    f      : function f(x, y), vectorized over NumPy arrays x and y.
-    u      : (N_p,) array, values of u_h at the mesh vertices.
-    P, C   : point matrix (N_p, 2) and connectivity matrix (N_t, 3).
-    xq, wq : quadrature rule on the reference triangle, with the weights summing to 1.
-
-    Returns the approximate L2 error as a float.
-    """
-    # Values of the barycentric coordinates at the quadrature points, shape (3, n_q)
-    Lambda_ref = np.array([1 - xq[:, 0] - xq[:, 1], xq[:, 0], xq[:, 1]])
-
-    n_t = C.shape[0]
-    err2 = 0.0
-    for T in range(n_t):
-        # Get local to global map from C
-        l2g = C[T]
-        # Get triangle nodes from P
-        tri = P[l2g]
-        # Unpack nodes into N0,N1,N2
-        N0, N1, N2 = tri
-        # Compute area of T
-        e1, e2 = N1 - N0, N2 - N0
-        area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
-        # Map the quadrature points to T
-        xq_T = Lambda_ref.T @ tri                                  # (n_q, 2)
-        # Evaluate f and u_h at the mapped quadrature points
-        f_q = f(xq_T[:, 0], xq_T[:, 1])                            # (n_q,)
-        uh_q = Lambda_ref.T @ u[l2g]                               # (n_q,)
-        # Add the quadrature approximation of int_T |f - u_h|^2 dx
-        err2 += area * np.sum(wq * (f_q - uh_q)**2)
-
-    return np.sqrt(err2)
 ```
 
-We test the function first.
-For a linear function, $u_h$ reproduces $u$ exactly, so the error must vanish up to machine precision.
-For $U = 0$ we obtain $|u_{ex}|_{H^1(\Omega)} = \pi/\sqrt{2}$.
-Then we repeat the convergence study from **i)** and compare with the energy-norm formula used above.
+**Solution.**
+
++++
+
+We define all the rhs function and the domain markers.
 
 ```{code-cell} ipython3
 def u_ex(x,y):
@@ -750,7 +833,7 @@ def f(x,y):
 
 def on_dirichlet_boundary(x):
     eps = 1e-12 # Accounts for finite precision
-    return  (x[0] > 1-eps or x[1] < eps or x[1] > 1-eps)
+    return  (x[0] > 1-eps) | (x[1] < eps) | (x[1] > 1-eps)
 def g_D(x,y):
     return np.sin(np.pi*x)*np.cos(np.pi*y)  
     
@@ -759,19 +842,11 @@ def inhomog_neumann_boundary(x):
     return  (x[0] < eps) 
 def g_N(x,y):
     return -np.pi*np.cos(np.pi*x)*np.cos(np.pi*y)
-
-def a(x=None):
-    return 1  
 ```
 
-```{code-cell} ipython3
-# Sanity checks
-P, T = mt.unitsquare_mesh(10)
-U_lin = 1 + 2*P[:, 0] - 3*P[:, 1]
-print("linear u, U = u_I:  error =", compute_H1_semi_error(lambda x, y: (2 + 0*x, -3 + 0*y), U_lin, P, T))
-print("U = 0:  |u_ex|_H1 =", compute_H1_semi_error(grad_u_ex, np.zeros(P.shape[0]), P, T),
-      " exact:", np.pi/np.sqrt(2))
+Now we perform the convergence rate study:
 
+```{code-cell} ipython3
 # Convergence study, same setup as in i)
 refs = np.array([ 5*2**j for j in range(0,4)])
 errors_H1 = np.zeros(refs.size)
@@ -780,18 +855,21 @@ errors_L2 = np.zeros(refs.size)
 xq_err, wq_err = six_point_rule()
 
 for j, N in enumerate(refs):
-    P, T = mt.unitsquare_mesh(N)
-    x, y = P[:, 0], P[:, 1]
-    E_N = extract_edges(P, T, inhomog_neumann_boundary)
+    P, C = mt.unitsquare_mesh(N)
+    X, Y = P[:, 0], P[:, 1]
+    E_N = extract_edges(P, C, inhomog_neumann_boundary)
     dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
-    A = assemble_stiffness_matrix(P, T, a)
-    b = assemble_load_vector_modified_withbc(P, T, f, qr, E_N, g_N)
-    apply_bcs(A, b, dirichlet_nodes, g_D(x[dirichlet_nodes], y[dirichlet_nodes]))
+    
+    A = assemble_stiffness_matrix(P, C)
+    b = assemble_load_vector_with_neumann(f, P, C, xq, wq, g_N, E_N)
+    apply_bcs(A, b, dirichlet_nodes, g_D(X[dirichlet_nodes], Y[dirichlet_nodes]))
+    
     U = spsolve(A.tocsr(), b)
-    errors_H1[j] = compute_H1_semi_error(grad_u_ex, U, P, T, xq_err, wq_err)
-    errors_L2[j] = compute_L2_error(u_ex, U, P, T, xq_err, wq_err)
+    
+    errors_H1[j] = compute_H1_semi_error(grad_u_ex, U, P, C, xq_err, wq_err)
+    errors_L2[j] = compute_L2_error(u_ex, U, P, C, xq_err, wq_err)
     if j in [0,2,3]:
-        pt.plot_comparison_2D(x, y, u_ex(x,y), U, triangles=T,
+        pt.plot_comparison_2D(X, Y, u_ex(X,Y), U, triangles=C,
                               title_f1='u_ex', title_f2='U')
 ```
 
@@ -870,7 +948,8 @@ def assemble_load_vector_modified_withbc_all(P, T, f, qr, E_N, g_N, E_R, g_R):
         # Unpack nodes into N1,N2,N3
         N0,N1,N2 = tri 
         # Compute area of K. 
-        area=abs(0.5*np.cross(N1-N0,N2-N0))
+        e1, e2 = N1 - N0, N2 - N0
+        area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
         # Use area and b_ref to compute b_K
         if qr == "midpoint_2d":
             mp =  0.5*np.array([N0+N1, N1+N2, N2+N0])
@@ -906,7 +985,7 @@ def assemble_load_vector_modified_withbc_all(P, T, f, qr, E_N, g_N, E_R, g_R):
 
 ```{code-cell} ipython3
 #  The stiffness_matrix with all boundary condition modified
-def assemble_stiffness_matrix_modified(P, T, a, E_R):
+def assemble_stiffness_matrix_modified(P, T, E_R):
     # Create matrix as before As in the mass matrix assembly:
     # Deduce number of unkowns from dimensions of P
     n_p = P.shape[0]
@@ -924,17 +1003,13 @@ def assemble_stiffness_matrix_modified(P, T, a, E_R):
         # Unpack nodes into N1,N2,N3
         N0,N1,N2 = tri 
         
-        # Compute abar = a((N0 + N1 + N2)/3) 
-        abar = a((N0+N1+N2)/3)
-        #print ("abar=",abar)
-        
         # Compute the area and the coefficient for the hat gradients
         area, b, c = compute_hat_gradients(tri)
 
         # Numpy Arrays does not behave exactly like n x 1 matrices
         # To compute the outer product b*b.T or  b*b' in Matlab notation
         # we need the np.outer function
-        A_K = abar*(np.outer(b, b) + np.outer(c, c))*area
+        A_K = (np.outer(b, b) + np.outer(c, c))*area
         
         # Add local element matrix to global matrix as before
         A[np.ix_(l2g, l2g)] += A_K
@@ -1018,7 +1093,6 @@ pt.plot_mesh_2d(P, T, robin_nodes)
 refs = np.array([ 5*2**j for j in range(1,4)])
 for j in range(1,4):
     N = refs[j-1]
-    h[j-1] = 1/refs[j-1]
     P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % refs[j-1]) 
     T = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % refs[j-1], dtype=np.int32) 
     x = P[:,0]
@@ -1059,8 +1133,6 @@ for j in range(1,4):
         return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)
     def f(x,y):
         return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)
-    def a(x=None):
-        return 1  
     # def kappa(x=None):
      #   return 1
     kappa =1
@@ -1078,11 +1150,194 @@ for j in range(1,4):
     Y_rb = y[robin_nodes]
     g_R_values = g_R(X_rb, Y_rb)
     
-    A = assemble_stiffness_matrix_modified(P, T, a, E_R)
+    A = assemble_stiffness_matrix_modified(P, T, E_R)
     b = assemble_load_vector_modified_withbc_all(P, T, f, qr, E_N, g_N, E_R, g_R)
     apply_bcs(A, b, dirichlet_nodes, g_D_values)
     A_csr = A.tocsr() 
     U = spsolve(A_csr, b)
     print("N =",N)
     pt.plot2D(x, y, U, title='U', triangles=T, block=True)
+```
+
+## Optional task:
+
++++
+
+**j)** Finally we want to solve 
+
+\begin{alignat}{3}
+- \Delta u &= f && \quad \text{in } \Omega 
+\\
+u &= g_D  && \quad \text{on } \partial \Omega_D
+\\
+\nabla u \cdot n &= g_{N,1} && \quad \text{on } \partial \Omega_{N,1}
+\\
+\nabla u \cdot n &= g_{N,2} && \quad \text{on } \partial \Omega_{N,1}
+\\
+ \nabla u \cdot n &= \kappa(g_R - u) && \quad \text{on } \partial \Omega_R
+\end{alignat}
+
+posed on our friendly robot face domain given as described in the following sketch.
+
++++
+
+**Vectorized assembly in COO format.**
+As for the mass matrix in part 1, we can avoid the Python loop over the elements.
+For a triangle with vertices $(x_\alpha, y_\alpha)$, $\alpha = 0, 1, 2$, the hat function gradients are
+$\nabla \varphi_\alpha = (b_\alpha, c_\alpha)$ with
+
+$$
+b_\alpha = \frac{y_{\alpha+1} - y_{\alpha+2}}{D}, \qquad
+c_\alpha = \frac{x_{\alpha+2} - x_{\alpha+1}}{D}, \qquad
+D = (x_1 - x_0)(y_2 - y_0) - (x_2 - x_0)(y_1 - y_0),
+$$
+
+where the indices are taken modulo 3 and $|K| = |D|/2$.
+These are the same formulas as the `np.cross` expressions in `compute_hat_gradients`.
+Using the *signed* determinant $D$ makes the gradients correct for both clockwise and counterclockwise vertex ordering.
+With the vertex coordinates stored in arrays of shape `(n_t, 3)`, the shifts $\alpha \mapsto \alpha + 1$ and $\alpha \mapsto \alpha + 2$ become the column index lists
+`[1, 2, 0]` and `[2, 0, 1]`, so all gradients are computed at once.
+The element matrices $A_K = |K| (b b^\top + c c^\top)$ are then assembled exactly as in `assemble_mass_matrix_coo`.
+
+```{code-cell} ipython3
+def compute_hat_gradients_vectorized(P, C):
+    """Compute the areas and hat function gradients of all triangles at once.
+
+    P : (n_p, 2) array, coordinates of the mesh vertices (point matrix).
+    C : (n_t, 3) integer array, vertex indices of each triangle (connectivity matrix).
+
+    Returns (area, b, c), where area has shape (n_t,) and b, c have shape (n_t, 3),
+    such that grad phi_alpha = (b[k, alpha], c[k, alpha]) on triangle k.
+    """
+    # Vertex coordinates of all triangles, shape (n_t, 3)
+    x = P[C, 0]
+    y = P[C, 1]
+    # Signed determinant D = 2 * (signed area), shape (n_t,)
+    D = (x[:, 1] - x[:, 0]) * (y[:, 2] - y[:, 0]) - (x[:, 2] - x[:, 0]) * (y[:, 1] - y[:, 0])
+    area = 0.5 * np.abs(D)
+    # Cyclic shifts of the local index: column alpha of x[:, nxt] holds x_{alpha+1},
+    # column alpha of x[:, nxt2] holds x_{alpha+2} (indices modulo 3)
+    nxt, nxt2 = [1, 2, 0], [2, 0, 1]
+    b = (y[:, nxt] - y[:, nxt2]) / D[:, np.newaxis]
+    c = (x[:, nxt2] - x[:, nxt]) / D[:, np.newaxis]
+    return area, b, c
+
+
+def assemble_stiffness_matrix_coo(P, C):
+    """Assemble the P1 stiffness matrix A_ij = int grad phi_j . grad phi_i dx in COO format,
+    without a loop over the elements.
+
+    P : (n_p, 2) array, coordinates of the mesh vertices (point matrix).
+    C : (n_t, 3) integer array, vertex indices of each triangle (connectivity matrix).
+
+    Returns the (n_p, n_p) stiffness matrix as a scipy.sparse.coo_array.
+    """
+    n_p = P.shape[0]
+
+    # Areas and hat function gradients of all triangles
+    area, b, c = compute_hat_gradients_vectorized(P, C)
+
+    # Local stiffness matrices A_K[alpha, beta] = |K| (b_alpha b_beta + c_alpha c_beta)
+    A_loc = area[:, np.newaxis, np.newaxis] * (
+        b[:, :, np.newaxis] * b[:, np.newaxis, :] + c[:, :, np.newaxis] * c[:, np.newaxis, :])  # (n_t, 3, 3)
+
+    # Rows, cols and values for the COO format, as in assemble_mass_matrix_coo
+    rows = np.repeat(C, 3, axis=1).ravel()
+    cols = np.tile(C, (1, 3)).ravel()
+    vals = A_loc.ravel()
+
+    return sp.coo_array((vals, (rows, cols)), shape=(n_p, n_p))
+```
+
+We check that the vectorized version agrees with the loop version.
+
+```{code-cell} ipython3
+P, C = mt.unitsquare_mesh(10)
+A_loop = assemble_stiffness_matrix(P, C).toarray()
+A_vec = assemble_stiffness_matrix_coo(P, C).toarray()
+print(f"max |A_loop - A_vec| = {np.abs(A_loop - A_vec).max():.2e}")
+```
+
+```{code-cell} ipython3
+
+```
+
+```{code-cell} ipython3
+# 2-a2
+# 2-a1 Define a function which computes the area of K and the cofficient vector b and c
+def compute_hat_gradients_coo(tri):
+    
+    N0, N1, N2 = tri
+    # area=abs(0.5*np.cross(N1-N0, N2-N0))
+    e1, e2 = N1 - N0, N2 - N0
+    area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
+    
+    # Compute b and c 
+    ones = np.ones(3)
+    b = np.cross(tri[:,1], ones)/(2*area)
+    c = np.cross(ones, tri[:,0])/(2*area)
+
+    return (area, b, c)
+
+def assemble_stiffness_matrix_coo(P, C):
+    
+    # Define local mass matrix on reference element
+    M_ref = 1.0/12.0*np.array([[2, 1, 1],[1, 2, 1],[1, 1, 2]])
+    
+    # Compute e1 and e2 and area for all triangles at once
+    e1 = P[C[:,1]] - P[C[:,0]]
+    e2 = P[C[:,2]] - P[C[:,0]] 
+    area = 0.5 * np.abs(e1[:,0]*e2[:,1] - e1[:,1]*e2[:,0])
+    
+    
+    # Create rows, cols, data for the sparse matrix in COO format 
+    rows = np.repeat(C, 3, axis=1).ravel() 
+    cols = np.tile(C, (1, 3)).ravel()
+    vals = (area[:,np.newaxis,np.newaxis]*M_ref).ravel() 
+    
+    # Create sparse matrix A in COO format and return it
+    n_p = P.shape[0]
+    A = sp.coo_array( (vals, (rows, cols)), shape=(n_p, n_p)) 
+    
+    return A
+```
+
+```{code-cell} ipython3
+N = 2
+P, C = mt.unitsquare_mesh(N)
+print(P)
+print(C)
+# print(C[:,2])
+# print(P[C[:,2]])
+
+# xis = P[C.ravel()].reshape(-1,3)
+# print(xis)
+xis = P[C]
+print(xis)
+cs = np.cross(xis, np.ones(6).reshape(-1,2))
+
+xis = P[C,0]
+print(xis)
+cs = np.cross(xis, np.ones(3))
+xis = P[C,1]
+print(xis)
+# cs = np.cross(xis, np.ones(6).reshape(-1,2))
+cs = np.cross(xis, np.ones(3))
+
+# ones = np.ones(3)
+# b = np.array(np.arange(12)).reshape(4,3)
+# b = np.array(np.random.rand(12)).reshape(4,3)
+# print(b)
+# print(b[1,:])
+# np.cross(b[1,:], ones)
+# print(np.cross(b, ones))
+# print(np.cross(ones, b))
+
+
+# print(P[[0,0, 1,3,4, 0, 2]])
+# print(P[[0,0, 1,3,4, 0, 2]][:,0])
+
+# T = C.ravel()
+# print(C)
+# print(T)
 ```
