@@ -17,25 +17,6 @@ kernelspec:
 +++
 
 The second part of the project will guide you through the implementation of a finite element solver for the Poisson problem in 2D with mixed boundary conditions (i.e. different types of boundary conditions on different parts of the boundary). 
-The Poisson problem we consider is of the form
-
-\begin{alignat}{3}
--\Delta u &= f && \quad \text{in } \Omega 
-\\
-u &= g_D  && \quad \text{on } \partial \Omega_D
-\\
-\nabla u \cdot n &= g_{N,1} && \quad \text{on } \partial \Omega_{N,1}
-\\
-\nabla u \cdot n &= g_{N,2} && \quad \text{on } \partial \Omega_{N,2}
-\\
-\nabla u \cdot n &= \kappa(g_R - u) && \quad \text{on } \partial \Omega_R
-\end{alignat}
-
-on the following domain, which is a simplified version of the face of our friendly robot:
-
-+++
-
-![The robot domain with its Dirichlet, Neumann and Robin boundary parts](complex-domain.png)
 
 ```{code-cell} ipython3
 # Make plotted figures interactive
@@ -52,6 +33,25 @@ import plottools as pt
 ```
 
 ## Problem 1 (Weak formulations for Poisson problem with mixed boundary conditions)
+
++++
+
+The Poisson problem we consider first is given by
+
+\begin{alignat}{3}
+-\Delta u &= f && \quad \text{in } \Omega 
+\\
+u &= g_D  && \quad \text{on } \partial \Omega_D
+\\
+\nabla u \cdot n &= g_{N,1} && \quad \text{on } \partial \Omega_{N,1}
+\\
+\nabla u \cdot n &= g_{N,2} && \quad \text{on } \partial \Omega_{N,2}
+\\
+\nabla u \cdot n &= \kappa(g_R - u) && \quad \text{on } \partial \Omega_R
+\end{alignat}
+
+on the following robot face domain:
+![The robot domain with its Dirichlet, Neumann and Robin boundary parts](complex-domain.png)
 
 +++
 
@@ -304,7 +304,7 @@ With such a function a place, one can extract the boundary point using the follo
 # Define a function which extract the boundary point 
 # and return a list of all node indices i
 # def extract_nodes(P, on_boundary):
-    # return [ i for i in range(P.shape[0]) if on_boundary(P[i]) ]
+#     return [ i for i in range(P.shape[0]) if on_boundary(P[i]) ]
 
 def extract_nodes(P, on_boundary):
     return np.flatnonzero(on_boundary(P.T))
@@ -920,264 +920,120 @@ u &= g_D  && \quad \text{on } \partial \Omega_D
 \\
 \nabla u \cdot n &= g_{N,1} && \quad \text{on } \partial \Omega_{N,1}
 \\
-\nabla u \cdot n &= g_{N,2} && \quad \text{on } \partial \Omega_{N,1}
-\\
- \nabla u \cdot n &= \kappa(g_R - u) && \quad \text{on } \partial \Omega_R
+\nabla u \cdot n &= g_{N,2} && \quad \text{on } \partial \Omega_{N,2} \cup \partial \Omega_{R}
 \end{alignat}
 
-posed on our friendly robot face domain given as described in the following sketch.
+posed on our friendly robot face domain given as described the sketch above. The boundary data is given as follows:
 
-```{code-cell} ipython3
-# The load veator with boundary condition.
-def assemble_load_vector_modified_withbc_all(P, T, f, qr, E_N, g_N, E_R, g_R):
-    # Deduce number of unkowns from dimensions/shape of P
-    n_p = P.shape[0]
-    # Deduce number of elements from dimensions of T
-    n_t = T.shape[0]
-    n_e = E_N.shape[0]
-    r_e = E_R.shape[0]
-    
-    # Create sparse matrix M
-    b = np.zeros(n_p)
-    
-    for  K in range (n_t):
-        # Get local to global map from T
-        l2g = T[K]   
-        # Get triangle nodes from P
-        tri = P[l2g]
-        # Unpack nodes into N1,N2,N3
-        N0,N1,N2 = tri 
-        # Compute area of K. 
-        e1, e2 = N1 - N0, N2 - N0
-        area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
-        # Use area and b_ref to compute b_K
-        if qr == "midpoint_2d":
-            mp =  0.5*np.array([N0+N1, N1+N2, N2+N0])
-            b_K = area/3*0.5*np.array([f(mp[i-1,0], mp[i-1,1]) + f(mp[i,0], mp[i,1]) for i in range(0,3)])
-        else:
-            b_K = area/3*np.array([f(tri[i,0], tri[i,1]) for i in range(0,3)])
-        b[np.ix_(l2g)] += b_K
-    for l in range (n_e):
-        l2g = E_N[l]
-        tri = P[l2g]
-        E = np.sqrt((tri[0,0]-tri[1,0])**2+(tri[0,1]-tri[1,1])**2)
-        # the length of E : \E\=((x(0)-x(1))^2+(y(0)-y(1))^2)^(1/2)
-        if qr == "midpoint_2d":
-            mp =  0.5*np.array([N0+N1])
-            b_l = E/2*0.5*np.array([g_N(mp[i,0], mp[i,1])for i in range(0,1)])
-        else:
-            b_l = E/2*np.array([g_N(tri[i,0], tri[i,1]) for i in range(0,1)])
-        b[np.ix_(l2g)] += b_l
-    for l in range (r_e):
-        l2g = E_R[l]
-        tri = P[l2g]
-        E = np.sqrt((tri[0,0]-tri[1,0])**2+(tri[0,1]-tri[1,1])**2)
-        # the length of E : \E\=((x(0)-x(1))^2+(y(0)-y(1))^2)^(1/2)
-        if qr == "midpoint_2d":
-            mp =  0.5*np.array([N0+N1])
-            #b_l = kappa*E/2*0.5*np.array([g_R(mp[0], mp[1]), g_R(mp[0], mp[1])])
-            b_l = kappa*E/2*0.5*np.array([g_R(mp[i,0], mp[i,1])for i in range(0,1)])
-        else:
-            b_l = kappa*E/2*np.array([g_R(tri[i,0], tri[i,1]) for i in range(0,1)])
-        b[np.ix_(l2g)] += b_l
-    return b
+Use the following data:
+
+* $g_{N,1} = 0$
+* $ f(x,y) = g_D(x,y) = g_{N,2}(x,y) = \cos(2 \pi x/5) \sin(2 \pi y/5)$
+
+and compute the finite element solution for mesh resolution level $10$, $20$, and $40$.
+
+Point and connectivity data sets for triangulation of this domain with different resolutions can
+be found in the `project/meshes` folder. You can simply load them via
+```python
+
+# Define mesh resolution
+ref = 30
+# Read in the point matrix
+P = np.loadtxt(f"meshes/mesh_points_ref_{ref}.txt")
+# Read in the connectivity matrix. Here we must tell the function
+# that the elements of the array should be treated as integers.
+# Otherwise you will get indexing problems later on.
+C = np.loadtxt(f"meshes/mesh_triangles_{ref}.txt", dtype=np.int32) 
 ```
 
-```{code-cell} ipython3
-#  The stiffness_matrix with all boundary condition modified
-def assemble_stiffness_matrix_modified(P, T, E_R):
-    # Create matrix as before As in the mass matrix assembly:
-    # Deduce number of unkowns from dimensions of P
-    n_p = P.shape[0]
-    # Deduce number of elements from dimensions of T and sparse matrix A
-    n_t = T.shape[0]
-    # Create sparse matrix A
-    A = sp.dok_matrix((n_p, n_p))
-    r_e = E_R.shape[0]
+While this problem looks more complex then the previous ones, don't fear, you code can actually already handle this! It all boils down to define the right boundary functions and to extract the right boundary nodes and edges. 
 
-    for  K in range(n_t):
-        # Get local to global map
-        l2g = T[K]
-        # Get triangle coordinates and compute area
-        tri = P[l2g]
-        # Unpack nodes into N1,N2,N3
-        N0,N1,N2 = tri 
-        
-        # Compute the area and the coefficient for the hat gradients
-        area, b, c = compute_hat_gradients(tri)
-
-        # Numpy Arrays does not behave exactly like n x 1 matrices
-        # To compute the outer product b*b.T or  b*b' in Matlab notation
-        # we need the np.outer function
-        A_K = (np.outer(b, b) + np.outer(c, c))*area
-        
-        # Add local element matrix to global matrix as before
-        A[np.ix_(l2g, l2g)] += A_K
-    for k in range (r_e):
-        l2g = E_R[k]
-        tri = P[l2g]
-        E = np.sqrt((tri[0,0]-tri[1,0])**2+(tri[0,1]-tri[1,1])**2)
-        # the length of E : \E\=((x(0)-x(1))^2+(y(0)-y(1))^2)^(1/2)
-        A_K_R = 1/6*kappa*E*np.array([[2, 1],[1, 2]])
-        A[np.ix_(l2g, l2g)] += A_K_R
-    return A
-```
-
-```{code-cell} ipython3
-def on_dirichlet_boundary(x):
-        eps = 1e-12 
-        return  (x[0] > 5-eps or x[0] < eps or x[1] > 5-eps
-                or (x[1] < eps and x[1] > -eps and x[0] < 1.8+eps and x[0] > 3.2-eps)
-                or  x[1] < -2+eps 
-                or (x[0] < 1.8+eps and x[1] < eps) 
-                or (x[0] > 3.2-eps and x[1] < eps))
-ref = np.array([ 5*2**j for j in range(1,4)])
-print (ref)
-for j in range(1,4):
-    P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % ref[j-1]) 
-    T = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % ref[j-1], dtype=np.int32) 
-    neuman_nodes = extract_nodes(P, on_dirichlet_boundary)
-    print ("N =",ref[j-1])
-    pt.plot_mesh_2d(P, T, neuman_nodes)
-```
-
-```{code-cell} ipython3
-def on_neuman_boundary_1(x):
-        eps = 1e-12 # Accounts for finite precision
-        return  (
-                ((x[0]-1)**2+(x[1]-3.9)**2) > (0.5-eps)**2
-                 and ((x[0]-1)**2+(x[1]-3.9)**2) < (0.5+eps)**2
-                 or 
-                 ((x[0]-4)**2+(x[1]-3.9)**2)> (0.5-eps) **(2)
-                 and ((x[0]-4)**2+(x[1]-3.9)**2) < 0.5+eps**(2)
-                )
-ref = 10
-P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % ref) 
-T = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % ref, dtype=np.int32) 
-neuman_nodes_1 = extract_nodes(P, on_neuman_boundary_1)
-print ("N =",ref)
-pt.plot_mesh_2d(P, T, neuman_nodes_1)
-```
-
-```{code-cell} ipython3
-def on_neuman_boundary_2(x):
-        eps = 1e-12 
-        return  (
-                 (x[0] > 2.25-eps and x[0] < 2.75+eps and 
-                  x[1] > 2-eps and x[1] < 3.5+eps) 
-                 )
-ref=10
-P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % ref) 
-T = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % ref, dtype=np.int32) 
-neuman_nodes_2 = extract_nodes(P, on_neuman_boundary_2)
-print ("N =",ref)
-pt.plot_mesh_2d(P, T, neuman_nodes_2)
-```
-
-```{code-cell} ipython3
-def on_robin_boundary(x):
-        eps = 1e-12 
-        return  (
-                (x[0] > 1.8-eps and x[0] < 3.2+eps and x[1] > 0.7-eps and x[1] < 1.3+eps)
-                )
-ref=10
-P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % ref) 
-T = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % ref, dtype=np.int32) 
-robin_nodes = extract_nodes(P, on_robin_boundary)
-print ("N =",ref)
-pt.plot_mesh_2d(P, T, robin_nodes)
-```
-
-```{code-cell} ipython3
-# j 
-refs = np.array([ 5*2**j for j in range(1,4)])
-for j in range(1,4):
-    N = refs[j-1]
-    P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % refs[j-1]) 
-    T = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % refs[j-1], dtype=np.int32) 
-    x = P[:,0]
-    y = P[:,1]
-    
-    def on_neuman_boundary_1(x):
-        eps = 1e-12 # Accounts for finite precision
-        return  (
-                ((x[0]-1)**2+(x[1]-3.9)**2) > (0.5-eps)**2
-                 and ((x[0]-1)**2+(x[1]-3.9)**2) < (0.5+eps)**2
-                 or 
-                 ((x[0]-4)**2+(x[1]-3.9)**2)> (0.5-eps) **(2)
-                 and ((x[0]-4)**2+(x[1]-3.9)**2) < 0.5+eps**(2)
-                )
-    def on_neuman_boundary_2(x):
-        eps = 1e-12 
-        return  ((x[0] > 2.25-eps and x[0] < 2.75+eps and x[1] > 2-eps 
-                  and x[1] < 3.5+eps) )
-    def on_dirichlet_boundary(x):
-        eps = 1e-12 
-        return  (x[0] > 5-eps or x[0] < eps or x[1] > 5-eps
-                or (x[1] < eps and x[1] > -eps and x[0] < 1.8+eps and x[0] > 3.2-eps)
-                or  x[1] < -2+eps 
-                or (x[0] < 1.8+eps and x[1] < eps) 
-                or (x[0] > 3.2-eps and x[1] < eps))
-    def on_robin_boundary(x):
-        eps = 1e-12 
-        return  ((x[0] > 1.8-eps and x[0] < 3.2+eps and x[1] > 0.7-eps 
-                  and x[1] < 1.3+eps))
-    
-    def g_D(x,y):
-        return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)  
-    def g_N_1(x,y):
-        return 0*np.ones_like(x)
-    def g_N_2(x,y):
-        return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)
-    def g_R(x,y):
-        return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)
-    def f(x,y):
-        return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)
-    # def kappa(x=None):
-     #   return 1
-    kappa =1
-    qr = "midpoint_2d"
-    E_N = extract_edges(P, T, inhomog_neumann_boundary)
-    E_R = extract_edges(P, T, on_robin_boundary)
-
-    dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
-    X_dc = x[dirichlet_nodes]
-    Y_dc = y[dirichlet_nodes]
-    g_D_values = g_D(X_dc, Y_dc)
-    
-    robin_nodes = extract_nodes(P,on_robin_boundary)
-    X_rb = x[robin_nodes]
-    Y_rb = y[robin_nodes]
-    g_R_values = g_R(X_rb, Y_rb)
-    
-    A = assemble_stiffness_matrix_modified(P, T, E_R)
-    b = assemble_load_vector_modified_withbc_all(P, T, f, qr, E_N, g_N, E_R, g_R)
-    apply_bcs(A, b, dirichlet_nodes, g_D_values)
-    A_csr = A.tocsr() 
-    U = spsolve(A_csr, b)
-    print("N =",N)
-    pt.plot2D(x, y, U, title='U', triangles=T, block=True)
-```
-
-## Optional task:
+**Tip.** use the `plot_mesh_2d` tools from `plottools.py` to make sure that you mark the right boundary parts.
 
 +++
 
-**j)** Finally we want to solve 
+**Solution.**
 
-\begin{alignat}{3}
-- \Delta u &= f && \quad \text{in } \Omega 
-\\
-u &= g_D  && \quad \text{on } \partial \Omega_D
-\\
-\nabla u \cdot n &= g_{N,1} && \quad \text{on } \partial \Omega_{N,1}
-\\
-\nabla u \cdot n &= g_{N,2} && \quad \text{on } \partial \Omega_{N,1}
-\\
- \nabla u \cdot n &= \kappa(g_R - u) && \quad \text{on } \partial \Omega_R
-\end{alignat}
+```{code-cell} ipython3
+def f(x,y):
+    return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)  
 
-posed on our friendly robot face domain given as described in the following sketch.
+def on_dirichlet_boundary(x):
+        eps = 1e-12 
+        return  ( ((x[0] > 5-eps) | (x[0] < eps) | ( x[1] > 5-eps))
+                  | ( (x[1] < eps) & ((x[0] < 1.8+eps) | (x[0] > 3.2-eps)))
+                  |  (x[1] < -2+eps) 
+                )
+
+def g_D(x,y):
+    return np.cos(2*np.pi*x/5)*np.sin(2*np.pi*y/5)  
+
+def inhomog_neumann_boundary(x):
+    eps = 1e-12 # Accounts for finite precision
+    return  ( ( (x[0] > 1.8 - eps) 
+             & (x[0] < (3.2) + eps) 
+             & (x[1] < 1.3 + eps) 
+             & (x[1] > 0.7 - eps) )
+             | 
+             ((x[0] > 2.25 - eps) 
+             & (x[0] < (2.75) + eps) 
+             & (x[1] < 3.5 + eps) 
+             & (x[1] > 2.0 - eps)) 
+    )
+
+def g_N_2(x,y):
+    return -np.pi*np.cos(np.pi*x)*np.cos(np.pi*y)
+```
+
+```{code-cell} ipython3
+for ref in [10, 20, 30, 40]:
+    P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % ref) 
+    C = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % ref, dtype=np.int32) 
+    dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
+    inhomog_neumann_nodes = extract_nodes(P, inhomog_neumann_boundary) 
+    inhomog_neumann_edges = extract_edges(P, C, inhomog_neumann_boundary)
+    pt.plot_mesh_2d(P, C, dirichlet_nodes, inhomog_neumann_edges)
+    # pt.plot_mesh_2d(P, C, inhomog_neumann_nodes)
+```
+
+```{code-cell} ipython3
+# Convergence study, same setup as in i)
+# Quadrature rule for error computation, exact for polynomials of degree 4
+xq_err, wq_err = six_point_rule()
+
+for ref in [10, 20, 30, 40]:
+# for ref in [10]:
+    P = np.loadtxt("meshes/mesh_points_ref_%d.txt" % ref) 
+    C = np.loadtxt("meshes/mesh_triangles_ref_%d.txt" % ref, dtype=np.int32) 
+    X = P[:,0]
+    Y = P[:,1]
+    
+    dirichlet_nodes = extract_nodes(P, on_dirichlet_boundary)
+    inhomog_neumann_edges = extract_edges(P, C, inhomog_neumann_boundary)
+
+    A = assemble_stiffness_matrix(P, C)
+    b = assemble_load_vector_with_neumann(f, P, C, xq, wq, g_N, inhomog_neumann_edges)
+    apply_bcs(A, b, dirichlet_nodes, g_D(X[dirichlet_nodes], Y[dirichlet_nodes]))
+
+    U = spsolve(A.tocsr(), b)
+     
+    pt.plot2D(X, Y, U, triangles=C)
+```
+
+## Option problem 3: Vectorized assembly routines using the COO format
+
++++
+
+If you still enjoying yourself with implementing FEM solver, this task is for you.
+As we have seen in part 1 of the project, the assembly of the mass matrix is much much 
+faster if we use the **COO** matrix format and vectorized `numpy` operations instead 
+of build in Python loops. Corresponding to the `assemble_mass_matrix_coo` function from
+part 1, implement a `assemble_stiffness_matrix_coo` and benchmark it against the **DOK** version.
+
+How can we incorporate Dirchlet boundary conditions now, (how) do we need to adapt the `apply_bcs` function? 
+You might want to write a coo variant of the `compute_hat_gradients` as well.
+You are highly encourage to use a LLM for this task.
+In any case, how can you then test that the implementation is correct?
 
 +++
 
@@ -1256,88 +1112,4 @@ P, C = mt.unitsquare_mesh(10)
 A_loop = assemble_stiffness_matrix(P, C).toarray()
 A_vec = assemble_stiffness_matrix_coo(P, C).toarray()
 print(f"max |A_loop - A_vec| = {np.abs(A_loop - A_vec).max():.2e}")
-```
-
-```{code-cell} ipython3
-
-```
-
-```{code-cell} ipython3
-# 2-a2
-# 2-a1 Define a function which computes the area of K and the cofficient vector b and c
-def compute_hat_gradients_coo(tri):
-    
-    N0, N1, N2 = tri
-    # area=abs(0.5*np.cross(N1-N0, N2-N0))
-    e1, e2 = N1 - N0, N2 - N0
-    area = 0.5 * np.abs((e1[0] * e2[1] - e1[1] * e2[0]))
-    
-    # Compute b and c 
-    ones = np.ones(3)
-    b = np.cross(tri[:,1], ones)/(2*area)
-    c = np.cross(ones, tri[:,0])/(2*area)
-
-    return (area, b, c)
-
-def assemble_stiffness_matrix_coo(P, C):
-    
-    # Define local mass matrix on reference element
-    M_ref = 1.0/12.0*np.array([[2, 1, 1],[1, 2, 1],[1, 1, 2]])
-    
-    # Compute e1 and e2 and area for all triangles at once
-    e1 = P[C[:,1]] - P[C[:,0]]
-    e2 = P[C[:,2]] - P[C[:,0]] 
-    area = 0.5 * np.abs(e1[:,0]*e2[:,1] - e1[:,1]*e2[:,0])
-    
-    
-    # Create rows, cols, data for the sparse matrix in COO format 
-    rows = np.repeat(C, 3, axis=1).ravel() 
-    cols = np.tile(C, (1, 3)).ravel()
-    vals = (area[:,np.newaxis,np.newaxis]*M_ref).ravel() 
-    
-    # Create sparse matrix A in COO format and return it
-    n_p = P.shape[0]
-    A = sp.coo_array( (vals, (rows, cols)), shape=(n_p, n_p)) 
-    
-    return A
-```
-
-```{code-cell} ipython3
-N = 2
-P, C = mt.unitsquare_mesh(N)
-print(P)
-print(C)
-# print(C[:,2])
-# print(P[C[:,2]])
-
-# xis = P[C.ravel()].reshape(-1,3)
-# print(xis)
-xis = P[C]
-print(xis)
-cs = np.cross(xis, np.ones(6).reshape(-1,2))
-
-xis = P[C,0]
-print(xis)
-cs = np.cross(xis, np.ones(3))
-xis = P[C,1]
-print(xis)
-# cs = np.cross(xis, np.ones(6).reshape(-1,2))
-cs = np.cross(xis, np.ones(3))
-
-# ones = np.ones(3)
-# b = np.array(np.arange(12)).reshape(4,3)
-# b = np.array(np.random.rand(12)).reshape(4,3)
-# print(b)
-# print(b[1,:])
-# np.cross(b[1,:], ones)
-# print(np.cross(b, ones))
-# print(np.cross(ones, b))
-
-
-# print(P[[0,0, 1,3,4, 0, 2]])
-# print(P[[0,0, 1,3,4, 0, 2]][:,0])
-
-# T = C.ravel()
-# print(C)
-# print(T)
 ```
