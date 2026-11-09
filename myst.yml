@@ -53,6 +53,7 @@ project:
         - file: chapter_03/finite_element_add_mat.md
         - file: chapter_03/finite_element_implementation.md
         - file: project/project_part_1.ipynb
+        - file: project/project_part_2.ipynb
     - file: references.md
   exports:
     - format: pdf
