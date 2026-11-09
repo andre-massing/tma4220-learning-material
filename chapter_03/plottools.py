@@ -19,7 +19,7 @@ def plot_mesh_2d(P, T,
     if plot_all_nodes:
         plt.plot(X, Y, "o", markersize=8)
 
-    if dirichlet_nodes:
+    if dirichlet_nodes is not None:
         plt.plot(X[dirichlet_nodes], Y[dirichlet_nodes], "o", markersize=8)
         
     if label_nodes:
