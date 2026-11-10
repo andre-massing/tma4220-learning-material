@@ -1190,7 +1190,7 @@ we can express the barycentric coordinates in terms of determinants:
 
 $$
 \lambda_i(x) = \frac{\det B_i(x)}{\det B} , \qquad i = 0, \ldots, d ,
-$$
+$$ (eq:barycentric-cramer)
 
 where 
 
