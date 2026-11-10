@@ -20,7 +20,9 @@ def plot_mesh_2d(P, T,
         plt.plot(X, Y, "o", markersize=8)
 
     if dirichlet_nodes is not None:
-        plt.plot(X[dirichlet_nodes], Y[dirichlet_nodes], "o", markersize=8)
+        # Square shape and black edge keep these distinguishable without relying on color
+        plt.plot(X[dirichlet_nodes], Y[dirichlet_nodes], "s", markersize=10,
+                 markerfacecolor="#F0E442", markeredgecolor="black", markeredgewidth=1.5)
         
     if label_nodes:
         for j, p in enumerate(P):
