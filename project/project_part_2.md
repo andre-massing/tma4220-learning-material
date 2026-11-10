@@ -51,7 +51,8 @@ u &= g_D  && \quad \text{on } \partial \Omega_D
 \end{alignat}
 
 on the following robot face domain:
-![The robot domain with its Dirichlet, Neumann and Robin boundary parts](complex-domain.png)
+<!-- ![The robot domain with its Dirichlet, Neumann and Robin boundary parts](complex-domain.png) -->
+<img src="complex-domain.png" alt="The robot domain with its Dirichlet, Neumann and Robin boundary parts" width="66%">
 
 +++
 
